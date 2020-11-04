@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BriefSys", "BriefSys\BriefSys.csproj", "{CBC4E509-0F05-4B2C-85AC-DCDC73E3AD44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{DD001BA1-5149-4C38-8397-269CFC6BC362}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBC4E509-0F05-4B2C-85AC-DCDC73E3AD44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC4E509-0F05-4B2C-85AC-DCDC73E3AD44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC4E509-0F05-4B2C-85AC-DCDC73E3AD44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC4E509-0F05-4B2C-85AC-DCDC73E3AD44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD001BA1-5149-4C38-8397-269CFC6BC362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD001BA1-5149-4C38-8397-269CFC6BC362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD001BA1-5149-4C38-8397-269CFC6BC362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD001BA1-5149-4C38-8397-269CFC6BC362}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94ADCAF6-F3E2-4CE8-A8CF-864E2AA53C4E}
+	EndGlobalSection
+EndGlobal
