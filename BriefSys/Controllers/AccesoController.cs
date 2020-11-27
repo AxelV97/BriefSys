@@ -35,18 +35,39 @@ namespace BriefSys.Controllers
             {
                 oUsuario.Password = oGenerico.GetHashedText(oUsuario.Password + lUsuarioExistente[0].Salt);
 
+                /*Contraseñas coinciden*/
                 if (oUsuario.Password == lUsuarioExistente[0].Password)
                 {
-                    return RedirectToRoute(new { controller = "Home", action = "Index" });
+                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
                 }
+                /*No coinciden*/
                 else
                 {
-                    return RedirectToRoute(new { controller = "Acceso", action = "Login" });
+                    /*Se ingreso user y pwd*/
+                    if (ModelState.IsValid)
+                    {
+                        return RedirectToRoute(new { Controller = "Acceso", Action = "Login" });
+                    }
+                    /*No se ingreso user o pwd*/
+                    else
+                    {
+                        return View(oUsuario);
+                    }
                 }
             }
+            /*No se encontro user*/
             else
             {
-                return RedirectToRoute(new { controller = "Acceso", action = "Login" });
+                /*Se ingreso user y pwd*/
+                if (ModelState.IsValid)
+                {
+                    return RedirectToRoute(new { Controller = "Acceso", Action = "Login" });
+                }
+                /*No se ingreso user o pwd*/
+                else
+                {
+                    return View(oUsuario);
+                }
             }
         }
 
@@ -86,10 +107,15 @@ namespace BriefSys.Controllers
             oUsuario.Password = oGenerico.GetHashedText(oUser.Password + oUsuario.Salt);
             oUsuario.ModifiedDate = DateTime.Now;
 
-            dbSetUsuarios.Add(oUsuario);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                dbSetUsuarios.Add(oUsuario);
+                db.SaveChanges();
 
-            return RedirectToRoute(new { controller = "Home", action = "Index" });
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
+            }
+
+            return View("Register", oUser);
         }
     }
 }
