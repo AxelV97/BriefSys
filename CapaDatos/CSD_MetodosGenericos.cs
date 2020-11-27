@@ -22,9 +22,9 @@ namespace CapaDatos
         {
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             byte[] buffer = new byte[10];
-
             rng.GetBytes(buffer);
-            string salt = BitConverter.ToString(buffer);
+
+            string salt = Convert.ToBase64String(buffer);
             return salt;
         }
 

@@ -1,20 +1,40 @@
-﻿
+﻿@model BriefSys.Models.Acceso_Usuario
+
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Iniciar Sesión";
 }
 
 <div>
     <h2>@ViewBag.Title</h2>
 
-    <form action="Iniciar" method="post">
+    <form action="Login" method="post">
         <div class="form-group">
-            <label>UsuarioID</label>
-            <input type="text" name="user" />
+            @Html.LabelFor(u => u.UsuarioID)
+            @Html.TextBoxFor(u => u.UsuarioID, new { @class = "form-control", placeholder = "Usuario" })
         </div>
         <div class="form-group">
-            <label>UsuarioID</label>
-            <input type="password" name="pwd" />
+            @Html.LabelFor(u => u.Password)
+            @Html.TextBoxFor(u => u.Password, new { @class = "form-control", placeholder = "Password" })
         </div>
         <input type="submit" value="Registrar" />
     </form>
+
+    @*@using (Html.BeginForm("Login", "Acceso", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="form-group">
+                    <div>
+                        @Html.LabelFor(u => u.UsuarioID)
+                        @Html.TextBoxFor(u => u.UsuarioID)
+                    </div>
+                    <div>
+                        @Html.LabelFor(u => u.Password)
+                        @Html.TextBoxFor(u => u.Password)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" />
+                </div>
+            </div>
+        }*@
 </div>

@@ -12,7 +12,10 @@ namespace BriefSys.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ingresa un usuario")]
         public string UsuarioID { get; set; }
+        [DataType(DataType.Password)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ingresa un password")]
         public string Password { get; set; }
         public string Salt { get; set; }
         public DateTime ModifiedDate { get; set; }

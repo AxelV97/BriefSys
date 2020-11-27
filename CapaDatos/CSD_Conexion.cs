@@ -21,7 +21,7 @@ namespace CapaDatos
         string connectionString = "";
         public string ConnectionString()
         {
-            connectionString = "Data Source=SECTOR-8; Initial Catalog=BriefSys; User ID=sa; Password=Reconnected.2020;";
+            connectionString = "Data Source=LAP-TI04,8082; Initial Catalog=BriefSys; User ID=sa; Password=Reconnected.2020;";
             return connectionString;
         }
 
