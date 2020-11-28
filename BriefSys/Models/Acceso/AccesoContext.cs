@@ -5,7 +5,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
-namespace BriefSys.Models
+namespace BriefSys.Models.Acceso
 {
     public class AccesoContext : DbContext
     {

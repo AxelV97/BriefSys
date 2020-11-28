@@ -1,4 +1,4 @@
-﻿using BriefSys.Models;
+﻿using BriefSys.Models.Acceso;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,70 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using CapaDatos;
 
-namespace BriefSys.Controllers
+namespace BriefSys.Controllers.Acceso
 {
     public class AccesoController : Controller
     {
         private AccesoContext db = new AccesoContext();
         private CSD_MetodosGenericos oGenerico = new CSD_MetodosGenericos();
-
-
-        public ActionResult Login()
-        {
-            return View(new Acceso_Usuario());
-        }
-
-        [HttpPost]
-        public ActionResult Login(Acceso_Usuario oUsuario)
-        {
-            var dbSetUsuarios = db.acceso_Usuarios;
-
-            var usuarioExistente = from a in dbSetUsuarios
-                                   where a.UsuarioID == oUsuario.UsuarioID
-                                   select a;
-
-            var lUsuarioExistente = usuarioExistente.ToList();
-
-            /*Se encontró usuario*/
-            if (lUsuarioExistente.Count > 0)
-            {
-                oUsuario.Password = oGenerico.GetHashedText(oUsuario.Password + lUsuarioExistente[0].Salt);
-
-                /*Contraseñas coinciden*/
-                if (oUsuario.Password == lUsuarioExistente[0].Password)
-                {
-                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-                }
-                /*No coinciden*/
-                else
-                {
-                    /*Se ingreso user y pwd*/
-                    if (ModelState.IsValid)
-                    {
-                        return RedirectToRoute(new { Controller = "Acceso", Action = "Login" });
-                    }
-                    /*No se ingreso user o pwd*/
-                    else
-                    {
-                        return View(oUsuario);
-                    }
-                }
-            }
-            /*No se encontro user*/
-            else
-            {
-                /*Se ingreso user y pwd*/
-                if (ModelState.IsValid)
-                {
-                    return RedirectToRoute(new { Controller = "Acceso", Action = "Login" });
-                }
-                /*No se ingreso user o pwd*/
-                else
-                {
-                    return View(oUsuario);
-                }
-            }
-        }
 
         public ActionResult Register()
         {
@@ -116,6 +58,70 @@ namespace BriefSys.Controllers
             }
 
             return View("Register", oUser);
+        }
+        public ActionResult Login()
+        {
+            return View(new Acceso_Usuario());
+        }
+
+        [HttpPost]
+        public ActionResult Login(Acceso_Usuario oUsuario)
+        {
+            var dbSetUsuarios = db.acceso_Usuarios;
+
+            var usuarioExistente = from a in dbSetUsuarios
+                                   where a.UsuarioID == oUsuario.UsuarioID
+                                   select a;
+
+            var lUsuarioExistente = usuarioExistente.ToList();
+
+            /*Se encontró usuario*/
+            if (lUsuarioExistente.Count > 0)
+            {
+                oUsuario.Password = oGenerico.GetHashedText(oUsuario.Password + lUsuarioExistente[0].Salt);
+
+                /*Contraseñas coinciden*/
+                if (oUsuario.Password == lUsuarioExistente[0].Password)
+                {
+                    Session["User"] = oUsuario.UsuarioID;
+                    return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+                }
+                /*No coinciden*/
+                else
+                {
+                    /*Se ingreso user y pwd*/
+                    if (ModelState.IsValid)
+                    {
+                        return RedirectToRoute(new { Controller = "Acceso", Action = "Login" });
+                    }
+                    /*No se ingreso user o pwd*/
+                    else
+                    {
+                        return View(oUsuario);
+                    }
+                }
+            }
+            /*No se encontro user*/
+            else
+            {
+                /*Se ingreso user y pwd*/
+                if (ModelState.IsValid)
+                {
+                    return RedirectToRoute(new { Controller = "Acceso", Action = "Login" });
+                }
+                /*No se ingreso user o pwd*/
+                else
+                {
+                    return View(oUsuario);
+                }
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToRoute(new { Controller = "Home", Action = "Index" });
         }
     }
 }

@@ -28,12 +28,26 @@
                 </li>
             </ul>
             <ul class="navbar-nav mr-auto text-right">
-                <li class="nav-item">
-                    @Html.ActionLink("Registrarse", "Register", "Acceso", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Iniciar Sesión", "Login", "Acceso", null, new { @class = "nav-link" })
-                </li>
+                @if (Session["User"] == null)
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Registrarse", "Register", "Acceso", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Iniciar Sesión", "Login", "Acceso", null, new { @class = "nav-link" })
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link">
+                            @Session["User"].ToString()
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Cerrar Sesión", "Logout", "Acceso", null, new { @class = "nav-link" })
+                    </li>
+                }
             </ul>
         </div>
     </nav>
