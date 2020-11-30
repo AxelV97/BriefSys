@@ -11,11 +11,11 @@ namespace BriefSys.Models.Acceso
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
+        public int IdEmp { get; set; }
 
         [Display(Name = "Usuario")]
         [Required(ErrorMessage = "Ingresa un usuario")]
-        public string UsuarioID { get; set; }
+        public string UsuarioId { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Ingresa un password")]
@@ -23,6 +23,6 @@ namespace BriefSys.Models.Acceso
 
         public string Salt { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public DateTime FechaModificacion { get; set; }
     }
 }

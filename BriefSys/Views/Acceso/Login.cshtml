@@ -9,9 +9,9 @@
 
     <form action="Login" method="post">
         <div class="form-group">
-            @Html.LabelFor(u => u.UsuarioID)
-            @Html.TextBoxFor(u => u.UsuarioID, new { @class = "form-control", placeholder = "Usuario" })
-            @Html.ValidationMessageFor(u => u.UsuarioID, null, new { @class = "text-danger" })
+            @Html.LabelFor(u => u.UsuarioId)
+            @Html.TextBoxFor(u => u.UsuarioId, new { @class = "form-control", placeholder = "Usuario" })
+            @Html.ValidationMessageFor(u => u.UsuarioId, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
             @Html.LabelFor(u => u.Password)

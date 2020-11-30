@@ -1,4 +1,5 @@
 ﻿using BriefSys.Models.Acceso;
+using BriefSys.Models.Empleado;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,39 +16,48 @@ namespace BriefSys.Controllers.Acceso
 
         public ActionResult Register()
         {
-            return View(new Acceso_Usuario());
+            Acceso_UsuarioVM accesoVM = new Acceso_UsuarioVM()
+            {
+                Acceso_Usuario = new Acceso_Usuario(),
+                ListaEmpleados = listaEmpleados()
+            };
+
+            return View(accesoVM);
+        }
+
+        public IEnumerable<SelectListItem> listaEmpleados()
+        {
+            return db.Empleados.Select(i => new SelectListItem()
+            {
+                Text = i.Nombre + " " + i.ApellidoP + " " + i.ApellidoM,
+                Value = i.IdEmp.ToString()
+            });
         }
 
         [HttpPost]
-        public ActionResult Register(Acceso_Usuario oUser)
+        public ActionResult Register(Acceso_UsuarioVM oUsuarioVM)
         {
-            var dbSetUsuarios = db.acceso_Usuarios;
+            Acceso_Usuario oUser = oUsuarioVM.Acceso_Usuario;
+
+            var dbSetUsuarios = db.Acceso_Usuarios;
 
             var usuarioExistente = from a in dbSetUsuarios
-                                   where a.UsuarioID == oUser.UsuarioID
+                                   where a.UsuarioId == oUser.UsuarioId
                                    select a;
 
             var lExistente = usuarioExistente.ToList();
-
-            int ID = 1;
 
             if (lExistente.Count > 0)
             {
                 return RedirectToRoute(new { controller = "Acceso", action = "Login" });
             }
 
-            if (dbSetUsuarios.ToList().Count > 0)
-            {
-                ID = dbSetUsuarios.Select(u => u.Id).First();
-                ID++;
-            }
-
             Acceso_Usuario oUsuario = new Acceso_Usuario();
-            oUsuario.Id = ID;
-            oUsuario.UsuarioID = oUser.UsuarioID;
+            oUsuario.IdEmp = oUser.IdEmp;
+            oUsuario.UsuarioId = oUser.UsuarioId;
             oUsuario.Salt = oGenerico.GetGeneratedSalt();
             oUsuario.Password = oGenerico.GetHashedText(oUser.Password + oUsuario.Salt);
-            oUsuario.ModifiedDate = DateTime.Now;
+            oUsuario.FechaModificacion = DateTime.Now;
 
             if (ModelState.IsValid)
             {
@@ -67,10 +77,11 @@ namespace BriefSys.Controllers.Acceso
         [HttpPost]
         public ActionResult Login(Acceso_Usuario oUsuario)
         {
-            var dbSetUsuarios = db.acceso_Usuarios;
+            var dbSetUsuarios = db.Acceso_Usuarios;
+            var dbSetEmpleados = db.Empleados;
 
             var usuarioExistente = from a in dbSetUsuarios
-                                   where a.UsuarioID == oUsuario.UsuarioID
+                                   where a.UsuarioId == oUsuario.UsuarioId
                                    select a;
 
             var lUsuarioExistente = usuarioExistente.ToList();
@@ -83,7 +94,14 @@ namespace BriefSys.Controllers.Acceso
                 /*Contraseñas coinciden*/
                 if (oUsuario.Password == lUsuarioExistente[0].Password)
                 {
-                    Session["User"] = oUsuario.UsuarioID;
+                    oUsuario.IdEmp = lUsuarioExistente[0].IdEmp;
+                    var empleadoExistente = from a in dbSetEmpleados
+                                            where a.IdEmp == oUsuario.IdEmp
+                                            select a;
+
+                    EmpleadoDetalle oEmpleado = empleadoExistente.ToList()[0];
+
+                    Session["User"] = oEmpleado.Nombre + " " + oEmpleado.ApellidoP + " " + oEmpleado.ApellidoM;
                     return RedirectToRoute(new { Controller = "Home", Action = "Index" });
                 }
                 /*No coinciden*/

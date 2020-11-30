@@ -127,12 +127,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Acceso\AccesoController.cs" />
+    <Compile Include="Controllers\Empleado\EmpleadoController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Acceso\Acceso.cs" />
     <Compile Include="Models\Acceso\AccesoContext.cs" />
+    <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
+    <Compile Include="Models\Empleado\EmpleadoDetalle.cs" />
+    <Compile Include="Models\Empleado\EmpleadoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +146,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\personnel.css" />
+    <Content Include="Content\scripts\SidebarMenu.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -276,10 +282,12 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Acceso\Login.cshtml" />
     <Content Include="Views\Acceso\Register.cshtml" />
+    <Content Include="Views\Home\SideMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Menu\" />
+    <Folder Include="Views\Empleado\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

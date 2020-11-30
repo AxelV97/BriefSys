@@ -4,18 +4,16 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
-using BriefSys.Models.Empleado;
 
-namespace BriefSys.Models.Acceso
+namespace BriefSys.Models.Empleado
 {
-    public class AccesoContext : DbContext
+    public class EmpleadoContext : DbContext
     {
-        public AccesoContext() : base("BriefSys")
+        public EmpleadoContext() : base("BriefSys")
         {
 
         }
-        public DbSet<Acceso_Usuario> Acceso_Usuarios { get; set; }
-        public DbSet<Empleado.EmpleadoDetalle> Empleados { get; set; }
+        public DbSet<EmpleadoDetalle> empleados { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

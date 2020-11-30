@@ -26,5 +26,10 @@ namespace BriefSys.Controllers.Home
 
             return View();
         }
+
+        public ActionResult SideMenu()
+        {
+            return PartialView("SideMenu");
+        }
     }
 }
