@@ -138,6 +138,8 @@
     <Compile Include="Models\Empleado\Empleado_Detalle.cs" />
     <Compile Include="Models\Empleado\EmpleadoContext.cs" />
     <Compile Include="Models\Empleado\ImagenController.cs" />
+    <Compile Include="Models\Menu\Menu.cs" />
+    <Compile Include="Models\Menu\MenuVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -287,7 +289,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Menu\" />
     <Folder Include="Views\Empleado\" />
     <Folder Include="Views\Imagen\" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BriefSys.Models.Menu;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,7 +30,24 @@ namespace BriefSys.Controllers.Home
 
         public ActionResult SideMenu()
         {
-            return PartialView("SideMenu");
+            List<MenuCategory> categorias = new List<MenuCategory>();
+            categorias.Add(new MenuCategory { Category = "Home" });
+            categorias.Add(new MenuCategory { Category = "RH" });
+
+            List<MenuItem> items = new List<MenuItem>();
+            items.Add(new MenuItem { Category = "Home", Link = "/Home/Index", LinkName = "Home" });
+            items.Add(new MenuItem { Category = "Home", Link = "/Home/About", LinkName = "About" });
+            items.Add(new MenuItem { Category = "Home", Link = "/Home/Contact", LinkName = "Contact" });
+
+            items.Add(new MenuItem { Category = "RH", Link = "/RH/Departamentos", LinkName = "Departamentos" });
+            items.Add(new MenuItem { Category = "RH", Link = "/RH/Puestos", LinkName = "Puestos" });
+            items.Add(new MenuItem { Category = "RH", Link = "/RH/Empleados", LinkName = "Empleados" });
+
+            MenuVM menuVM = new MenuVM();
+            menuVM.Categories = categorias;
+            menuVM.Items = items;
+
+            return PartialView("SideMenu", menuVM);
         }
     }
 }

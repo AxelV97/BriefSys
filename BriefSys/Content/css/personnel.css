@@ -27,12 +27,17 @@
 
     #sidebar ul.components {
         padding: 10px 0;
-        border-bottom: 1px solid #47748b;
+        border-bottom: 1px solid #ffffff;
     }
 
     #sidebar ul p {
         color: #fff;
         padding: 10px;
+    }
+
+    #sidebar h3 {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ffffff;
     }
 
     #sidebar ul li a {
@@ -100,7 +105,7 @@ a.article:hover {
     width: 55pt;
     height: auto;
     border-radius: 40pt;
-    border: 4pt solid white;
+    border: 2pt solid white;
     text-align: center;
 }
 
