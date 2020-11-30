@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
-using BriefSys.Models.Empleado;
+using BriefSys.Models.RH;
 
 namespace BriefSys.Models.Acceso
 {
@@ -15,7 +15,7 @@ namespace BriefSys.Models.Acceso
 
         }
         public DbSet<Acceso_Usuario> Acceso_Usuarios { get; set; }
-        public DbSet<Empleado.Empleado_Detalle> Empleados { get; set; }
+        public DbSet<Empleado_Detalle> EmpleadosDetalle { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

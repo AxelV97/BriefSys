@@ -5,15 +5,18 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 
-namespace BriefSys.Models.Empleado
+namespace BriefSys.Models.RH
 {
-    public class EmpleadoContext : DbContext
+    public class RHContext : DbContext
     {
-        public EmpleadoContext() : base("BriefSys")
+        public RHContext() : base("BriefSys")
         {
 
         }
-        public DbSet<Empleado_Detalle> empleados { get; set; }
+        public DbSet<Departamento> Departamentos { get; set; }
+        public DbSet<Puesto> Puestos { get; set; }
+        public DbSet<Empleado> Empleados { get; set; }
+        public DbSet<Empleado_Detalle> EmpleadosDetalle { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

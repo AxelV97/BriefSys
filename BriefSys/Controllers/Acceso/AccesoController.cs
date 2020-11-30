@@ -1,5 +1,5 @@
 ﻿using BriefSys.Models.Acceso;
-using BriefSys.Models.Empleado;
+using BriefSys.Models.RH;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace BriefSys.Controllers.Acceso
 
         public IEnumerable<SelectListItem> listaEmpleados()
         {
-            return db.Empleados.Select(i => new SelectListItem()
+            return db.EmpleadosDetalle.Select(i => new SelectListItem()
             {
                 Text = i.Nombre + " " + i.ApellidoP + " " + i.ApellidoM,
                 Value = i.IdEmp.ToString()
@@ -65,9 +65,9 @@ namespace BriefSys.Controllers.Acceso
 
             if (ModelState.IsValid)
             {
-                var dbSetEmpleados = db.Empleados;
+                var dbSetEmpleados = db.EmpleadosDetalle;
 
-                var empleadoExistente = from emp in db.Empleados
+                var empleadoExistente = from emp in db.EmpleadosDetalle
                                         where emp.IdEmp == oUser.IdEmp
                                         select emp;
 
@@ -109,7 +109,7 @@ namespace BriefSys.Controllers.Acceso
         public ActionResult Login(Acceso_Usuario oUsuario)
         {
             var dbSetUsuarios = db.Acceso_Usuarios;
-            var dbSetEmpleados = db.Empleados;
+            var dbSetEmpleados = db.EmpleadosDetalle;
 
             var usuarioExistente = from a in dbSetUsuarios
                                    where a.UsuarioId == oUsuario.UsuarioId
