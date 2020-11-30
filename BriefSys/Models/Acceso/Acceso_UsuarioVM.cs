@@ -10,5 +10,6 @@ namespace BriefSys.Models.Acceso
     {
         public Acceso_Usuario Acceso_Usuario { get; set; }
         public IEnumerable<SelectListItem> ListaEmpleados { get; set; }
+        public HttpPostedFileBase File { get; set; }
     }
 }

@@ -95,3 +95,18 @@ a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
+
+.imagenPerfil {
+    width: 55pt;
+    height: auto;
+    border-radius: 40pt;
+    border: 4pt solid white;
+    text-align: center;
+}
+
+.divSide {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    /*background: #6d7fcc;*/
+    color: #ffffff;
+}

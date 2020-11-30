@@ -5,9 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - BriefSys</title>
-    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,28 +34,6 @@
                 <li class="nav-item">
                     @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
                 </li>
-            </ul>
-            <ul class="navbar-nav mr-auto text-right">
-                @if (Session["User"] == null)
-                {
-                    <li class="nav-item">
-                        @Html.ActionLink("Registrarse", "Register", "Acceso", null, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Iniciar Sesión", "Login", "Acceso", null, new { @class = "nav-link" })
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link">
-                            @Session["User"].ToString()
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Cerrar Sesión", "Logout", "Acceso", null, new { @class = "nav-link" })
-                    </li>
-                }
             </ul>
         </div>
     </nav>

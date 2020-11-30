@@ -1,8 +1,35 @@
 ﻿<link href="~/Content/css/personnel.css" rel="stylesheet" />
 
-<nav id="sidebar" class="bg-dark">
+<nav id="sidebar" class="bg-dark active">
     <div class="sidebar-header">
-        <h3>Modules</h3>
+        <ul class="list-unstyled components">
+            @if (Session["IdEmp"] == null)
+            {
+                <li>
+                    @Html.ActionLink("Registrarse", "Register", "Acceso")
+                </li>
+                <li>
+                    @Html.ActionLink("Iniciar Sesión", "Login", "Acceso")
+                </li>
+            }
+            else
+            {
+                <li>
+                    <div class="text-center">
+                        <img src='@Url.Action("Show","Imagen", new { IdEmp = Session["IdEmp"]})' class="imagenPerfil" />
+                    </div>
+                    <a>
+                        @Session["NombreEmpleado"].ToString()
+                    </a>
+                </li>
+                <li>
+                    @Html.ActionLink("Cerrar Sesión", "Logout", "Acceso")
+                </li>
+            }
+        </ul>
+        <div>
+            <h3>Modules</h3>
+        </div>
     </div>
 
     <ul class="list-unstyled components">

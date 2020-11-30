@@ -15,7 +15,7 @@ namespace BriefSys.Models.Acceso
 
         }
         public DbSet<Acceso_Usuario> Acceso_Usuarios { get; set; }
-        public DbSet<Empleado.EmpleadoDetalle> Empleados { get; set; }
+        public DbSet<Empleado.Empleado_Detalle> Empleados { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

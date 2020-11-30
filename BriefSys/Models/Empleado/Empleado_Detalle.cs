@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BriefSys.Models.Empleado
 {
-    public class EmpleadoDetalle
+    public class Empleado_Detalle
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -20,6 +20,12 @@ namespace BriefSys.Models.Empleado
         public string ApellidoM { get; set; }
 
         public DateTime FechaNac { get; set; }
+
+        public string Telefono { get; set; }
+
+        public string Extension { get; set; }
+
+        public byte[] FotografiaDigital { get; set; }
 
         public char Estado { get; set; }
     }

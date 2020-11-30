@@ -13,7 +13,7 @@ namespace BriefSys.Models.Empleado
         {
 
         }
-        public DbSet<EmpleadoDetalle> empleados { get; set; }
+        public DbSet<Empleado_Detalle> empleados { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

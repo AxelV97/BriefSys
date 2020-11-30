@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CapaDatos;
+using System.IO;
+using System.Data.Entity;
 
 namespace BriefSys.Controllers.Acceso
 {
@@ -45,6 +47,8 @@ namespace BriefSys.Controllers.Acceso
                                    where a.UsuarioId == oUser.UsuarioId
                                    select a;
 
+            byte[] imagenBytes = ReadFile(oUsuarioVM.File);
+
             var lExistente = usuarioExistente.ToList();
 
             if (lExistente.Count > 0)
@@ -61,7 +65,18 @@ namespace BriefSys.Controllers.Acceso
 
             if (ModelState.IsValid)
             {
+                var dbSetEmpleados = db.Empleados;
+
+                var empleadoExistente = from emp in db.Empleados
+                                        where emp.IdEmp == oUser.IdEmp
+                                        select emp;
+
+                Empleado_Detalle oEmpleado = empleadoExistente.ToList()[0];
+
+                oEmpleado.FotografiaDigital = imagenBytes;
+
                 dbSetUsuarios.Add(oUsuario);
+                db.Entry(oEmpleado).State = EntityState.Modified;
                 db.SaveChanges();
 
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
@@ -72,6 +87,22 @@ namespace BriefSys.Controllers.Acceso
         public ActionResult Login()
         {
             return View(new Acceso_Usuario());
+        }
+
+        public static byte[] ReadFile(HttpPostedFileBase image)
+        {
+            byte[] binaryImage;
+            using (Stream inputStream = image.InputStream)
+            {
+                MemoryStream memoryStream = inputStream as MemoryStream;
+                if (memoryStream == null)
+                {
+                    memoryStream = new MemoryStream();
+                    inputStream.CopyTo(memoryStream);
+                }
+                binaryImage = memoryStream.ToArray();
+            }
+            return binaryImage;
         }
 
         [HttpPost]
@@ -99,9 +130,10 @@ namespace BriefSys.Controllers.Acceso
                                             where a.IdEmp == oUsuario.IdEmp
                                             select a;
 
-                    EmpleadoDetalle oEmpleado = empleadoExistente.ToList()[0];
+                    Empleado_Detalle oEmpleado = empleadoExistente.ToList()[0];
 
-                    Session["User"] = oEmpleado.Nombre + " " + oEmpleado.ApellidoP + " " + oEmpleado.ApellidoM;
+                    Session["IdEmp"] = oEmpleado.IdEmp;
+                    Session["NombreEmpleado"] = oEmpleado.Nombre + " " + oEmpleado.ApellidoP + " " + oEmpleado.ApellidoM;
                     return RedirectToRoute(new { Controller = "Home", Action = "Index" });
                 }
                 /*No coinciden*/
