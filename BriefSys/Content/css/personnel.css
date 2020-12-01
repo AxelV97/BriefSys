@@ -21,7 +21,7 @@
     }
 
     #sidebar .sidebar-header {
-        padding: 10px;
+        /*padding: 10px;*/
         /*background: #6d7fcc;*/
     }
 
@@ -103,7 +103,7 @@ a.article:hover {
 
 .imagenPerfil {
     width: 55pt;
-    height: auto;
+    height: 55pt;
     border-radius: 40pt;
     border: 2pt solid white;
     text-align: center;

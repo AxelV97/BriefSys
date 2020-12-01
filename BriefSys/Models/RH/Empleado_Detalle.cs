@@ -27,6 +27,6 @@ namespace BriefSys.Models.RH
 
         public byte[] FotografiaDigital { get; set; }
 
-        public char Estado { get; set; }
+        public string Estado { get; set; }
     }
 }
