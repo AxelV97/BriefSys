@@ -8,6 +8,7 @@ namespace BriefSys.Models.Menu
     public class MenuCategory
     {
         public string Category { get; set; }
+        public string DisplayName { get; set; }
     }
     public class MenuItem
     {

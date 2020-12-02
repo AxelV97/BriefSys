@@ -31,8 +31,10 @@ namespace BriefSys.Controllers.Home
         public ActionResult SideMenu()
         {
             List<MenuCategory> categorias = new List<MenuCategory>();
-            categorias.Add(new MenuCategory { Category = "Home" });
-            categorias.Add(new MenuCategory { Category = "RH" });
+            categorias.Add(new MenuCategory { Category = "Home", DisplayName = "Home" });
+            categorias.Add(new MenuCategory { Category = "RH", DisplayName = "Recursos Humanos" });
+            categorias.Add(new MenuCategory { Category = "CXC", DisplayName = "Cuentas por Cobrar" });
+            categorias.Add(new MenuCategory { Category = "TI", DisplayName = "Tecnología de la Información" });
 
             List<MenuItem> items = new List<MenuItem>();
             items.Add(new MenuItem { Category = "Home", Link = "/Home/Index", LinkName = "Home" });
@@ -42,6 +44,10 @@ namespace BriefSys.Controllers.Home
             items.Add(new MenuItem { Category = "RH", Link = "/RH/Departamentos", LinkName = "Departamentos" });
             items.Add(new MenuItem { Category = "RH", Link = "/RH/Puestos", LinkName = "Puestos" });
             items.Add(new MenuItem { Category = "RH", Link = "/RH/Empleados", LinkName = "Empleados" });
+
+            items.Add(new MenuItem { Category = "CXC", Link = "/CXC/Arqueos", LinkName = "Arqueos" });
+
+            items.Add(new MenuItem { Category = "TI", Link = "/TI/ServiceDesk", LinkName = "ServiceDesk" });
 
             MenuVM menuVM = new MenuVM();
             menuVM.Categories = categorias;
