@@ -1,13 +1,14 @@
-﻿--DROP DATABASE BriefSys;
+﻿--use master;
+--DROP DATABASE BriefSys;
 
-CREATE DATABASE BriefSys;
+--CREATE DATABASE BriefSys;
 
 USE BriefSys;
 
 CREATE TABLE Departamento(
 IdDepartamento int,
 Clasificacion VARCHAR(2),
-Descripción VARCHAR(100),
+Descripcion VARCHAR(100),
 Estado CHAR(1)
 );
 
@@ -15,7 +16,7 @@ CREATE TABLE Puesto(
 IdPuesto int,
 IdDepartamento int,
 Clasificacion VARCHAR(2),
-Descripción VARCHAR(100),
+Descripcion VARCHAR(100),
 Estado CHAR(1)
 );
 
@@ -47,13 +48,19 @@ Salt varchar(100),
 FechaModificacion datetime
 );
 
-insert into Departamento(IdDepartamento,Clasificacion,Descripción,Estado) values(1,'TI','Tecnología de la Información','A')
-insert into Puesto(IdPuesto,IdDepartamento,Clasificacion,Descripción,Estado) values(1,1,'JR','Programador Jr','A')
+insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(1,'TI','Tecnología de la Información','A')
+insert into Puesto(IdPuesto,IdDepartamento,Clasificacion,Descripcion,Estado) values(1,1,'JR','Programador Jr','A')
 insert into Empleado(IdEmp,IdDepartamento,IdPuesto,Ingreso) values(1,1,1,GETDATE())
 insert into Empleado_Detalle(IdEmp,Nombre,ApellidoP,ApellidoM,FechaNac,Telefono,Extension,Estado) values(1,'Edwin Axel','Vizuet','Gil','1997-08-10','5599999999','000','A')
+
+SELECT *
+FROM dbo.Departamento
 
 SELECT *
 FROM dbo.Empleado_Detalle
 
 SELECT *
 FROM dbo.Acceso_Usuario
+
+select *
+from dbo.Puesto

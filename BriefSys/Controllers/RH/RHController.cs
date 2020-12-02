@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BriefSys.Models.RH;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,15 +9,24 @@ namespace BriefSys.Controllers.RH
 {
     public class RHController : Controller
     {
-        // GET: Empleado
+        private RHContext db = new RHContext();
+        // GET: RH
         public ActionResult Index()
         {
             return View();
         }
 
+        // GET: Empleado
         public ActionResult Departamentos()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetDepartamentos()
+        {
+            return Json(new { data = db.Departamentos }, JsonRequestBehavior.AllowGet);
+            //return View();
         }
         public ActionResult Puestos()
         {
