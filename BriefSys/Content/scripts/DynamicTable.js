@@ -16,28 +16,38 @@ function asycData() {
 
 function callback(response) {
     var obj = JSON.parse(response);
-    console.log(obj);
     createTableFromJSON(obj);
 }
 
 function createTableFromJSON(data) {
     var objTabla = data.data;
 
-    /*Columnas/header de tabla*/
+    /*--------------------------
+     * Columnas/header de tabla
+     *--------------------------*/
     var col = []; /*Arreglo para columnas*/
 
     for (var i = 0; i < objTabla.length; i++) {
-        for (var key in objTabla[i]) { /*Key se moverá en las propiedades del objeto JSON*/
-            if (col.indexOf(key) === -1) { /*Detras de la ultima columna*/
-                col.push(key);
+
+        objTabla[i].Acciones = '<button class="btn btn-info">Detalles</button> <button class="btn btn-warning">Editar</button> <button class="btn btn-danger">Eliminar</button>';
+
+        for (var key in objTabla[i]) { /*Key = Propiedad, se moverá en las propiedades del objeto JSON*/
+            if (key !== "Estado") {
+                if (col.indexOf(key) === -1) { /*Detras de la ultima columna/propiedad*/
+                    col.push(key);
+                }
             }
         }
     }
 
-    /*Crear objeto tabla*/
+    /*--------------------
+     * Crear objeto tabla
+     *--------------------*/
     var tablaDinamica = document.createElement("table");
 
-    /*Crear fila de header*/
+    /*----------------------
+     * Crear fila de header
+     *----------------------*/
     var tr = tablaDinamica.insertRow(-1); /*Index -1 indica insertar una fila detras de la ultima*/
 
     for (var i = 0; i < col.length; i++) {
@@ -46,17 +56,30 @@ function createTableFromJSON(data) {
         tr.appendChild(th);
     }
 
-    /*Crear filas para los datos*/
+    /*----------------------------
+     * Crear filas para los datos
+     *----------------------------*/
     for (var i = 0; i < objTabla.length; i++) {
         tr = tablaDinamica.insertRow(-1);
 
         for (var j = 0; j < col.length; j++) {
-            var tabCell = tr.insertCell(-1);
+            var tabCell = tr.insertCell(-1); /*Inserta detrás de la ultima celda*/
             tabCell.innerHTML = objTabla[i][col[j]];
         }
     }
 
-    /*Añadir tabla a un contenedor*/
+    /*-----------------------------------------------
+     * Footer con count de valores y añadir registro
+     *-----------------------------------------------*/
+    var tr = tablaDinamica.insertRow(-1); /*Index -1 indica insertar una fila detras de la ultima*/
+    var tabCell = tr.insertCell(-1);
+    tr.style.textAlign = "right";
+    tabCell.colSpan = Object.keys(objTabla).length; /*Numero de filas*/
+    tabCell.innerHTML = '<button class="btn btn-success">Añadir departamento</button>';
+
+    /*------------------------------
+     * Añadir tabla a un contenedor
+     *------------------------------*/
     var divTabla = document.getElementById('divTabla');
     divTabla.innerHTML = "";
     divTabla.appendChild(tablaDinamica);
