@@ -15,13 +15,16 @@ function asycData() {
 }
 
 function callback(response) {
-    console.log(response);
     var obj = JSON.parse(response);
     createTableFromJSON(obj);
 }
 
 function createTableFromJSON(data) {
-    console.log(data.data);
+    console.log(data);
+
+    var aux = document.getElementById('seccionAux');
+    var objetonuevo = data.data[0];
+    console.log(objetonuevo.Descripcion);
 
     /*Crear las columnas*/
 }
