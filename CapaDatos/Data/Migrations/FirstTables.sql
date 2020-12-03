@@ -2,13 +2,14 @@
 
 --DROP DATABASE BriefSys;
 
-CREATE DATABASE BriefSys;
+--CREATE DATABASE BriefSys;
 
 USE BriefSys;
 
+--DROP TABLE Departamento
 CREATE TABLE Departamento(
 IdDepartamento int,
-Clasificacion VARCHAR(2),
+Clasificacion VARCHAR(5),
 Descripcion VARCHAR(100),
 Estado CHAR(1)
 );
@@ -50,7 +51,12 @@ FechaModificacion datetime
 );
 
 insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(1,'TI','Tecnología de la Información','A')
+insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(2,'RH','Tecnología de la Información','A')
+insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(3,'CXC','Cuentas por Cobrar','A')
+insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(4,'CPM','Compras','A')
+
 insert into Puesto(IdPuesto,IdDepartamento,Clasificacion,Descripcion,Estado) values(1,1,'JR','Programador Jr','A')
+
 insert into Empleado(IdEmp,IdDepartamento,IdPuesto,Ingreso) values(1,1,1,GETDATE())
 insert into Empleado_Detalle(IdEmp,Nombre,ApellidoP,ApellidoM,FechaNac,Telefono,Extension,Estado) values(1,'Edwin Axel','Vizuet','Gil','1997-08-10','5599999999','000','A')
 
