@@ -1,7 +1,6 @@
-﻿asycData();
+﻿
 
-function asycData() {
-
+function obtenerDatos(tipo, url) {
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {
@@ -10,7 +9,7 @@ function asycData() {
         }
     }
 
-    xhr.open('GET', '/RH/GetDepartamentos/')
+    xhr.open(tipo, url)
     xhr.send();
 }
 
@@ -32,7 +31,7 @@ function createTableFromJSON(data) {
         objTabla[i].Acciones = '<button class="btn btn-info">Detalles</button> <button class="btn btn-warning">Editar</button> <button class="btn btn-danger">Eliminar</button>';
 
         for (var key in objTabla[i]) { /*Key = Propiedad, se moverá en las propiedades del objeto JSON*/
-            if (key !== "Estado") {
+            if (key != "Estado") {
                 if (col.indexOf(key) === -1) { /*Detras de la ultima columna/propiedad*/
                     col.push(key);
                 }
@@ -53,6 +52,8 @@ function createTableFromJSON(data) {
     for (var i = 0; i < col.length; i++) {
         var th = document.createElement("th");
         th.innerHTML = col[i];
+        th.id = i;
+        th.addEventListener('click', function () { ordenarTabla(tablaDinamica, this) }, false);
         tr.appendChild(th);
     }
 
@@ -68,14 +69,7 @@ function createTableFromJSON(data) {
         }
     }
 
-    /*-----------------------------------------------
-     * Footer con count de valores y añadir registro
-     *-----------------------------------------------*/
-    var tr = tablaDinamica.insertRow(-1); /*Index -1 indica insertar una fila detras de la ultima*/
-    var tabCell = tr.insertCell(-1);
-    tr.style.textAlign = "right";
-    tabCell.colSpan = Object.keys(objTabla).length; /*Numero de filas*/
-    tabCell.innerHTML = '<button class="btn btn-success">Añadir departamento</button>';
+    /*Añadir footer*/
 
     /*------------------------------
      * Añadir tabla a un contenedor
@@ -86,3 +80,106 @@ function createTableFromJSON(data) {
     divTabla.classList.add('table');
     divTabla.classList.add('table-bordered');
 }
+
+/*----------------------------
+ * Funcion para ordenar tabla
+ *----------------------------*/
+function ordenarTabla(tabla, n) {
+    var table, rows, switching, x, y, i, shouldswitch, direction, switchcount = 0, th;
+    th = n.id;
+
+    var table = tabla;
+    /*----------------
+     * Activar cambio
+     *----------------*/
+    switching = true;
+
+    direction = "asc";
+
+    while (switching) {
+        switching = false;
+
+        rows = table.rows;
+
+        /*---------------------------------------------
+         * Primera fila contiene el header de la tabla
+         *---------------------------------------------*/
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldswitch = false;
+
+            /*-------------------------------------------------
+             * Obtener elemento para comparar con el siguiente
+             *-------------------------------------------------*/
+            x = rows[i].getElementsByTagName("td")[th];
+            y = rows[i + 1].getElementsByTagName("td")[th];
+
+            if ((x !== undefined && y !== undefined)) {
+                /*---------------------------------
+                 * Evalua la dirección del sorting
+                 *---------------------------------*/
+                if (direction == "asc") {
+                    /*----------------------------------------------------------
+                     * Si el valor actual es mayor al siguiente, deberá sortear
+                     *----------------------------------------------------------*/
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldswitch = true;
+                        break;
+                    }
+                } else if (direction == "desc") {
+                    /*----------------------------------------------------------
+                     * Si el valor actual es menor al siguiente, deberá sortear
+                     *----------------------------------------------------------*/
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldswitch = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        /*-------------------------------
+         * Se detectó un valor a sortear
+         *-------------------------------*/
+        if (shouldswitch) {
+            /*----------------------------------------------------------------
+             * Inserta el valor siguiente en un nodo anterior al valor actual
+             *----------------------------------------------------------------*/
+
+            /*-------------------------------------------
+             * insertBefore(Nuevo nodo, Nodo referencia)
+             *-------------------------------------------*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++; /*Nos ayudara a identificar si ha sorteado*/
+        } else {
+            /*----------------------------------------------------------------------------------------------
+             * Si no se ha realizado ningun sort y la dirección es ascendente, cambiaremos la direccion a desc y volveremos al loop
+             *----------------------------------------------------------------------------------------------*/
+            if (switchcount == 0 && direction == "asc") {
+                direction = "desc";
+                switching = true;
+            }
+        }
+    }
+}
+
+
+//function contenedor() {
+//    /*-----------------------------------------------
+//         * Footer con count de valores y añadir registro
+//         *-----------------------------------------------*/
+//    var tr = tablaDinamica.insertRow(-1); /*Index -1 indica insertar una fila detras de la ultima*/
+//    tr.id = "footer";
+//    var tabCell = tr.insertCell(-1);
+//    tr.style.textAlign = "right";
+//    var propiedades = 0;
+//    for (var key in objTabla[0]) {
+//        if (key != "Estado") {
+//            if (objTabla[0].hasOwnProperty(key)) {
+//                propiedades++;
+//            }
+//        }
+//    }
+//tabCell.colSpan = propiedades; /*Numero de filas*/
+//tabCell.innerHTML = '<button class="btn btn-success">Añadir departamento</button>';
+//}

@@ -6,7 +6,11 @@
 <h2>@ViewBag.Title</h2>
 
 <div id="divTabla">
-
+    <div>
+        <button id="btnAdd" class="btn btn-success">Añadir registro</button>
+    </div>
 </div>
 
-<script src="~/Content/scripts/DynamicTable.js"></script>
+<script type="text/javascript">
+    obtenerDatos("GET", "/RH/GetDepartamentos/");
+</script>

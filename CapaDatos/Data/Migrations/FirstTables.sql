@@ -51,7 +51,7 @@ FechaModificacion datetime
 );
 
 insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(1,'TI','Tecnología de la Información','A')
-insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(2,'RH','Tecnología de la Información','A')
+insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(2,'RH','Recursos Humanos','A')
 insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(3,'CXC','Cuentas por Cobrar','A')
 insert into Departamento(IdDepartamento,Clasificacion,Descripcion,Estado) values(4,'CPM','Compras','A')
 
