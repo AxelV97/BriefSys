@@ -136,14 +136,14 @@
     <Compile Include="Models\Acceso\Acceso.cs" />
     <Compile Include="Models\Acceso\AccesoContext.cs" />
     <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
-    <Compile Include="Models\RH\Empleado.cs" />
-    <Compile Include="Models\RH\Empleado_Detalle.cs" />
-    <Compile Include="Models\RH\RHContext.cs" />
+    <Compile Include="Models\RH\Empleados\Empleado.cs" />
+    <Compile Include="Models\RH\Empleados\Empleado_Detalle.cs" />
+    <Compile Include="Models\RH\Context\RHContext.cs" />
     <Compile Include="Controllers\Utilities\ImagenController.cs" />
     <Compile Include="Models\Menu\Menu.cs" />
     <Compile Include="Models\Menu\MenuVM.cs" />
-    <Compile Include="Models\RH\Departamento.cs" />
-    <Compile Include="Models\RH\Puesto.cs" />
+    <Compile Include="Models\RH\Departamentos\Departamento.cs" />
+    <Compile Include="Models\RH\Puestos\Puesto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -291,9 +291,10 @@
     <Content Include="Views\Acceso\Login.cshtml" />
     <Content Include="Views\Acceso\Register.cshtml" />
     <Content Include="Views\Shared\SideMenu.cshtml" />
-    <Content Include="Views\RH\Departamentos.cshtml" />
-    <Content Include="Views\RH\Puestos.cshtml" />
-    <Content Include="Views\RH\Empleados.cshtml" />
+    <Content Include="Views\RH\Departamento\Index.cshtml" />
+    <Content Include="Views\RH\Puestos\Index.cshtml" />
+    <Content Include="Views\RH\Empleados\Index.cshtml" />
+    <Content Include="Views\RH\Departamento\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

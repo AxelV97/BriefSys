@@ -1,0 +1,29 @@
+﻿@model BriefSys.Models.RH.Departamentos.Departamento
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Crear Departamento";
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+
+    <form action="CreateDepartamento" method="post">
+        <div class="form-group">
+            @Html.LabelFor(d => d.IdDepartamento)
+            @Html.TextBoxFor(d => d.IdDepartamento, new { @class = "form-control", placeholder = "ID" })
+            @Html.ValidationMessageFor(d => d.IdDepartamento, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(d => d.Clasificacion)
+            @Html.TextBoxFor(d => d.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
+            @Html.ValidationMessageFor(d => d.Clasificacion, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(d => d.Descripcion)
+            @Html.TextBoxFor(d => d.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
+            @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
+        </div>
+        <input type="submit" value="Añadir departamento" class="btn btn-success" />
+    </form>
+</div>

@@ -4,8 +4,11 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using BriefSys.Models.RH.Departamentos;
+using BriefSys.Models.RH.Puestos;
+using BriefSys.Models.RH.Empleados;
 
-namespace BriefSys.Models.RH
+namespace BriefSys.Models.RH.Context
 {
     public class RHContext : DbContext
     {

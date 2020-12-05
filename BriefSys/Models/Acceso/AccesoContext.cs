@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
-using BriefSys.Models.RH;
+using BriefSys.Models.RH.Empleados;
 
 namespace BriefSys.Models.Acceso
 {

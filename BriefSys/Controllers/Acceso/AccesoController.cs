@@ -1,5 +1,5 @@
 ﻿using BriefSys.Models.Acceso;
-using BriefSys.Models.RH;
+using BriefSys.Models.RH.Empleados;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -2,9 +2,8 @@
     SIDEBAR STYLE
 ----------------------------------------------------- */
 
-.wrapper {
+.globalcontainer {
     display: flex;
-    /*width: 100%;*/
     align-items: stretch;
 }
 
@@ -112,6 +111,6 @@ a.article:hover {
 /*.divSide {
     font-size: 0.9em !important;
     padding-left: 30px !important;*/
-    /*background: #6d7fcc;*/
-    /*color: #ffffff;
+/*background: #6d7fcc;*/
+/*color: #ffffff;
 }*/

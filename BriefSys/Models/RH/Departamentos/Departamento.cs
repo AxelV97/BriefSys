@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Web;
 
-namespace BriefSys.Models.RH
+namespace BriefSys.Models.RH.Departamentos
 {
-    public class Puesto
+    public class Departamento
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int IdPuesto { get; set; }
         public int IdDepartamento { get; set; }
-        public string Clasificacion { get; set; }
-        public string Descripcion { get; set; }
-        public string Estado { get; set; }
 
+        [Display(Name = "Clasificación")]
+        [Required(ErrorMessage = "Ingresa una clasificación")]
+        public string Clasificacion { get; set; }
+
+        [Display(Name = "Descripción")]
+        [Required(ErrorMessage = "Ingresa una descripción")]
+        public string Descripcion { get; set; }
+
+        public string Estado { get; set; }
     }
 }

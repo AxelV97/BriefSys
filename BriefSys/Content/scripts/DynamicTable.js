@@ -43,6 +43,8 @@ function createTableFromJSON(data) {
      * Crear objeto tabla
      *--------------------*/
     var tablaDinamica = document.createElement("table");
+    tablaDinamica.classList.add("table");
+    tablaDinamica.classList.add("table-bordered");
 
     /*----------------------
      * Crear fila de header
