@@ -2,6 +2,7 @@
 using BriefSys.Models.RH.Departamentos;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +30,12 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult GetDepartamentos()
         {
-            return Json(new { data = db.Departamentos }, JsonRequestBehavior.AllowGet);
+            var dbSetDepartamentos = db.Departamentos;
+            var departamentos = from dp in dbSetDepartamentos
+                                where dp.Estado != "C"
+                                select dp;
+
+            return Json(new { data = departamentos }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -63,6 +69,58 @@ namespace BriefSys.Controllers.RH
             }
 
             return View("~/Views/RH/Departamento/Create.cshtml", oDepartamento);
+        }
+
+        [HttpGet]
+        public ActionResult EditDepartamento(int Id)
+        {
+            var dbSetDepartamentos = db.Departamentos;
+
+            Departamento oDepartamento = (from d in dbSetDepartamentos
+                                          where d.IdDepartamento == Id
+                                          select d).ToList()[0];
+
+            if (oDepartamento == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("~/Views/RH/Departamento/Edit.cshtml", oDepartamento);
+        }
+
+        [HttpPost]
+        public ActionResult EditDepartamento(Departamento oDepartamento)
+        {
+            var dbSetDepartamentos = db.Departamentos;
+            if (ModelState.IsValid)
+            {
+                db.Entry(oDepartamento).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
+        }
+
+        public ActionResult DeleteDepartamento(int Id)
+        {
+            var dbSetDepartamentos = db.Departamentos;
+
+            Departamento oDepartamento = (from d in dbSetDepartamentos
+                                          where d.IdDepartamento == Id
+                                          select d).ToList()[0];
+
+            if (oDepartamento == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                oDepartamento.Estado = "C";
+                db.Entry(oDepartamento).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
         }
 
         /*---------

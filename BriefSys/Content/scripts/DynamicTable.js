@@ -1,11 +1,16 @@
 ﻿
-
-function obtenerDatos(tipo, url) {
+function obtenerDatos(tipo, area, objeto, pluralizeUrl) {
     var xhr = new XMLHttpRequest();
+    var url = "";
+    if (pluralizeUrl) {
+        url = "/" + area + "/Get" + objeto + "s/";
+    } else {
+        url = "/" + area + "/Get" + objeto + "/";
+    }
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-            callback(xhr.responseText);
+            callback(xhr.responseText, area, objeto);
         }
     }
 
@@ -13,12 +18,12 @@ function obtenerDatos(tipo, url) {
     xhr.send();
 }
 
-function callback(response) {
-    var obj = JSON.parse(response);
-    createTableFromJSON(obj);
+function callback(response, area, objeto) {
+    var data = JSON.parse(response);
+    createTableFromJSON(data, area, objeto);
 }
 
-function createTableFromJSON(data) {
+function createTableFromJSON(data, area, objeto) {
     var objTabla = data.data;
 
     /*--------------------------
@@ -28,7 +33,7 @@ function createTableFromJSON(data) {
 
     for (var i = 0; i < objTabla.length; i++) {
 
-        objTabla[i].Acciones = '<button class="btn btn-info">Detalles</button> <button class="btn btn-warning">Editar</button> <button class="btn btn-danger">Eliminar</button>';
+        objTabla[i].Acciones = '<a class="btn btn-info">Detalles</a> <a class="btn btn-warning" href="/' + area + '/Edit' + objeto + '/' + objTabla[i].IdDepartamento + '">Editar</a> <a class="btn btn-danger" href="/' + area + '/Delete' + objeto + '/' + objTabla[i].IdDepartamento + '">Eliminar</a>';
 
         for (var key in objTabla[i]) { /*Key = Propiedad, se moverá en las propiedades del objeto JSON*/
             if (key != "Estado") {

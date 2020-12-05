@@ -1,14 +1,14 @@
 ﻿@model BriefSys.Models.RH.Departamentos.Departamento
 
 @{
-    ViewBag.Title = "Crear Departamento";
+    ViewBag.Title = "Editar Departamento";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
     <h2>@ViewBag.Title</h2>
 
-    <form action="CreateDepartamento" method="post">
+    <form action="EditDepartamento" method="post">
         <div class="form-group">
             @Html.LabelFor(d => d.IdDepartamento)
             @Html.TextBoxFor(d => d.IdDepartamento, new { @class = "form-control", placeholder = "ID" })
@@ -24,6 +24,11 @@
             @Html.TextBoxFor(d => d.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
             @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
         </div>
-        <input type="submit" value="Añadir departamento" class="btn btn-success" />
+        <div class="form-group">
+            @Html.LabelFor(d => d.Estado)
+            @Html.TextBoxFor(d => d.Estado, new { @class = "form-control", placeholder = "Estado" })
+            @Html.ValidationMessageFor(d => d.Estado, null, new { @class = "text-danger" })
+        </div>
+        <input type="submit" value="Editar departamento" class="btn btn-success" />
     </form>
 </div>

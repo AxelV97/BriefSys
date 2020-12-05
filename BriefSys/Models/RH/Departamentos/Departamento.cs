@@ -21,6 +21,8 @@ namespace BriefSys.Models.RH.Departamentos
         [Required(ErrorMessage = "Ingresa una descripción")]
         public string Descripcion { get; set; }
 
+
+        [Display(Name = "Estado")]
         public string Estado { get; set; }
     }
 }

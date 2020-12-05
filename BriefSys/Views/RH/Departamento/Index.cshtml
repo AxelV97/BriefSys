@@ -6,11 +6,13 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="container">
-    <a class="btn btn-success" href="@Url.Action("CreateDepartamento","RH")">Añadir registro</a>
+    <a class="btn btn-success" href="@Url.Action("CreateDepartamento","RH")" style="float: right;">Añadir registro</a>
+    <br />
+    <br />
     <div id="divTabla">
     </div>
 </div>
 
 <script type="text/javascript">
-    obtenerDatos("GET", "/RH/GetDepartamentos/");
+    obtenerDatos("GET", "RH", "Departamento", true);
 </script>

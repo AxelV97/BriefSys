@@ -15,7 +15,6 @@ namespace BriefSys.Controllers.Utilities
             return View();
         }
 
-        [HttpGet]
         public ActionResult SideMenu()
         {
             List<MenuCategory> categorias = new List<MenuCategory>();
