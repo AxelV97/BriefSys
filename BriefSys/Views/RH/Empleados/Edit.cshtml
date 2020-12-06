@@ -1,0 +1,31 @@
+﻿@model BriefSys.Models.RH.Empleados.EmpleadoVM
+
+@{
+    ViewBag.Title = "Editar Departamento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+
+    <form action="EditDepartamento" method="post">
+        <div class="form-group">
+            @Html.LabelFor(d => d.IdDepartamento)
+            @Html.TextBoxFor(d => d.IdDepartamento, new { @class = "form-control", placeholder = "ID" })
+            @Html.ValidationMessageFor(d => d.IdDepartamento, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(d => d.Clasificacion)
+            @Html.TextBoxFor(d => d.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
+            @Html.ValidationMessageFor(d => d.Clasificacion, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(d => d.Descripcion)
+            @Html.TextBoxFor(d => d.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
+            @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
+        </div>
+        @Html.HiddenFor(d => d.Estado)
+        <a class="btn btn-primary" href="@Url.Action("Empleados","RH")">Regresar</a>
+        <input type="submit" value="Editar departamento" class="btn btn-success" />
+    </form>
+</div>

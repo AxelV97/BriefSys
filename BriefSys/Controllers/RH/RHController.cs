@@ -1,5 +1,6 @@
 ﻿using BriefSys.Models.RH.Context;
 using BriefSys.Models.RH.Departamentos;
+using BriefSys.Models.RH.Empleados;
 using BriefSys.Models.RH.Puestos;
 using System;
 using System.Collections.Generic;
@@ -250,6 +251,64 @@ namespace BriefSys.Controllers.RH
         public ActionResult Empleados()
         {
             return View("~/Views/RH/Empleados/Index.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult GetEmpleados()
+        {
+            var dbSetEmpleados = db.Empleados;
+            var dbSetEmpleados_Detalle = db.EmpleadosDetalle;
+
+            var empleados = from e in dbSetEmpleados
+                            join ed in dbSetEmpleados_Detalle on e.IdEmp equals ed.IdEmp
+                            where ed.Estado != "C"
+                            select e;
+
+            return Json(new { data = empleados }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CreateEmpleado()
+        {
+            return View("~/Views/RH/Empleados/Create.cshtml", new EmpleadoVM());
+        }
+
+        [HttpPost]
+        public ActionResult CreateEmpleado(EmpleadoVM oEmpleadoVM)
+        {
+            var dbSetEmpleados = db.Empleados;
+
+            var lEmpleados = (from e in dbSetEmpleados
+                              where e.IdEmp == oEmpleadoVM.Empleado.IdEmp
+                              select e).ToList();
+
+            var dbSetEmpleadosDet = db.EmpleadosDetalle;
+
+            var lEmpleadosDet = (from ed in dbSetEmpleadosDet
+                                 where ed.IdEmp == oEmpleadoVM.Empleado.IdEmp
+                                 select ed).ToList();
+
+            if (lEmpleados.Count > 0 || lEmpleadosDet.Count > 0)
+            {
+                return View("~/Views/RH/Empleados/Create.cshtml", oEmpleadoVM);
+            }
+            else
+            {
+                Empleado oEmpleado = oEmpleadoVM.Empleado;
+                Empleado_Detalle oEmpleadoDet = oEmpleadoVM.Empleado_Detalle;
+
+                oEmpleadoDet.IdEmp = oEmpleado.IdEmp;
+                oEmpleadoDet.Estado = "A";
+                if (ModelState.IsValid)
+                {
+                    dbSetEmpleados.Add(oEmpleado);
+                    dbSetEmpleadosDet.Add(oEmpleadoDet);
+                    db.SaveChanges();
+                    return RedirectToRoute(new { controller = "RH", action = "Empleados" });
+                }
+            }
+
+            return View("~/Views/RH/Empleados/Create.cshtml", oEmpleadoVM);
         }
     }
 }
