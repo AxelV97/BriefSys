@@ -24,6 +24,7 @@
             @Html.TextBoxFor(d => d.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
             @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
         </div>
+        <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Regresar</a>
         <input type="submit" value="Añadir departamento" class="btn btn-success" />
     </form>
 </div>

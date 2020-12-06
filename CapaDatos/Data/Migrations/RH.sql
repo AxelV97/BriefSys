@@ -1,8 +1,8 @@
-﻿--USE MASTER;
+﻿USE MASTER;
 
---DROP DATABASE BriefSys;
+DROP DATABASE BriefSys;
 
---CREATE DATABASE BriefSys;
+CREATE DATABASE BriefSys;
 
 USE BriefSys;
 
@@ -17,7 +17,7 @@ Estado CHAR(1)
 CREATE TABLE Puesto(
 IdPuesto int,
 IdDepartamento int,
-Clasificacion VARCHAR(2),
+Clasificacion VARCHAR(5),
 Descripcion VARCHAR(100),
 Estado CHAR(1)
 );
@@ -59,55 +59,3 @@ insert into Puesto(IdPuesto,IdDepartamento,Clasificacion,Descripcion,Estado) val
 
 insert into Empleado(IdEmp,IdDepartamento,IdPuesto,Ingreso) values(1,1,1,GETDATE())
 insert into Empleado_Detalle(IdEmp,Nombre,ApellidoP,ApellidoM,FechaNac,Telefono,Extension,Estado) values(1,'Edwin Axel','Vizuet','Gil','1997-08-10','5599999999','000','A')
-
-SELECT *
-FROM dbo.Departamento
-
-SELECT *
-FROM dbo.Empleado_Detalle
-
-SELECT *
-FROM dbo.Acceso_Usuario
-
-select *
-from dbo.Puesto
-
-CREATE TABLE ServiceDesk(
-IdTicket numeric(9),
-FechaInicio datetime,
-FechaFin datetime,
-/*Ventana nvarchar(300),*/
-HorasSeguimiento numeric(9),
-EnTiempo nvarchar(100),
-Tipo nvarchar(300),
-Categoria nvarchar(300),
-Subcategoria nvarchar(300),
-/*EmailEmpleado nvarchar(300),*/
-Prioridad numeric(9),
-Tiempo numeric(9),
-/*Area nvarchar(300), /*extends empleados*/
-Departamento nvarchar(300),
-Telefono nvarchar(300),*/
-ReportadoPor int,
-ReportadoMediante nvarchar(300),
-IdInventario nvarchar(300),
-/*Serie nvarchar(300),
-Nparte nvarchar(300),
-Marca nvarchar(300),
-Modelo nvarchar(300),*/
-Nota text, /*extends detalle*/
-IdEstado int,
-Estado nvarchar(300), /*extends detalle*/
-Auditoria datetime,
-Quien int /*extends empleados*/
-);
-
-CREATE TABLE ServiceDesk_Detalle(
-IdTicket int,
-Nota text,
-FechaNota datetime,
-IdEstadoNota int,
-EstadoNota nvarchar(300),
-IdEmpleado int,
-Auditoria datetime
-);

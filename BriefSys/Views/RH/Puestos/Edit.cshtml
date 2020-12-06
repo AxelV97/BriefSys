@@ -1,0 +1,36 @@
+﻿@model BriefSys.Models.RH.Puestos.Puesto
+
+@{
+    ViewBag.Title = "Editar Puesto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+
+    <form action="EditPuesto" method="post">
+        <div class="form-group">
+            @Html.LabelFor(p => p.IdPuesto)
+            @Html.TextBoxFor(p => p.IdPuesto, new { @class = "form-control", placeholder = "IdPuesto" })
+            @Html.ValidationMessageFor(p => p.IdDepartamento, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.IdDepartamento)
+            @Html.TextBoxFor(p => p.IdDepartamento, new { @class = "form-control", placeholder = "IdDepartamento" })
+            @Html.ValidationMessageFor(p => p.IdDepartamento, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Clasificacion)
+            @Html.TextBoxFor(p => p.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
+            @Html.ValidationMessageFor(p => p.Clasificacion, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(p => p.Descripcion)
+            @Html.TextBoxFor(p => p.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
+            @Html.ValidationMessageFor(p => p.Descripcion, null, new { @class = "text-danger" })
+        </div>
+        @Html.HiddenFor(p => p.Estado)
+        <a class="btn btn-primary" href="@Url.Action("Puestos","RH")">Regresar</a>
+        <input type="submit" value="Editar puesto" class="btn btn-success" />
+    </form>
+</div>

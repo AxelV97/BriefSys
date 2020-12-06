@@ -5,12 +5,14 @@
 
 <h2>@ViewBag.Title</h2>
 
-<table id="tblPuestos">
-    <thead>
-        <tr>
-            <th>
+<div class="container">
+    <a class="btn btn-success" href="@Url.Action("CreatePuesto","RH")" style="float: right;">Añadir registro</a>
+    <br />
+    <br />
+    <div id="divTabla">
+    </div>
+</div>
 
-            </th>
-        </tr>
-    </thead>
-</table>
+<script type="text/javascript">
+    obtenerDatos("GET", "RH", "Puesto", true);
+</script>

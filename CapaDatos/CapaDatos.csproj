@@ -46,7 +46,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Migrations\First.sql" />
+    <Content Include="Data\Migrations\RH.sql" />
+    <Content Include="Data\Migrations\ServiceDesk.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

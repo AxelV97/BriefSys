@@ -1,5 +1,6 @@
 ﻿using BriefSys.Models.RH.Context;
 using BriefSys.Models.RH.Departamentos;
+using BriefSys.Models.RH.Puestos;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -24,7 +25,7 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult Departamentos()
         {
-            return View("~/Views/RH/Departamento/Index.cshtml");
+            return View("~/Views/RH/Departamentos/Index.cshtml");
         }
 
         [HttpGet]
@@ -41,7 +42,7 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult CreateDepartamento()
         {
-            return View("~/Views/RH/Departamento/Create.cshtml", new Departamento());
+            return View("~/Views/RH/Departamentos/Create.cshtml", new Departamento());
         }
 
         [HttpPost]
@@ -49,13 +50,13 @@ namespace BriefSys.Controllers.RH
         {
             var dbSetDepartamentos = db.Departamentos;
 
-            var existentes = (from a in dbSetDepartamentos
-                              where a.IdDepartamento == oDepartamento.IdDepartamento
-                              select a).ToList();
+            var lDepartamentos = (from a in dbSetDepartamentos
+                                  where a.IdDepartamento == oDepartamento.IdDepartamento
+                                  select a).ToList();
 
-            if (existentes.Count > 0)
+            if (lDepartamentos.Count > 0)
             {
-                return View("~/Views/RH/Departamento/Create.cshtml", oDepartamento);
+                return View("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
             }
             else
             {
@@ -68,24 +69,28 @@ namespace BriefSys.Controllers.RH
                 }
             }
 
-            return View("~/Views/RH/Departamento/Create.cshtml", oDepartamento);
+            return View("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
         }
 
         [HttpGet]
         public ActionResult EditDepartamento(int Id)
         {
             var dbSetDepartamentos = db.Departamentos;
+            var lDepartamentos = (from d in dbSetDepartamentos
+                                  where d.IdDepartamento == Id
+                                  select d).ToList();
+            Departamento oDepartamento;
 
-            Departamento oDepartamento = (from d in dbSetDepartamentos
-                                          where d.IdDepartamento == Id
-                                          select d).ToList()[0];
-
-            if (oDepartamento == null)
+            if (lDepartamentos.Count > 0)
+            {
+                oDepartamento = lDepartamentos[0];
+            }
+            else
             {
                 return HttpNotFound();
             }
 
-            return View("~/Views/RH/Departamento/Edit.cshtml", oDepartamento);
+            return View("~/Views/RH/Departamentos/Edit.cshtml", oDepartamento);
         }
 
         [HttpPost]
@@ -104,20 +109,23 @@ namespace BriefSys.Controllers.RH
         public ActionResult DeleteDepartamento(int Id)
         {
             var dbSetDepartamentos = db.Departamentos;
+            var lDepartamentos = (from d in dbSetDepartamentos
+                                  where d.IdDepartamento == Id
+                                  select d).ToList();
 
-            Departamento oDepartamento = (from d in dbSetDepartamentos
-                                          where d.IdDepartamento == Id
-                                          select d).ToList()[0];
+            Departamento oDepartamento;
 
-            if (oDepartamento == null)
+            if (lDepartamentos.Count > 0)
             {
-                return HttpNotFound();
-            }
-            else
-            {
+                oDepartamento = lDepartamentos[0];
+
                 oDepartamento.Estado = "C";
                 db.Entry(oDepartamento).State = EntityState.Modified;
                 db.SaveChanges();
+            }
+            else
+            {
+                return HttpNotFound();
             }
 
             return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
@@ -130,6 +138,109 @@ namespace BriefSys.Controllers.RH
         public ActionResult Puestos()
         {
             return View("~/Views/RH/Puestos/Index.cshtml");
+        }
+
+        [HttpGet]
+        public ActionResult GetPuestos()
+        {
+            var dbSetPuestos = db.Puestos;
+            var puestos = from dp in dbSetPuestos
+                          where dp.Estado != "C"
+                          select dp;
+
+            return Json(new { data = puestos }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CreatePuesto()
+        {
+            return View("~/Views/RH/Puestos/Create.cshtml", new Puesto());
+        }
+
+        [HttpPost]
+        public ActionResult CreatePuesto(Puesto oPuesto)
+        {
+            var dbSetPuestos = db.Puestos;
+
+            var lPuestos = (from p in dbSetPuestos
+                            where p.IdPuesto == oPuesto.IdPuesto
+                            select p).ToList();
+
+            if (lPuestos.Count > 0)
+            {
+                return View("~/Views/RH/Puestos/Create.cshtml", oPuesto);
+            }
+            else
+            {
+                oPuesto.Estado = "A";
+                if (ModelState.IsValid)
+                {
+                    dbSetPuestos.Add(oPuesto);
+                    db.SaveChanges();
+                    return RedirectToRoute(new { controller = "RH", action = "Puestos" });
+                }
+            }
+
+            return View("~/Views/RH/Puestos/Create.cshtml", oPuesto);
+        }
+
+        [HttpGet]
+        public ActionResult EditPuesto(int Id)
+        {
+            var dbSetPuestos = db.Puestos;
+            var lPuestos = (from d in dbSetPuestos
+                            where d.IdPuesto == Id
+                            select d).ToList();
+            Puesto oPuesto;
+
+            if (lPuestos.Count > 0)
+            {
+                oPuesto = lPuestos[0];
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+
+            return View("~/Views/RH/Puestos/Edit.cshtml", oPuesto);
+        }
+
+        [HttpPost]
+        public ActionResult EditPuesto(Puesto oPuesto)
+        {
+            var dbSetDepartamentos = db.Departamentos;
+            if (ModelState.IsValid)
+            {
+                db.Entry(oPuesto).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToRoute(new { controller = "RH", action = "Puestos" });
+        }
+
+        public ActionResult DeletePuesto(int Id)
+        {
+            var dbSetPuestos = db.Puestos;
+            var lPuestos = (from d in dbSetPuestos
+                            where d.IdPuesto == Id
+                            select d).ToList();
+
+            Puesto oPuesto;
+
+            if (lPuestos.Count > 0)
+            {
+                oPuesto = lPuestos[0];
+
+                oPuesto.Estado = "C";
+                db.Entry(oPuesto).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+
+            return RedirectToRoute(new { controller = "RH", action = "Puestos" });
         }
 
         /*-----------

@@ -32,13 +32,14 @@ function createTableFromJSON(data, area, objeto) {
     var col = []; /*Arreglo para columnas*/
 
     for (var i = 0; i < objTabla.length; i++) {
-
-        objTabla[i].Acciones = '<a class="btn btn-info">Detalles</a> <a class="btn btn-warning" href="/' + area + '/Edit' + objeto + '/' + objTabla[i].IdDepartamento + '">Editar</a> <a class="btn btn-danger" href="/' + area + '/Delete' + objeto + '/' + objTabla[i].IdDepartamento + '">Eliminar</a>';
+        objTabla[i].Acciones = "";
 
         for (var key in objTabla[i]) { /*Key = Propiedad, se moverá en las propiedades del objeto JSON*/
             if (key != "Estado") {
                 if (col.indexOf(key) === -1) { /*Detras de la ultima columna/propiedad*/
                     col.push(key);
+                } if (key.startsWith("Id")) {
+                    objTabla[i].Acciones = '<a class="btn btn-info">Detalles</a> <a class="btn btn-warning" href="/' + area + '/Edit' + objeto + '/' + objTabla[i][col[0]] + '">Editar</a> <a class="btn btn-danger" href="/' + area + '/Delete' + objeto + '/' + i + '">Eliminar</a>';
                 }
             }
         }
@@ -61,6 +62,8 @@ function createTableFromJSON(data, area, objeto) {
         th.innerHTML = col[i];
         th.id = i;
         th.addEventListener('click', function () { ordenarTabla(tablaDinamica, this) }, false);
+        th.style.textDecoration = "underline";
+        th.style.cursor = "pointer";
         tr.appendChild(th);
     }
 
@@ -84,32 +87,40 @@ function createTableFromJSON(data, area, objeto) {
     var divTabla = document.getElementById('divTabla');
     divTabla.innerHTML = "";
     divTabla.appendChild(tablaDinamica);
-    divTabla.classList.add('table');
-    divTabla.classList.add('table-bordered');
 }
 
 /*----------------------------
  * Funcion para ordenar tabla
  *----------------------------*/
 function ordenarTabla(tabla, n) {
-    var table, rows, switching, x, y, i, shouldswitch, direction, switchcount = 0, th;
+    var table, rows, switching, elementoActual, elementoSiguiente, i, shouldswitch, direction, switchcount = 0, th;
+
+    /*-----------------------------
+     * Columna que se ha clickeado
+     *-----------------------------*/
     th = n.id;
 
     var table = tabla;
+
     /*----------------
      * Activar cambio
      *----------------*/
     switching = true;
 
+    /*-------------------------------------
+     * Ordenamiento ascendente por defecto
+     *-------------------------------------*/
     direction = "asc";
 
+
+    /*switching == interruptor para habilitar el sorteo*/
     while (switching) {
         switching = false;
 
         rows = table.rows;
 
         /*---------------------------------------------
-         * Primera fila contiene el header de la tabla
+         * Primera fila contiene el header de la tabla, se omite
          *---------------------------------------------*/
         for (i = 1; i < (rows.length - 1); i++) {
             shouldswitch = false;
@@ -117,26 +128,32 @@ function ordenarTabla(tabla, n) {
             /*-------------------------------------------------
              * Obtener elemento para comparar con el siguiente
              *-------------------------------------------------*/
-            x = rows[i].getElementsByTagName("td")[th];
-            y = rows[i + 1].getElementsByTagName("td")[th];
+            elementoActual = rows[i].getElementsByTagName("td")[th];
+            elementoSiguiente = rows[i + 1].getElementsByTagName("td")[th];
 
-            if ((x !== undefined && y !== undefined)) {
+            /*----------------------------
+             * Prevenir que sea undefined
+             *----------------------------*/
+            if ((elementoActual !== undefined && elementoSiguiente !== undefined)) {
+
                 /*---------------------------------
                  * Evalua la dirección del sorting
                  *---------------------------------*/
                 if (direction == "asc") {
+
                     /*----------------------------------------------------------
                      * Si el valor actual es mayor al siguiente, deberá sortear
                      *----------------------------------------------------------*/
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    if (elementoActual.innerHTML.toLowerCase() > elementoSiguiente.innerHTML.toLowerCase()) {
                         shouldswitch = true;
                         break;
                     }
                 } else if (direction == "desc") {
+
                     /*----------------------------------------------------------
                      * Si el valor actual es menor al siguiente, deberá sortear
                      *----------------------------------------------------------*/
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    if (elementoActual.innerHTML.toLowerCase() < elementoSiguiente.innerHTML.toLowerCase()) {
                         shouldswitch = true;
                         break;
                     }
