@@ -132,6 +132,15 @@ namespace BriefSys.Controllers.RH
             return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
         }
 
+        public IEnumerable<SelectListItem> listaDepartamentos()
+        {
+            return db.Departamentos.Select(d => new SelectListItem()
+            {
+                Text = d.Descripcion,
+                Value = d.IdDepartamento.ToString()
+            });
+        }
+
         /*---------
          * Puestos
         -----------*/
@@ -152,15 +161,31 @@ namespace BriefSys.Controllers.RH
             return Json(new { data = puestos }, JsonRequestBehavior.AllowGet);
         }
 
+        public IEnumerable<SelectListItem> listaPuestos()
+        {
+            return db.Puestos.Select(p => new SelectListItem()
+            {
+                Text = p.Descripcion,
+                Value = p.IdPuesto.ToString()
+            });
+        }
+
         [HttpGet]
         public ActionResult CreatePuesto()
         {
-            return View("~/Views/RH/Puestos/Create.cshtml", new Puesto());
+            PuestoVM puestoVM = new PuestoVM()
+            {
+                Puesto = new Puesto(),
+                ListaDepartamentos = listaDepartamentos()
+            };
+
+            return View("~/Views/RH/Puestos/Create.cshtml", puestoVM);
         }
 
         [HttpPost]
-        public ActionResult CreatePuesto(Puesto oPuesto)
+        public ActionResult CreatePuesto(PuestoVM oPuestoVM)
         {
+            Puesto oPuesto = oPuestoVM.Puesto;
             var dbSetPuestos = db.Puestos;
 
             var lPuestos = (from p in dbSetPuestos
@@ -169,7 +194,7 @@ namespace BriefSys.Controllers.RH
 
             if (lPuestos.Count > 0)
             {
-                return View("~/Views/RH/Puestos/Create.cshtml", oPuesto);
+                return View("~/Views/RH/Puestos/Create.cshtml", oPuestoVM);
             }
             else
             {
@@ -182,7 +207,7 @@ namespace BriefSys.Controllers.RH
                 }
             }
 
-            return View("~/Views/RH/Puestos/Create.cshtml", oPuesto);
+            return View("~/Views/RH/Puestos/Create.cshtml", oPuestoVM);
         }
 
         [HttpGet]
@@ -270,7 +295,15 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult CreateEmpleado()
         {
-            return View("~/Views/RH/Empleados/Create.cshtml", new EmpleadoVM());
+            EmpleadoVM oEmpleadoVM = new EmpleadoVM()
+            {
+                Empleado = new Empleado(),
+                Empleado_Detalle = new Empleado_Detalle(),
+                ListaDepartamentos = listaDepartamentos(),
+                ListaPuestos = listaPuestos()
+            };
+
+            return View("~/Views/RH/Empleados/Create.cshtml", oEmpleadoVM);
         }
 
         [HttpPost]

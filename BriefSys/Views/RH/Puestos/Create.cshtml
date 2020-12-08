@@ -1,4 +1,4 @@
-﻿@model BriefSys.Models.RH.Puestos.Puesto
+﻿@model BriefSys.Models.RH.Puestos.PuestoVM
 
 @{
     ViewBag.Title = "Crear Puesto";
@@ -10,24 +10,23 @@
 
     <form action="CreatePuesto" method="post">
         <div class="form-group">
-            @Html.LabelFor(p => p.IdPuesto)
-            @Html.TextBoxFor(p => p.IdPuesto, new { @class = "form-control", placeholder = "IdPuesto" })
-            @Html.ValidationMessageFor(p => p.IdDepartamento, null, new { @class = "text-danger" })
+            @Html.LabelFor(p => p.Puesto.IdPuesto)
+            @Html.TextBoxFor(p => p.Puesto.IdPuesto, new { @class = "form-control", placeholder = "IdPuesto" })
+            @Html.ValidationMessageFor(p => p.Puesto.IdPuesto, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(p => p.IdDepartamento)
-            @Html.TextBoxFor(p => p.IdDepartamento, new { @class = "form-control", placeholder = "IdDepartamento" })
-            @Html.ValidationMessageFor(p => p.IdDepartamento, null, new { @class = "text-danger" })
+            @Html.DropDownListFor(p => p.Puesto.IdDepartamento, Model.ListaDepartamentos,
+           "~Selecciona departamento~", new { @class = "form-control" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(p => p.Clasificacion)
-            @Html.TextBoxFor(p => p.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
-            @Html.ValidationMessageFor(p => p.Clasificacion, null, new { @class = "text-danger" })
+            @Html.LabelFor(p => p.Puesto.Clasificacion)
+            @Html.TextBoxFor(p => p.Puesto.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
+            @Html.ValidationMessageFor(p => p.Puesto.Clasificacion, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(p => p.Descripcion)
-            @Html.TextBoxFor(p => p.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
-            @Html.ValidationMessageFor(p => p.Descripcion, null, new { @class = "text-danger" })
+            @Html.LabelFor(p => p.Puesto.Descripcion)
+            @Html.TextBoxFor(p => p.Puesto.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
+            @Html.ValidationMessageFor(p => p.Puesto.Descripcion, null, new { @class = "text-danger" })
         </div>
         <a class="btn btn-primary" href="@Url.Action("Puestos","RH")">Regresar</a>
         <input type="submit" value="Añadir puesto" class="btn btn-success" />

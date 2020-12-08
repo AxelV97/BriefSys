@@ -145,6 +145,7 @@
     <Compile Include="Models\Menu\MenuVM.cs" />
     <Compile Include="Models\RH\Departamentos\Departamento.cs" />
     <Compile Include="Models\RH\Puestos\Puesto.cs" />
+    <Compile Include="Models\RH\Puestos\PuestoVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
