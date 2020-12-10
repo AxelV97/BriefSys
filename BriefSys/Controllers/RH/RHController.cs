@@ -8,6 +8,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace BriefSys.Controllers.RH
 {
@@ -154,9 +156,18 @@ namespace BriefSys.Controllers.RH
         public ActionResult GetPuestos()
         {
             var dbSetPuestos = db.Puestos;
-            var puestos = from dp in dbSetPuestos
-                          where dp.Estado != "C"
-                          select dp;
+            var dbSetDepartamentos = db.Departamentos;
+
+            var puestos = from pue in dbSetPuestos
+                          join dep in dbSetDepartamentos on pue.IdDepartamento equals dep.IdDepartamento
+                          where pue.Estado != "C"
+                          select new
+                          {
+                              Departamento = dep.Descripcion,
+                              IdPuesto = pue.IdPuesto,
+                              IdClasificacion = pue.Clasificacion,
+                              Descripcion = pue.Descripcion
+                          };
 
             return Json(new { data = puestos }, JsonRequestBehavior.AllowGet);
         }
@@ -283,13 +294,28 @@ namespace BriefSys.Controllers.RH
         {
             var dbSetEmpleados = db.Empleados;
             var dbSetEmpleados_Detalle = db.EmpleadosDetalle;
+            var dbSetDepartamentos = db.Departamentos;
+            var dbSetPuestos = db.Puestos;
 
             var empleados = from e in dbSetEmpleados
                             join ed in dbSetEmpleados_Detalle on e.IdEmp equals ed.IdEmp
-                            where ed.Estado != "C"
-                            select e;
-
-            return Json(new { data = empleados }, JsonRequestBehavior.AllowGet);
+                            join dep in dbSetDepartamentos on e.IdDepartamento equals dep.IdDepartamento
+                            join pue in dbSetPuestos on dep.IdDepartamento equals pue.IdDepartamento
+                            where ed.Estado != "C" && dep.Estado != "C" && pue.Estado != "C"
+                            select new
+                            {
+                                IdEmp = e.IdEmp,
+                                Departamento = dep.Descripcion,
+                                Puesto = pue.Descripcion,
+                                Ingreso = e.Ingreso,
+                                Nombre = ed.Nombre,
+                                Apellido_Paterno = ed.ApellidoP,
+                                Apellido_Materno = ed.ApellidoM,
+                                FechaNacimiento = ed.FechaNac,
+                                Telefono = ed.Telefono
+                            };
+            string json = JsonConvert.SerializeObject(new { data = empleados }, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd" });
+            return Content(json, "application/json");
         }
 
         [HttpGet]

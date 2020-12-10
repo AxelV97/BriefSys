@@ -19,6 +19,7 @@ function obtenerDatos(tipo, area, objeto, pluralizeUrl) {
 }
 
 function callback(response, area, objeto) {
+    console.log(response);
     var data = JSON.parse(response);
     createTableFromJSON(data, area, objeto);
 }
@@ -59,11 +60,16 @@ function createTableFromJSON(data, area, objeto) {
 
     for (var i = 0; i < col.length; i++) {
         var th = document.createElement("th");
-        th.innerHTML = col[i];
-        th.id = i;
-        th.addEventListener('click', function () { ordenarTabla(tablaDinamica, this) }, false);
-        th.style.textDecoration = "underline";
-        th.style.cursor = "pointer";
+        var span = document.createElement("span");
+        span.innerHTML = col[i];
+        span.style.textDecoration = "underline";
+        span.style.cursor = "pointer";
+        span.id = i;
+        //span.onclick = ordenarTabla(tablaDinamica, this);
+        span.addEventListener('click', function () { ordenarTabla(tablaDinamica, this) }, false);
+        //th.id = i;
+        //th.addEventListener('click', function () { ordenarTabla(tablaDinamica, this) }, false);
+        th.appendChild(span);
         tr.appendChild(th);
     }
 
