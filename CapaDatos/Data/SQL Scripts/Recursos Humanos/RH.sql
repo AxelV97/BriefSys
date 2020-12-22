@@ -1,8 +1,8 @@
-﻿USE MASTER;
+﻿--USE MASTER;
 
-DROP DATABASE BriefSys;
+--DROP DATABASE BriefSys;
 
-CREATE DATABASE BriefSys;
+--CREATE DATABASE BriefSys;
 
 USE BriefSys;
 

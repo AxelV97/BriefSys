@@ -41,6 +41,7 @@ namespace BriefSys.Controllers.Utilities
 
             items.Add(new MenuItem { Category = "TI", Link = "/TI/ServiceDesk", LinkName = "Service Desk" });
             items.Add(new MenuItem { Category = "TI", Link = "/TI/AdministrarCuentas", LinkName = "Adninistración de Cuentas" });
+            items.Add(new MenuItem { Category = "TI", Link = "/TI/Auditorias", LinkName = "Auditorias" });
 
             MenuVM menuVM = new MenuVM();
             menuVM.Categories = categorias;

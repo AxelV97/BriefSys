@@ -136,6 +136,9 @@
     <Compile Include="Models\Acceso\Acceso.cs" />
     <Compile Include="Models\Acceso\AccesoContext.cs" />
     <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
+    <Compile Include="Models\CMP\Context\OrdenController.cs" />
+    <Compile Include="Models\CMP\Ordenes\Orden.cs" />
+    <Compile Include="Models\CMP\Ordenes\Orden_Detalle.cs" />
     <Compile Include="Models\RH\Empleados\Empleado.cs" />
     <Compile Include="Models\RH\Empleados\EmpleadoVM.cs" />
     <Compile Include="Models\RH\Empleados\Empleado_Detalle.cs" />
@@ -305,7 +308,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\TI\" />
     <Folder Include="Views\Imagen\" />
+    <Folder Include="Views\Orden\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
