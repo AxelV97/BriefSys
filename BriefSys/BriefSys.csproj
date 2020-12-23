@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Acceso\AccesoController.cs" />
+    <Compile Include="Controllers\CMP\CMPController.cs" />
     <Compile Include="Controllers\RH\RHController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\Utilities\SharedController.cs" />
@@ -136,7 +137,7 @@
     <Compile Include="Models\Acceso\Acceso.cs" />
     <Compile Include="Models\Acceso\AccesoContext.cs" />
     <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
-    <Compile Include="Models\CMP\Context\OrdenController.cs" />
+    <Compile Include="Models\CMP\Context\CMPContext.cs" />
     <Compile Include="Models\CMP\Ordenes\Orden.cs" />
     <Compile Include="Models\CMP\Ordenes\Orden_Detalle.cs" />
     <Compile Include="Models\RH\Empleados\Empleado.cs" />
