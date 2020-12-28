@@ -118,7 +118,7 @@ from dbo.Orden oc
 inner join dbo.Orden_Detalle od on oc.IdOrden = od.IdOrden
 where oc.IdOrden = 4
 
-/*DROP TABLE Orden_Calendario*/
+--DROP TABLE Orden_Calendario
 CREATE TABLE Orden_Calendario(
 IdOrden int,
 Partida int,
@@ -136,3 +136,6 @@ FechaSubida datetime,
 IdQuien int,
 Estado char(1)
 );
+
+select *
+from dbo.ca

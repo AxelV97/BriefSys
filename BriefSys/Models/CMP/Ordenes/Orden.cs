@@ -15,8 +15,13 @@ namespace BriefSys.Models.CMP.Ordenes
         public int IdRequisicion { get; set; }
         public string IdProveedor { get; set; }
         public string Proveedor { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime FechaElaboracion { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime FechaEntrega { get; set; }
+
         public string Moneda { get; set; }
         public int IdElaboro { get; set; }
         public string Estado { get; set; }

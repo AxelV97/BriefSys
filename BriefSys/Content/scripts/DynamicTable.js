@@ -3,7 +3,11 @@ function obtenerDatos(tipo, area, objeto, pluralizeUrl) {
     var xhr = new XMLHttpRequest();
     var url = "";
     if (pluralizeUrl) {
-        url = "/" + area + "/Get" + objeto + "s/";
+        if (objeto.slice(-1) == "n") {
+            url = "/" + area + "/Get" + objeto + "es/";
+        } else {
+            url = "/" + area + "/Get" + objeto + "s/";
+        }
     } else {
         url = "/" + area + "/Get" + objeto + "/";
     }
@@ -19,7 +23,7 @@ function obtenerDatos(tipo, area, objeto, pluralizeUrl) {
 }
 
 function callback(response, area, objeto) {
-    console.log(response);
+    //console.log(response);
     var data = JSON.parse(response);
     createTableFromJSON(data, area, objeto);
 }
@@ -36,11 +40,17 @@ function createTableFromJSON(data, area, objeto) {
         objTabla[i].Acciones = "";
 
         for (var key in objTabla[i]) { /*Key = Propiedad, se moverá en las propiedades del objeto JSON*/
+            var id = -1;
             if (key != "Estado") {
                 if (col.indexOf(key) === -1) { /*Detras de la ultima columna/propiedad*/
                     col.push(key);
                 } if (key.startsWith("Id")) {
-                    objTabla[i].Acciones = '<a class="btn btn-info">Detalles</a> <a class="btn btn-warning" href="/' + area + '/Edit' + objeto + '/' + objTabla[i][col[0]] + '">Editar</a> <a class="btn btn-danger" href="/' + area + '/Delete' + objeto + '/' + i + '">Eliminar</a>';
+                    //console.log(key);
+                    console.log(objTabla[i][key]);
+                    if (!isNaN(objTabla[i][key])) {
+                        id = objTabla[i][key];
+                    }
+                    objTabla[i].Acciones = '<a class="btn btn-info">Detalles</a> <a class="btn btn-warning" href="/' + area + '/Edit' + objeto + '/' + id + '">Editar</a> <a class="btn btn-danger" href="/' + area + '/Delete' + objeto + '/' + id + '">Eliminar</a>';
                 }
             }
         }

@@ -161,7 +161,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\SideBar.css" />
     <Content Include="Content\scripts\DynamicTable.js" />
-    <Content Include="Content\scripts\SemiDynamicTable.js" />
     <Content Include="Content\scripts\SidebarMenu.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

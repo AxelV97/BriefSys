@@ -165,7 +165,7 @@ namespace BriefSys.Controllers.RH
                           {
                               Departamento = dep.Descripcion,
                               IdPuesto = pue.IdPuesto,
-                              IdClasificacion = pue.Clasificacion,
+                              Clasificación = pue.Clasificacion,
                               Descripcion = pue.Descripcion
                           };
 

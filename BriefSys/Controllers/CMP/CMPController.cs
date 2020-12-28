@@ -1,4 +1,6 @@
 ﻿using BriefSys.Models.CMP.Context;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace BriefSys.Controllers.CMP
     public class CMPController : Controller
     {
 
-        public CMPContext _db =  new CMPContext();
+        public CMPContext _db = new CMPContext();
 
         [HttpGet]
         public ActionResult Ordenes()
@@ -22,11 +24,12 @@ namespace BriefSys.Controllers.CMP
         public ActionResult GetOrdenes()
         {
             var dbSetOrdenes = _db.Ordenes;
-            var ordenes = from dp in dbSetOrdenes
-                          where dp.Estado != "C"
-                          select dp;
+            var ordenes = from o in dbSetOrdenes
+                          where o.Estado != "C"
+                          select o;
 
-            return Json(new { data = ordenes }, JsonRequestBehavior.AllowGet);
+            string json = JsonConvert.SerializeObject(new { data = ordenes }, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd" });
+            return Content(json, "application/json");
         }
     }
 }
