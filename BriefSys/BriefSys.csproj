@@ -161,6 +161,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\SideBar.css" />
     <Content Include="Content\scripts\DynamicTable.js" />
+    <Content Include="Content\scripts\SemiDynamicTable.js" />
     <Content Include="Content\scripts\SidebarMenu.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -306,12 +307,12 @@
     <Content Include="Views\RH\Puestos\Create.cshtml" />
     <Content Include="Views\RH\Empleados\Edit.cshtml" />
     <Content Include="Views\RH\Empleados\Create.cshtml" />
+    <Content Include="Views\CMP\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\TI\" />
     <Folder Include="Views\Imagen\" />
-    <Folder Include="Views\Orden\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

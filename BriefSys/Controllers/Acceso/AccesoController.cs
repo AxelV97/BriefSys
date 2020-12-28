@@ -13,7 +13,7 @@ namespace BriefSys.Controllers.Acceso
 {
     public class AccesoController : Controller
     {
-        private AccesoContext db = new AccesoContext();
+        private AccesoContext _db = new AccesoContext();
         private CSD_MetodosGenericos oGenerico = new CSD_MetodosGenericos();
 
         public ActionResult Register()
@@ -29,7 +29,7 @@ namespace BriefSys.Controllers.Acceso
 
         public IEnumerable<SelectListItem> listaEmpleados()
         {
-            return db.EmpleadosDetalle.Select(i => new SelectListItem()
+            return _db.EmpleadosDetalle.Select(i => new SelectListItem()
             {
                 Text = i.Nombre + " " + i.ApellidoP + " " + i.ApellidoM,
                 Value = i.IdEmp.ToString()
@@ -41,7 +41,7 @@ namespace BriefSys.Controllers.Acceso
         {
             Acceso_Usuario oUser = oUsuarioVM.Acceso_Usuario;
 
-            var dbSetUsuarios = db.Acceso_Usuarios;
+            var dbSetUsuarios = _db.Acceso_Usuarios;
 
             var usuarioExistente = from a in dbSetUsuarios
                                    where a.UsuarioId == oUser.UsuarioId
@@ -65,9 +65,9 @@ namespace BriefSys.Controllers.Acceso
 
             if (ModelState.IsValid)
             {
-                var dbSetEmpleados = db.EmpleadosDetalle;
+                var dbSetEmpleados = _db.EmpleadosDetalle;
 
-                var empleadoExistente = from emp in db.EmpleadosDetalle
+                var empleadoExistente = from emp in _db.EmpleadosDetalle
                                         where emp.IdEmp == oUser.IdEmp
                                         select emp;
 
@@ -76,8 +76,8 @@ namespace BriefSys.Controllers.Acceso
                 oEmpleado.FotografiaDigital = imagenBytes;
 
                 dbSetUsuarios.Add(oUsuario);
-                db.Entry(oEmpleado).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(oEmpleado).State = EntityState.Modified;
+                _db.SaveChanges();
 
                 return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
@@ -108,8 +108,8 @@ namespace BriefSys.Controllers.Acceso
         [HttpPost]
         public ActionResult Login(Acceso_Usuario oUsuario)
         {
-            var dbSetUsuarios = db.Acceso_Usuarios;
-            var dbSetEmpleados = db.EmpleadosDetalle;
+            var dbSetUsuarios = _db.Acceso_Usuarios;
+            var dbSetEmpleados = _db.EmpleadosDetalle;
 
             var usuarioExistente = from a in dbSetUsuarios
                                    where a.UsuarioId == oUsuario.UsuarioId

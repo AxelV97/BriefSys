@@ -9,11 +9,11 @@ namespace BriefSys.Controllers.Utilities
 {
     public class ImagenController : Controller
     {
-        private RHContext db = new RHContext();
+        private RHContext _db = new RHContext();
         // GET: Imagen
         public ActionResult Show(int IdEmp)
         {
-            var dbSetEmpleados = db.EmpleadosDetalle;
+            var dbSetEmpleados = _db.EmpleadosDetalle;
 
             var empleadoExistente = from emp in dbSetEmpleados
                                     where emp.IdEmp == IdEmp

@@ -15,7 +15,7 @@ namespace BriefSys.Controllers.RH
 {
     public class RHController : Controller
     {
-        private RHContext db = new RHContext();
+        private RHContext _db = new RHContext();
 
         public ActionResult Index()
         {
@@ -34,7 +34,7 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult GetDepartamentos()
         {
-            var dbSetDepartamentos = db.Departamentos;
+            var dbSetDepartamentos = _db.Departamentos;
             var departamentos = from dp in dbSetDepartamentos
                                 where dp.Estado != "C"
                                 select dp;
@@ -51,7 +51,7 @@ namespace BriefSys.Controllers.RH
         [HttpPost]
         public ActionResult CreateDepartamento(Departamento oDepartamento)
         {
-            var dbSetDepartamentos = db.Departamentos;
+            var dbSetDepartamentos = _db.Departamentos;
 
             var lDepartamentos = (from a in dbSetDepartamentos
                                   where a.IdDepartamento == oDepartamento.IdDepartamento
@@ -67,7 +67,7 @@ namespace BriefSys.Controllers.RH
                 if (ModelState.IsValid)
                 {
                     dbSetDepartamentos.Add(oDepartamento);
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
                 }
             }
@@ -78,7 +78,7 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult EditDepartamento(int Id)
         {
-            var dbSetDepartamentos = db.Departamentos;
+            var dbSetDepartamentos = _db.Departamentos;
             var lDepartamentos = (from d in dbSetDepartamentos
                                   where d.IdDepartamento == Id
                                   select d).ToList();
@@ -99,11 +99,11 @@ namespace BriefSys.Controllers.RH
         [HttpPost]
         public ActionResult EditDepartamento(Departamento oDepartamento)
         {
-            var dbSetDepartamentos = db.Departamentos;
+            var dbSetDepartamentos = _db.Departamentos;
             if (ModelState.IsValid)
             {
-                db.Entry(oDepartamento).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(oDepartamento).State = EntityState.Modified;
+                _db.SaveChanges();
             }
 
             return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
@@ -111,7 +111,7 @@ namespace BriefSys.Controllers.RH
 
         public ActionResult DeleteDepartamento(int Id)
         {
-            var dbSetDepartamentos = db.Departamentos;
+            var dbSetDepartamentos = _db.Departamentos;
             var lDepartamentos = (from d in dbSetDepartamentos
                                   where d.IdDepartamento == Id
                                   select d).ToList();
@@ -123,8 +123,8 @@ namespace BriefSys.Controllers.RH
                 oDepartamento = lDepartamentos[0];
 
                 oDepartamento.Estado = "C";
-                db.Entry(oDepartamento).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(oDepartamento).State = EntityState.Modified;
+                _db.SaveChanges();
             }
             else
             {
@@ -136,7 +136,7 @@ namespace BriefSys.Controllers.RH
 
         public IEnumerable<SelectListItem> listaDepartamentos()
         {
-            return db.Departamentos.Select(d => new SelectListItem()
+            return _db.Departamentos.Select(d => new SelectListItem()
             {
                 Text = d.Descripcion,
                 Value = d.IdDepartamento.ToString()
@@ -155,8 +155,8 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult GetPuestos()
         {
-            var dbSetPuestos = db.Puestos;
-            var dbSetDepartamentos = db.Departamentos;
+            var dbSetPuestos = _db.Puestos;
+            var dbSetDepartamentos = _db.Departamentos;
 
             var puestos = from pue in dbSetPuestos
                           join dep in dbSetDepartamentos on pue.IdDepartamento equals dep.IdDepartamento
@@ -174,7 +174,7 @@ namespace BriefSys.Controllers.RH
 
         public IEnumerable<SelectListItem> listaPuestos()
         {
-            return db.Puestos.Select(p => new SelectListItem()
+            return _db.Puestos.Select(p => new SelectListItem()
             {
                 Text = p.Descripcion,
                 Value = p.IdPuesto.ToString()
@@ -197,7 +197,7 @@ namespace BriefSys.Controllers.RH
         public ActionResult CreatePuesto(PuestoVM oPuestoVM)
         {
             Puesto oPuesto = oPuestoVM.Puesto;
-            var dbSetPuestos = db.Puestos;
+            var dbSetPuestos = _db.Puestos;
 
             var lPuestos = (from p in dbSetPuestos
                             where p.IdPuesto == oPuesto.IdPuesto
@@ -213,7 +213,7 @@ namespace BriefSys.Controllers.RH
                 if (ModelState.IsValid)
                 {
                     dbSetPuestos.Add(oPuesto);
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     return RedirectToRoute(new { controller = "RH", action = "Puestos" });
                 }
             }
@@ -224,7 +224,7 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult EditPuesto(int Id)
         {
-            var dbSetPuestos = db.Puestos;
+            var dbSetPuestos = _db.Puestos;
             var lPuestos = (from d in dbSetPuestos
                             where d.IdPuesto == Id
                             select d).ToList();
@@ -245,11 +245,11 @@ namespace BriefSys.Controllers.RH
         [HttpPost]
         public ActionResult EditPuesto(Puesto oPuesto)
         {
-            var dbSetDepartamentos = db.Departamentos;
+            var dbSetDepartamentos = _db.Departamentos;
             if (ModelState.IsValid)
             {
-                db.Entry(oPuesto).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(oPuesto).State = EntityState.Modified;
+                _db.SaveChanges();
             }
 
             return RedirectToRoute(new { controller = "RH", action = "Puestos" });
@@ -257,7 +257,7 @@ namespace BriefSys.Controllers.RH
 
         public ActionResult DeletePuesto(int Id)
         {
-            var dbSetPuestos = db.Puestos;
+            var dbSetPuestos = _db.Puestos;
             var lPuestos = (from d in dbSetPuestos
                             where d.IdPuesto == Id
                             select d).ToList();
@@ -269,8 +269,8 @@ namespace BriefSys.Controllers.RH
                 oPuesto = lPuestos[0];
 
                 oPuesto.Estado = "C";
-                db.Entry(oPuesto).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(oPuesto).State = EntityState.Modified;
+                _db.SaveChanges();
             }
             else
             {
@@ -292,10 +292,10 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult GetEmpleados()
         {
-            var dbSetEmpleados = db.Empleados;
-            var dbSetEmpleados_Detalle = db.EmpleadosDetalle;
-            var dbSetDepartamentos = db.Departamentos;
-            var dbSetPuestos = db.Puestos;
+            var dbSetEmpleados = _db.Empleados;
+            var dbSetEmpleados_Detalle = _db.EmpleadosDetalle;
+            var dbSetDepartamentos = _db.Departamentos;
+            var dbSetPuestos = _db.Puestos;
 
             var empleados = from e in dbSetEmpleados
                             join ed in dbSetEmpleados_Detalle on e.IdEmp equals ed.IdEmp
@@ -335,13 +335,13 @@ namespace BriefSys.Controllers.RH
         [HttpPost]
         public ActionResult CreateEmpleado(EmpleadoVM oEmpleadoVM)
         {
-            var dbSetEmpleados = db.Empleados;
+            var dbSetEmpleados = _db.Empleados;
 
             var lEmpleados = (from e in dbSetEmpleados
                               where e.IdEmp == oEmpleadoVM.Empleado.IdEmp
                               select e).ToList();
 
-            var dbSetEmpleadosDet = db.EmpleadosDetalle;
+            var dbSetEmpleadosDet = _db.EmpleadosDetalle;
 
             var lEmpleadosDet = (from ed in dbSetEmpleadosDet
                                  where ed.IdEmp == oEmpleadoVM.Empleado.IdEmp
@@ -362,7 +362,7 @@ namespace BriefSys.Controllers.RH
                 {
                     dbSetEmpleados.Add(oEmpleado);
                     dbSetEmpleadosDet.Add(oEmpleadoDet);
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     return RedirectToRoute(new { controller = "RH", action = "Empleados" });
                 }
             }

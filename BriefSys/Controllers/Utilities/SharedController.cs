@@ -35,7 +35,7 @@ namespace BriefSys.Controllers.Utilities
 
             items.Add(new MenuItem { Category = "CXC", Link = "/CXC/Arqueos", LinkName = "Arqueos" });
 
-            items.Add(new MenuItem { Category = "CMP", Link = "/CMP/OrdenesCompra", LinkName = "Ordenes de Compra" });
+            items.Add(new MenuItem { Category = "CMP", Link = "/CMP/Ordenes", LinkName = "Ordenes de Compra" });
             items.Add(new MenuItem { Category = "CMP", Link = "/CMP/CalendarioCompras", LinkName = "Calendario de Compras" });
             items.Add(new MenuItem { Category = "CMP", Link = "/CMP/Proveedores", LinkName = "Proveedores" });
 
