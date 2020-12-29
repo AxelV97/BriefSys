@@ -1,3 +1,5 @@
+USE BriefSys;
+
 CREATE TABLE Catalogo_General(
 IdProducto varchar(20),
 Producto varchar(max),
@@ -113,11 +115,6 @@ insert into Orden_Detalle(IdOrden,Partida,IdProducto,Producto,PartidaRequisicion
 insert into Orden_Detalle(IdOrden,Partida,IdProducto,Producto,PartidaRequisicion,Cantidad,UnidadInterna,UnidadExterna,Estado,Atendido) 
 						values(5,2,'EN015','Envase de 2L',0,20,'pieza','paquete','N',0);
 
-select *
-from dbo.Orden oc
-inner join dbo.Orden_Detalle od on oc.IdOrden = od.IdOrden
-where oc.IdOrden = 4
-
 --DROP TABLE Orden_Calendario
 CREATE TABLE Orden_Calendario(
 IdOrden int,
@@ -138,4 +135,7 @@ Estado char(1)
 );
 
 select *
-from dbo.ca
+from dbo.Orden
+
+select *
+from dbo.Orden_Detalle

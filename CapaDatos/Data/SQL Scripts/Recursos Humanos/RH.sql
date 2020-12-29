@@ -1,10 +1,4 @@
-﻿--USE MASTER;
-
---DROP DATABASE BriefSys;
-
---CREATE DATABASE BriefSys;
-
-USE BriefSys;
+﻿USE BriefSys;
 
 --DROP TABLE Departamento
 CREATE TABLE Departamento(

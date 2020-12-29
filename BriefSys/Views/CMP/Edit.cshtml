@@ -1,0 +1,69 @@
+﻿@model BriefSys.Models.CMP.Ordenes.OrdenVM
+
+@{
+    ViewBag.Title = "Editar Orden";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>@ViewBag.Title</h2>
+    <form action="EditOrden" method="post">
+        <div class="form-group">
+            @Html.LabelFor(o => o.Orden.IdProveedor)
+            @Html.TextBoxFor(o => o.Orden.IdProveedor, new { @class = "form-control", placeholder = "IdProveedor" })
+            @Html.ValidationMessageFor(o => o.Orden.IdProveedor, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(o => o.Orden.Proveedor)
+            @Html.TextBoxFor(o => o.Orden.Proveedor, new { @class = "form-control", placeholder = "Proveedor" })
+            @Html.ValidationMessageFor(o => o.Orden.Proveedor, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(o => o.Orden.Moneda)
+            @Html.TextBoxFor(o => o.Orden.Moneda, new { @class = "form-control", placeholder = "Moneda" })
+            @Html.ValidationMessageFor(o => o.Orden.Moneda, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(o => o.Orden.FechaEntrega)
+            @Html.TextBoxFor(o => o.Orden.FechaEntrega, new { @class = "form-control", type = "datetime-local" })
+            @Html.ValidationMessageFor(o => o.Orden.FechaEntrega, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(o => o.Orden.FechaElaboracion)
+            @Html.TextBoxFor(o => o.Orden.FechaElaboracion, new { @Value = DateTime.Now.ToString("yyyy-MM-ddTHH:mm"), @class = "form-control", type = "datetime-local", @readonly = true })
+            @Html.ValidationMessageFor(o => o.Orden.FechaElaboracion, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(od => od.Orden_Detalle.Partida)
+            @Html.TextBoxFor(od => od.Orden_Detalle.Partida, new { @class = "form-control", placeholder = "Partida" })
+            @Html.ValidationMessageFor(od => od.Orden_Detalle.Partida, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(od => od.Orden_Detalle.IdProducto)
+            @Html.TextBoxFor(od => od.Orden_Detalle.IdProducto, new { @class = "form-control", placeholder = "IdProducto" })
+            @Html.ValidationMessageFor(od => od.Orden_Detalle.IdProducto, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(od => od.Orden_Detalle.Producto)
+            @Html.TextBoxFor(od => od.Orden_Detalle.Producto, new { @class = "form-control", placeholder = "Producto" })
+            @Html.ValidationMessageFor(od => od.Orden_Detalle.Producto, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(od => od.Orden_Detalle.Cantidad)
+            @Html.TextBoxFor(od => od.Orden_Detalle.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })
+            @Html.ValidationMessageFor(od => od.Orden_Detalle.Cantidad, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(od => od.Orden_Detalle.UnidadInterna)
+            @Html.TextBoxFor(od => od.Orden_Detalle.UnidadInterna, new { @class = "form-control", placeholder = "Unidad Interna" })
+            @Html.ValidationMessageFor(od => od.Orden_Detalle.UnidadInterna, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(od => od.Orden_Detalle.UnidadExterna)
+            @Html.TextBoxFor(od => od.Orden_Detalle.UnidadExterna, new { @class = "form-control", placeholder = "Unidad Externa" })
+            @Html.ValidationMessageFor(od => od.Orden_Detalle.UnidadExterna, null, new { @class = "text-danger" })
+        </div>
+        <a class="btn btn-primary" href="@Url.Action("Ordenes","CMP")">Regresar</a>
+        <input type="submit" value="Añadir Orden" class="btn btn-success" />
+    </form>
+</div>

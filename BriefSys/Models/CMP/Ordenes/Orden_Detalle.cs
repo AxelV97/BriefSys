@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,7 @@ namespace BriefSys.Models.CMP.Ordenes
 
         public int IdOrden { get; set; }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CodigoPartida { get; set; }
         public int Partida { get; set; }
         public int PartidaRequisicion { get; set; }

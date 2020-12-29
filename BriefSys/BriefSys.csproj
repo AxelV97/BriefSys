@@ -139,6 +139,7 @@
     <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
     <Compile Include="Models\CMP\Context\CMPContext.cs" />
     <Compile Include="Models\CMP\Ordenes\Orden.cs" />
+    <Compile Include="Models\CMP\Ordenes\OrdenVM.cs" />
     <Compile Include="Models\CMP\Ordenes\Orden_Detalle.cs" />
     <Compile Include="Models\RH\Empleados\Empleado.cs" />
     <Compile Include="Models\RH\Empleados\EmpleadoVM.cs" />
@@ -307,6 +308,8 @@
     <Content Include="Views\RH\Empleados\Edit.cshtml" />
     <Content Include="Views\RH\Empleados\Create.cshtml" />
     <Content Include="Views\CMP\Index.cshtml" />
+    <Content Include="Views\CMP\Create.cshtml" />
+    <Content Include="Views\CMP\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
