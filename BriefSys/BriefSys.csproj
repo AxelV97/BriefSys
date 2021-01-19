@@ -130,6 +130,7 @@
     <Compile Include="Controllers\CMP\CMPController.cs" />
     <Compile Include="Controllers\RH\RHController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\TI\TIController.cs" />
     <Compile Include="Controllers\Utilities\SharedController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -151,6 +152,9 @@
     <Compile Include="Models\RH\Departamentos\Departamento.cs" />
     <Compile Include="Models\RH\Puestos\Puesto.cs" />
     <Compile Include="Models\RH\Puestos\PuestoVM.cs" />
+    <Compile Include="Models\TI\Context\TIContext.cs" />
+    <Compile Include="Models\TI\Tickets\ServiceDesk.cs" />
+    <Compile Include="Models\TI\Tickets\ServiceDesk_Detalle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -310,10 +314,12 @@
     <Content Include="Views\CMP\Index.cshtml" />
     <Content Include="Views\CMP\Create.cshtml" />
     <Content Include="Views\CMP\Edit.cshtml" />
+    <Content Include="Views\TI\ServiceDesk\Index.cshtml" />
+    <Content Include="Views\TI\ServiceDesk\Create.cshtml" />
+    <Content Include="Views\TI\ServiceDesk\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\TI\" />
     <Folder Include="Views\Imagen\" />
   </ItemGroup>
   <ItemGroup>
