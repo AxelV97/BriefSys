@@ -14,11 +14,7 @@ namespace BriefSys.Controllers.CMP
     public class CMPController : Controller
     {
 
-        private readonly ApplicationDbContext _db;
-        public CMPController(ApplicationDbContext db)
-        {
-            _db = db;
-        }
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         [HttpGet]
         public ActionResult Index()
@@ -168,7 +164,7 @@ namespace BriefSys.Controllers.CMP
                 return HttpNotFound();
             }
 
-            return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
+            return RedirectToRoute(new { controller = "CMP", action = "Ordenes" });
         }
 
         public IEnumerable<SelectListItem> listaOrdenes()

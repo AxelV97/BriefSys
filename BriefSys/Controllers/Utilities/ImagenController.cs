@@ -10,11 +10,8 @@ namespace BriefSys.Controllers.Utilities
 {
     public class ImagenController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public ImagenController(ApplicationDbContext db)
-        {
-            _db = db;
-        }
+
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
         // GET: Imagen
         public ActionResult Show(int IdEmp)
         {

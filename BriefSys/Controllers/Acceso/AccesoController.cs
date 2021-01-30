@@ -13,11 +13,8 @@ namespace BriefSys.Controllers.Acceso
 {
     public class AccesoController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        public AccesoController(ApplicationDbContext context)
-        {
-            _db = context;
-        }
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+
         private CSD_MetodosGenericos oGenerico = new CSD_MetodosGenericos();
 
         public ActionResult Register()

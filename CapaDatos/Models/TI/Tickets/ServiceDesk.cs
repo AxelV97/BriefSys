@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +9,8 @@ namespace DataLayer.Models
 {
     public class ServiceDesk
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdTicket { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }

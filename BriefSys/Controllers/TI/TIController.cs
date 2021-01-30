@@ -10,12 +10,7 @@ namespace BriefSys.Controllers.TI
 {
     public class TIController : Controller
     {
-        private readonly ApplicationDbContext _db;
-
-        public TIController(ApplicationDbContext db)
-        {
-            _db = db;
-        }
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         public ActionResult Index()
         {

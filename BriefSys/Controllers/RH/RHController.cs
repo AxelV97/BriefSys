@@ -13,12 +13,7 @@ namespace BriefSys.Controllers.RH
 {
     public class RHController : Controller
     {
-        private readonly ApplicationDbContext _db;
-
-        public RHController(ApplicationDbContext db)
-        {
-            _db = db;
-        }
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         public ActionResult Index()
         {
