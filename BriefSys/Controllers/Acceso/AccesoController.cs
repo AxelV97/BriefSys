@@ -7,6 +7,7 @@ using System.IO;
 using System.Data.Entity;
 using DataLayer.DataAccess;
 using DataLayer.Models;
+using DataLayer.BusinessLogic;
 
 namespace BriefSys.Controllers.Acceso
 {
@@ -17,8 +18,6 @@ namespace BriefSys.Controllers.Acceso
         {
             _db = context;
         }
-
-
         private CSD_MetodosGenericos oGenerico = new CSD_MetodosGenericos();
 
         public ActionResult Register()

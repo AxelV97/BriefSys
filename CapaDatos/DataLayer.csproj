@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\CSD_MetodosGenericos.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="Models\Acceso\Acceso.cs" />
     <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
@@ -92,9 +93,7 @@
     <Compile Include="Models\TI\Tickets\ServiceDesk_Detalle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BusinessLogic\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

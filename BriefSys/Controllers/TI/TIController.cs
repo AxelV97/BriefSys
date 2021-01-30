@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BriefSys.Models.TI.Context;
+using DataLayer.DataAccess;
+using DataLayer.Models;
 
 namespace BriefSys.Controllers.TI
 {
     public class TIController : Controller
     {
-        private TIContext _db = new TIContext();
+        private readonly ApplicationDbContext _db;
+
+        public TIController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
         public ActionResult Index()
         {

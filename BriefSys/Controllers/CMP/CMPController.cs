@@ -14,10 +14,10 @@ namespace BriefSys.Controllers.CMP
     public class CMPController : Controller
     {
 
-        public ApplicationDbContext _db;
-        public CMPController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _db;
+        public CMPController(ApplicationDbContext db)
         {
-            _db = context;
+            _db = db;
         }
 
         [HttpGet]

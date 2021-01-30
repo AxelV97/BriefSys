@@ -1,8 +1,4 @@
-﻿using BriefSys.Models.RH.Context;
-using BriefSys.Models.RH.Departamentos;
-using BriefSys.Models.RH.Empleados;
-using BriefSys.Models.RH.Puestos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,12 +6,19 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using DataLayer.DataAccess;
+using DataLayer.Models;
 
 namespace BriefSys.Controllers.RH
 {
     public class RHController : Controller
     {
-        private RHContext _db = new RHContext();
+        private readonly ApplicationDbContext _db;
+
+        public RHController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
         public ActionResult Index()
         {

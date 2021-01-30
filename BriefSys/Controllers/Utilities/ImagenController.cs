@@ -1,15 +1,20 @@
-﻿using BriefSys.Models.RH.Context;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataLayer.DataAccess;
+using DataLayer.Models;
 
 namespace BriefSys.Controllers.Utilities
 {
     public class ImagenController : Controller
     {
-        private RHContext _db = new RHContext();
+        private readonly ApplicationDbContext _db;
+        public ImagenController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
         // GET: Imagen
         public ActionResult Show(int IdEmp)
         {
