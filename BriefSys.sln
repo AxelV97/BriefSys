@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BriefSys.AccesoDatos", "Bri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BriefSys.Utilidades", "BriefSys.Utilidades\BriefSys.Utilidades.csproj", "{A37DDDFA-7181-4AEE-B612-A4F6115A486F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{8413053E-83A3-4915-8C46-1F027C90E3BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A37DDDFA-7181-4AEE-B612-A4F6115A486F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A37DDDFA-7181-4AEE-B612-A4F6115A486F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A37DDDFA-7181-4AEE-B612-A4F6115A486F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8413053E-83A3-4915-8C46-1F027C90E3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8413053E-83A3-4915-8C46-1F027C90E3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8413053E-83A3-4915-8C46-1F027C90E3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8413053E-83A3-4915-8C46-1F027C90E3BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

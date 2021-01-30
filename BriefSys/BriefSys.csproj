@@ -135,26 +135,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Acceso\Acceso.cs" />
-    <Compile Include="Models\Acceso\AccesoContext.cs" />
-    <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
-    <Compile Include="Models\CMP\Context\CMPContext.cs" />
-    <Compile Include="Models\CMP\Ordenes\Orden.cs" />
-    <Compile Include="Models\CMP\Ordenes\OrdenVM.cs" />
-    <Compile Include="Models\CMP\Ordenes\Orden_Detalle.cs" />
-    <Compile Include="Models\RH\Empleados\Empleado.cs" />
-    <Compile Include="Models\RH\Empleados\EmpleadoVM.cs" />
-    <Compile Include="Models\RH\Empleados\Empleado_Detalle.cs" />
-    <Compile Include="Models\RH\Context\RHContext.cs" />
     <Compile Include="Controllers\Utilities\ImagenController.cs" />
-    <Compile Include="Models\Menu\Menu.cs" />
-    <Compile Include="Models\Menu\MenuVM.cs" />
-    <Compile Include="Models\RH\Departamentos\Departamento.cs" />
-    <Compile Include="Models\RH\Puestos\Puesto.cs" />
-    <Compile Include="Models\RH\Puestos\PuestoVM.cs" />
-    <Compile Include="Models\TI\Context\TIContext.cs" />
-    <Compile Include="Models\TI\Tickets\ServiceDesk.cs" />
-    <Compile Include="Models\TI\Tickets\ServiceDesk_Detalle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
