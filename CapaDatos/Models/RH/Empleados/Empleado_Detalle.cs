@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace BriefSys.Models.RH.Empleados
+namespace DataLayer.Models
 {
     public class Empleado_Detalle
     {

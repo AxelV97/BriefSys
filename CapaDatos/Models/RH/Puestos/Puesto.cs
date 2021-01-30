@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BriefSys.Models.RH.Puestos
+namespace DataLayer.Models
 {
     public class Puesto
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace BriefSys.Models.RH.Empleados
+namespace DataLayer.Models
 {
     public class EmpleadoVM
     {

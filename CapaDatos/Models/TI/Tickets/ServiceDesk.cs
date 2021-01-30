@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BriefSys.Models.TI.Tickets
+namespace DataLayer.Models
 {
     public class ServiceDesk
     {

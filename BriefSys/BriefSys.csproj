@@ -315,9 +315,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BriefSys.AccesoDatos\BriefSys.AccesoDatos.csproj">
-      <Project>{f78bb42a-8dc4-43cc-ae75-880971ec99ba}</Project>
-      <Name>BriefSys.AccesoDatos</Name>
+    <ProjectReference Include="..\CapaDatos\DataLayer.csproj">
+      <Project>{8413053e-83a3-4915-8c46-1f027c90e3bc}</Project>
+      <Name>DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

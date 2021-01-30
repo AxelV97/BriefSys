@@ -1,6 +1,4 @@
-﻿using BriefSys.Models.CMP.Context;
-using BriefSys.Models.CMP.Ordenes;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -8,13 +6,19 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataLayer.DataAccess;
+using DataLayer.Models;
 
 namespace BriefSys.Controllers.CMP
 {
     public class CMPController : Controller
     {
 
-        public CMPContext _db = new CMPContext();
+        public ApplicationDbContext _db;
+        public CMPController(ApplicationDbContext context)
+        {
+            _db = context;
+        }
 
         [HttpGet]
         public ActionResult Index()

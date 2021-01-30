@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace BriefSys.Models.RH.Puestos
+namespace DataLayer.Models
 {
     public class PuestoVM
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace BriefSys.Models.Acceso
+namespace DataLayer.Models
 {
     public class Acceso_UsuarioVM
     {

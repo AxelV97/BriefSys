@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace BriefSys.Models.Acceso
+namespace DataLayer.Models
 {
     public class Acceso_Usuario
     {

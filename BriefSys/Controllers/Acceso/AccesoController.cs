@@ -1,19 +1,24 @@
-﻿using BriefSys.Models.Acceso;
-using BriefSys.Models.RH.Empleados;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CapaDatos;
 using System.IO;
 using System.Data.Entity;
+using DataLayer.DataAccess;
+using DataLayer.Models;
 
 namespace BriefSys.Controllers.Acceso
 {
     public class AccesoController : Controller
     {
-        private AccesoContext _db = new AccesoContext();
+        private readonly ApplicationDbContext _db;
+        public AccesoController(ApplicationDbContext context)
+        {
+            _db = context;
+        }
+
+
         private CSD_MetodosGenericos oGenerico = new CSD_MetodosGenericos();
 
         public ActionResult Register()
