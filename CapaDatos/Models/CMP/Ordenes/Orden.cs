@@ -19,7 +19,7 @@ namespace DataLayer.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddTHH:mm}")]
         public DateTime FechaElaboracion { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddTHH:mm}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddTHH:mm}")]
         public DateTime FechaEntrega { get; set; }
 
         public string Moneda { get; set; }

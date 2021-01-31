@@ -44,15 +44,13 @@ namespace BriefSys.Controllers.Acceso
 
             var dbSetUsuarios = _db.Acceso_Usuarios;
 
-            var usuarioExistente = from a in dbSetUsuarios
-                                   where a.UsuarioId == oUser.UsuarioId
-                                   select a;
+            var usuarioExistente = (from a in dbSetUsuarios
+                                    where a.UsuarioId == oUser.UsuarioId
+                                    select a).ToList();
 
             byte[] imagenBytes = ReadFile(oUsuarioVM.File);
 
-            var lExistente = usuarioExistente.ToList();
-
-            if (lExistente.Count > 0)
+            if (usuarioExistente.Count > 0)
             {
                 return RedirectToRoute(new { controller = "Acceso", action = "Login" });
             }
@@ -68,19 +66,22 @@ namespace BriefSys.Controllers.Acceso
             {
                 var dbSetEmpleados = _db.EmpleadosDetalle;
 
-                var empleadoExistente = from emp in _db.EmpleadosDetalle
-                                        where emp.IdEmp == oUser.IdEmp
-                                        select emp;
+                var empleadoExistente = (from emp in _db.EmpleadosDetalle
+                                         where emp.IdEmp == oUser.IdEmp
+                                         select emp).ToList();
 
-                Empleado_Detalle oEmpleado = empleadoExistente.ToList()[0];
+                if (empleadoExistente.Count > 0)
+                {
+                    Empleado_Detalle oEmpleado = empleadoExistente[0];
 
-                oEmpleado.FotografiaDigital = imagenBytes;
+                    oEmpleado.FotografiaDigital = imagenBytes;
 
-                dbSetUsuarios.Add(oUsuario);
-                _db.Entry(oEmpleado).State = EntityState.Modified;
-                _db.SaveChanges();
+                    dbSetUsuarios.Add(oUsuario);
+                    _db.Entry(oEmpleado).State = EntityState.Modified;
+                    _db.SaveChanges();
 
-                return RedirectToRoute(new { controller = "Home", action = "Index" });
+                    return RedirectToRoute(new { controller = "Home", action = "Index" });
+                }
             }
 
             return View("Register", oUser);

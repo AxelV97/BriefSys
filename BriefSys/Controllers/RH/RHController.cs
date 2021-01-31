@@ -26,7 +26,16 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult Departamentos()
         {
-            return View("~/Views/RH/Departamentos/Index.cshtml");
+            var dbSetDepartamentos = _db.Departamentos;
+
+            var departamentos = from dp in dbSetDepartamentos
+                                where dp.Estado != "C"
+                                select dp;
+
+            List<Departamento> ldepartamentos = new List<Departamento>();
+            ldepartamentos = departamentos.ToList();
+
+            return View("~/Views/RH/Departamentos/Index.cshtml", ldepartamentos);
         }
 
         [HttpGet]
@@ -38,6 +47,17 @@ namespace BriefSys.Controllers.RH
                                 select dp;
 
             return Json(new { data = departamentos }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult getDepartamento(int id)
+        {
+            var dbSetDepartamentos = _db.Departamentos;
+            var departamento = from dp in dbSetDepartamentos
+                               where dp.Estado != "C" && dp.IdDepartamento == id
+                               select dp;
+
+            return Json(new { data = departamento }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -74,11 +94,11 @@ namespace BriefSys.Controllers.RH
         }
 
         [HttpGet]
-        public ActionResult EditDepartamento(int Id)
+        public ActionResult EditDepartamento(int id)
         {
             var dbSetDepartamentos = _db.Departamentos;
             var lDepartamentos = (from d in dbSetDepartamentos
-                                  where d.IdDepartamento == Id
+                                  where d.IdDepartamento == id
                                   select d).ToList();
             Departamento oDepartamento;
 
@@ -147,7 +167,18 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult Puestos()
         {
-            return View("~/Views/RH/Puestos/Index.cshtml");
+            var dbSetPuestos = _db.Puestos;
+            var dbSetDepartamentos = _db.Departamentos;
+
+            var puestos = (from pue in dbSetPuestos
+                           join dep in dbSetDepartamentos on pue.IdDepartamento equals dep.IdDepartamento
+                           where pue.Estado != "C"
+                           select pue).OrderBy(x => x.IdPuesto);
+
+            List<Puesto> lpuestos = new List<Puesto>();
+            lpuestos = puestos.ToList();
+
+            return View("~/Views/RH/Puestos/Index.cshtml", lpuestos);
         }
 
         [HttpGet]
@@ -284,7 +315,36 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult Empleados()
         {
-            return View("~/Views/RH/Empleados/Index.cshtml");
+            var dbSetEmpleados = _db.Empleados;
+            var dbSetEmpleados_Detalle = _db.EmpleadosDetalle;
+            var dbSetDepartamentos = _db.Departamentos;
+            var dbSetPuestos = _db.Puestos;
+
+            var empleados = (from e in dbSetEmpleados
+                             join ed in dbSetEmpleados_Detalle on e.IdEmp equals ed.IdEmp
+                             join dep in dbSetDepartamentos on e.IdDepartamento equals dep.IdDepartamento
+                             join pue in dbSetPuestos on new { e.IdDepartamento, e.IdPuesto } equals new { pue.IdDepartamento, pue.IdPuesto }
+                             where ed.Estado != "C" && dep.Estado != "C" && pue.Estado != "C"
+                             select new VistaEmpleado
+                             {
+                                 IdEmp = e.IdEmp,
+                                 Ingreso = e.Ingreso,
+                                 Nombre = ed.Nombre,
+                                 ApellidoP = ed.ApellidoP,
+                                 ApellidoM = ed.ApellidoM,
+                                 Telefono = ed.Telefono,
+                                 Extension = ed.Extension,
+                                 FechaNac = ed.FechaNac,
+                                 Estado = ed.Estado,
+                                 Departamento = dep.Descripcion,
+                                 Puesto = pue.Descripcion
+                             }).OrderBy(x => x.IdEmp);
+
+
+            List<VistaEmpleado> lregistrosempleados = new List<VistaEmpleado>();
+            lregistrosempleados = empleados.ToList();
+
+            return View("~/Views/RH/Empleados/Index.cshtml", lregistrosempleados);
         }
 
         [HttpGet]

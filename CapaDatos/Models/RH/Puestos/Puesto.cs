@@ -10,7 +10,6 @@ namespace DataLayer.Models
     public class Puesto
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdPuesto { get; set; }
         public int IdDepartamento { get; set; }
         public string Clasificacion { get; set; }

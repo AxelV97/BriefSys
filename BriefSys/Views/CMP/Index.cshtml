@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<DataLayer.Models.Orden>
+
+@{
     ViewBag.Title = "Ordenes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -6,13 +8,63 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="container">
-    <a class="btn btn-success" href="@Url.Action("CreateOrden","CMP")" style="float: right;">Añadir registro</a>
+    @Html.ActionLink("Nuevo", "CreateOrden", "CMP", new { @class = "btn btn-success", @style = "float: right" })
     <br />
     <br />
     <div id="divTabla">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.IdOrden) </th>
+                    <th>@Html.DisplayNameFor(model => model.IdRequisicion) </th>
+                    <th>@Html.DisplayNameFor(model => model.IdProveedor) </th>
+                    <th>@Html.DisplayNameFor(model => model.Proveedor) </th>
+                    <th>@Html.DisplayNameFor(model => model.FechaElaboracion) </th>
+                    <th>@Html.DisplayNameFor(model => model.FechaEntrega) </th>
+                    <th>@Html.DisplayNameFor(model => model.Moneda) </th>
+                    <th>@Html.DisplayNameFor(model => model.IdElaboro) </th>
+                    <th>@Html.DisplayNameFor(model => model.Estado) </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdOrden)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdRequisicion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdProveedor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Proveedor)
+                        </td>
+                        <td>
+                            @String.Format("{0:dd/MM/yyyy}", item.FechaElaboracion)
+                        </td>
+                        <td>
+                            @String.Format("{0:dd/MM/yyyy}", item.FechaEntrega)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Moneda)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdElaboro)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "EditOrden", "CMP", new { id = item.IdOrden }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Eliminar", "DeleteOrden", "CMP", new { id = item.IdOrden }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
-
-<script type="text/javascript">
-    obtenerDatos("GET", "CMP", "Orden", true);
-</script>

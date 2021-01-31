@@ -10,11 +10,6 @@
 
     <form action="CreatePuesto" method="post">
         <div class="form-group">
-            @Html.LabelFor(p => p.Puesto.IdPuesto)
-            @Html.TextBoxFor(p => p.Puesto.IdPuesto, new { @class = "form-control", placeholder = "IdPuesto" })
-            @Html.ValidationMessageFor(p => p.Puesto.IdPuesto, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
             @Html.DropDownListFor(p => p.Puesto.IdDepartamento, Model.ListaDepartamentos,
            "~Selecciona departamento~", new { @class = "form-control" })
         </div>

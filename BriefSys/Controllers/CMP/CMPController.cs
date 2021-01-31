@@ -25,7 +25,18 @@ namespace BriefSys.Controllers.CMP
         [HttpGet]
         public ActionResult Ordenes()
         {
-            return View("~/Views/CMP/Index.cshtml");
+            var dbSetOrdenes = _db.Ordenes;
+            var dbSetOrdenes_Detalle = _db.Ordenes_Detalle;
+
+            var ordenes = from o in dbSetOrdenes
+                          join od in dbSetOrdenes_Detalle on o.IdOrden equals od.IdOrden
+                          where o.Estado != "C"
+                          select o;
+
+            List<Orden> lordenes = new List<Orden>();
+            lordenes = ordenes.ToList();
+
+            return View("~/Views/CMP/Index.cshtml", lordenes);
         }
 
         [HttpGet]
