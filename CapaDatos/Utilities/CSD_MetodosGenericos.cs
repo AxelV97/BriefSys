@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.BusinessLogic
+namespace DataLayer.Utilities
 {
     public class CSD_MetodosGenericos
     {
@@ -26,6 +27,6 @@ namespace DataLayer.BusinessLogic
 
             string salt = Convert.ToBase64String(buffer);
             return salt;
-        }
+        }        
     }
 }

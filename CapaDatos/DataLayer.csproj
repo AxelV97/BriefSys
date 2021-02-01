@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLogic\CSD_MetodosGenericos.cs" />
+    <Compile Include="Utilities\CSD_MetodosGenericos.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="Models\Acceso\Acceso.cs" />
     <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />

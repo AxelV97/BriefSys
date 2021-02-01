@@ -63,7 +63,7 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult CreateDepartamento()
         {
-            return View("~/Views/RH/Departamentos/Create.cshtml", new Departamento());
+            return PartialView("~/Views/RH/Departamentos/Create.cshtml", new Departamento());
         }
 
         [HttpPost]
@@ -86,11 +86,14 @@ namespace BriefSys.Controllers.RH
                 {
                     dbSetDepartamentos.Add(oDepartamento);
                     _db.SaveChanges();
-                    return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
+                }
+                else
+                {
+                    return View("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
                 }
             }
 
-            return View("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
+            return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
         }
 
         [HttpGet]
@@ -111,8 +114,23 @@ namespace BriefSys.Controllers.RH
                 return HttpNotFound();
             }
 
-            return View("~/Views/RH/Departamentos/Edit.cshtml", oDepartamento);
+            return PartialView("~/Views/RH/Departamentos/Edit.cshtml", oDepartamento);
         }
+
+        //public string RenderRazorViewToString(string viewName, object model)
+        //{
+        //    ViewData.Model = model;
+        //    using (var sw = new StringWriter())
+        //    {
+        //        var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
+        //                                                                 viewName);
+        //        var viewContext = new ViewContext(ControllerContext, viewResult.View,
+        //                                     ViewData, TempData, sw);
+        //        viewResult.View.Render(viewContext, sw);
+        //        viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+        //        return sw.GetStringBuilder().ToString();
+        //    }
+        //}
 
         [HttpPost]
         public ActionResult EditDepartamento(Departamento oDepartamento)
@@ -122,6 +140,10 @@ namespace BriefSys.Controllers.RH
             {
                 _db.Entry(oDepartamento).State = EntityState.Modified;
                 _db.SaveChanges();
+            }
+            else
+            {
+                return View("~/Views/RH/Departamentos/Edit.cshtml", oDepartamento);
             }
 
             return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
@@ -219,7 +241,7 @@ namespace BriefSys.Controllers.RH
                 ListaDepartamentos = listaDepartamentos()
             };
 
-            return View("~/Views/RH/Puestos/Create.cshtml", puestoVM);
+            return PartialView("~/Views/RH/Puestos/Create.cshtml", puestoVM);
         }
 
         [HttpPost]
@@ -243,11 +265,14 @@ namespace BriefSys.Controllers.RH
                 {
                     dbSetPuestos.Add(oPuesto);
                     _db.SaveChanges();
-                    return RedirectToRoute(new { controller = "RH", action = "Puestos" });
+                }
+                else
+                {
+                    return View("~/Views/RH/Puestos/Create.cshtml", oPuestoVM);
                 }
             }
 
-            return View("~/Views/RH/Puestos/Create.cshtml", oPuestoVM);
+            return RedirectToRoute(new { controller = "RH", action = "Puestos" });
         }
 
         [HttpGet]
@@ -268,7 +293,7 @@ namespace BriefSys.Controllers.RH
                 return HttpNotFound();
             }
 
-            return View("~/Views/RH/Puestos/Edit.cshtml", oPuesto);
+            return PartialView("~/Views/RH/Puestos/Edit.cshtml", oPuesto);
         }
 
         [HttpPost]
@@ -279,6 +304,10 @@ namespace BriefSys.Controllers.RH
             {
                 _db.Entry(oPuesto).State = EntityState.Modified;
                 _db.SaveChanges();
+            }
+            else
+            {
+                return PartialView("~/Views/RH/Puestos/Edit.cshtml", oPuesto);
             }
 
             return RedirectToRoute(new { controller = "RH", action = "Puestos" });

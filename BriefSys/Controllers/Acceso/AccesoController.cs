@@ -7,7 +7,7 @@ using System.IO;
 using System.Data.Entity;
 using DataLayer.DataAccess;
 using DataLayer.Models;
-using DataLayer.BusinessLogic;
+using DataLayer.Utilities;
 
 namespace BriefSys.Controllers.Acceso
 {

@@ -2,13 +2,13 @@
 
 @{
     ViewBag.Title = "Editar Departamento";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div>
     <h2>@ViewBag.Title</h2>
 
     <div class="container">
+        <a href="/RH/DeleteDepartamento/@Model.IdDepartamento" class="btn btn-danger" style="float:right;">Eliminar</a>
         <form action="EditDepartamento" method="post">
             <div class="form-group">
                 @Html.LabelFor(d => d.IdDepartamento)
@@ -26,7 +26,7 @@
                 @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
             </div>
             @Html.HiddenFor(d => d.Estado)
-            <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Regresar</a>
+            <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Ocultar</a>
             <input type="submit" value="Editar departamento" class="btn btn-success" />
         </form>
     </div>
