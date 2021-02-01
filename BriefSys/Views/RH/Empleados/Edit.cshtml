@@ -1,31 +1,62 @@
 ﻿@model DataLayer.Models.EmpleadoVM
 
 @{
-    ViewBag.Title = "Editar Departamento";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Editar Empleado";
 }
 
 <div>
     <h2>@ViewBag.Title</h2>
 
-    <form action="EditDepartamento" method="post">
+    <form action="EditEmpleado" method="post">
         <div class="form-group">
-            @Html.LabelFor(d => d.IdDepartamento)
-            @Html.TextBoxFor(d => d.IdDepartamento, new { @class = "form-control", placeholder = "ID" })
-            @Html.ValidationMessageFor(d => d.IdDepartamento, null, new { @class = "text-danger" })
+            @Html.DropDownListFor(e => e.Empleado.IdDepartamento, Model.ListaDepartamentos,
+           "~Selecciona departamento~", new { @class = "form-control" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(d => d.Clasificacion)
-            @Html.TextBoxFor(d => d.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
-            @Html.ValidationMessageFor(d => d.Clasificacion, null, new { @class = "text-danger" })
+            @Html.DropDownListFor(e => e.Empleado.IdPuesto, Model.ListaPuestos,
+           "~Selecciona puesto~", new { @class = "form-control" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(d => d.Descripcion)
-            @Html.TextBoxFor(d => d.Descripcion, new { @class = "form-control", placeholder = "Descripción" })
-            @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
+            @Html.LabelFor(e => e.Empleado.IdEmp)
+            @Html.TextBoxFor(e => e.Empleado.IdEmp, new { @class = "form-control", placeholder = "IdEmpleado" })
+            @Html.ValidationMessageFor(e => e.Empleado.IdEmp, null, new { @class = "text-danger" })
         </div>
-        @Html.HiddenFor(d => d.Estado)
-        <a class="btn btn-primary" href="@Url.Action("Empleados","RH")">Regresar</a>
-        <input type="submit" value="Editar departamento" class="btn btn-success" />
+        <div class="form-group">
+            @Html.LabelFor(e => e.Empleado.Ingreso)
+            @Html.TextBoxFor(e => e.Empleado.Ingreso, new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(e => e.Empleado.Ingreso, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.Empleado_Detalle.Nombre)
+            @Html.TextBoxFor(e => e.Empleado_Detalle.Nombre, new { @class = "form-control", placeholder = "Nombre(s)" })
+            @Html.ValidationMessageFor(e => e.Empleado_Detalle.Nombre, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.Empleado_Detalle.ApellidoP)
+            @Html.TextBoxFor(e => e.Empleado_Detalle.ApellidoP, new { @class = "form-control", placeholder = "Apellido Paterno" })
+            @Html.ValidationMessageFor(e => e.Empleado_Detalle.ApellidoP, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.Empleado_Detalle.ApellidoP)
+            @Html.TextBoxFor(e => e.Empleado_Detalle.ApellidoM, new { @class = "form-control", placeholder = "Apellido Materno" })
+            @Html.ValidationMessageFor(e => e.Empleado_Detalle.ApellidoP, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.Empleado_Detalle.FechaNac)
+            @Html.TextBoxFor(e => e.Empleado_Detalle.FechaNac, new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(e => e.Empleado_Detalle.FechaNac, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.Empleado_Detalle.Telefono)
+            @Html.TextBoxFor(e => e.Empleado_Detalle.Telefono, new { @class = "form-control", placeholder = "Telefono" })
+            @Html.ValidationMessageFor(e => e.Empleado_Detalle.Telefono, null, new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(e => e.Empleado_Detalle.Extension)
+            @Html.TextBoxFor(e => e.Empleado_Detalle.Extension, new { @class = "form-control", placeholder = "Extensión" })
+            @Html.ValidationMessageFor(e => e.Empleado_Detalle.Extension, null, new { @class = "text-danger" })
+        </div>
+        <a class="btn btn-primary" href="@Url.Action("Empleados","RH")">Ocultar</a>
+        <input type="submit" value="Editar Empleado" class="btn btn-success" />
     </form>
 </div>

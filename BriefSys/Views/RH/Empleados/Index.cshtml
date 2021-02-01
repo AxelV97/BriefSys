@@ -5,10 +5,65 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    function GetDetalle(id) {
+        console.log(id);
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'html',
+            contentType: 'application/json;charset=utf-8',
+            data: { id: id },
+            url: '/RH/EditEmpleado',
+            success: function (data) {
+                console.log(data);
+                MostrarDetalle(data);
+            }, error: function (data) {
+                console.log(data);
+                alert('No fue posible consultar el detalle');
+            }
+        });
+
+        function MostrarDetalle(data) {
+            var detalle = data;
+
+            var form = document.getElementById('divForm');
+            form.style.display = "block";
+
+            form.innerHTML = detalle;
+        }
+    }
+
+    function Crear() {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'html',
+            url: '/RH/CreateEmpleado',
+            success: function (data) {
+                console.log(data);
+                MostrarFormulario(data);
+            }, error: function (data) {
+                console.log(data);
+                alert('No fue abrir el formulario');
+            }
+        });
+
+        function MostrarFormulario(data) {
+            var detalle = data;
+
+            var form = document.getElementById('divForm');
+            form.style.display = "block";
+
+            form.innerHTML = detalle;
+        }
+    }
+</script>
+
 <h2>@ViewBag.Title</h2>
 
 <div>
-    @Html.ActionLink("Nuevo", "CreateEmpleado", "RH", new { @class = "btn btn-success", @style = "float: right" })
+    <button onclick="Crear()" class="btn btn-success" style="float:right;">Nuevo</button>
     <br />
     <br />
     <div id="divTabla">
@@ -67,12 +122,15 @@
                             @Html.DisplayFor(modelItem => item.Estado)
                         </td>
                         <td>
-                            @Html.ActionLink("Editar", "EditEmpleado", "RH", new { id = item.IdEmp }, new { @class = "btn btn-warning" })
-                            @Html.ActionLink("Eliminar", "DeleteEmpleado", "RH", new { id = item.IdEmp }, new { @class = "btn btn-danger" })
+                            <button onclick="GetDetalle(@item.IdEmp)" class="btn btn-primary">Detalles</button>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+    </div>
+
+    <div id="divForm" style="">
+
     </div>
 </div>

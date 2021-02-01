@@ -13,7 +13,11 @@ namespace BriefSys.Controllers.RH
 {
     public class RHController : Controller
     {
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db;
+        public RHController()
+        {
+            _db = new ApplicationDbContext();
+        }
 
         public ActionResult Index()
         {
@@ -353,7 +357,7 @@ namespace BriefSys.Controllers.RH
                              join ed in dbSetEmpleados_Detalle on e.IdEmp equals ed.IdEmp
                              join dep in dbSetDepartamentos on e.IdDepartamento equals dep.IdDepartamento
                              join pue in dbSetPuestos on new { e.IdDepartamento, e.IdPuesto } equals new { pue.IdDepartamento, pue.IdPuesto }
-                             where ed.Estado != "C" && dep.Estado != "C" && pue.Estado != "C"
+                             where ed.Estado != "C"
                              select new VistaEmpleado
                              {
                                  IdEmp = e.IdEmp,
@@ -416,7 +420,7 @@ namespace BriefSys.Controllers.RH
                 ListaPuestos = listaPuestos()
             };
 
-            return View("~/Views/RH/Empleados/Create.cshtml", oEmpleadoVM);
+            return PartialView("~/Views/RH/Empleados/Create.cshtml", oEmpleadoVM);
         }
 
         [HttpPost]
@@ -450,11 +454,100 @@ namespace BriefSys.Controllers.RH
                     dbSetEmpleados.Add(oEmpleado);
                     dbSetEmpleadosDet.Add(oEmpleadoDet);
                     _db.SaveChanges();
-                    return RedirectToRoute(new { controller = "RH", action = "Empleados" });
+                }
+                else
+                {
+                    return View("~/Views/RH/Empleados/Create.cshtml", oEmpleadoVM);
                 }
             }
+            return RedirectToRoute(new { controller = "RH", action = "Empleados" });
+        }
 
-            return View("~/Views/RH/Empleados/Create.cshtml", oEmpleadoVM);
+        [HttpGet]
+        public ActionResult EditEmpleado(int Id)
+        {
+            var dbsetempleados = _db.Empleados;
+            var lempleados = (from e in dbsetempleados
+                              where e.IdEmp == Id
+                              select e).ToList();
+
+            var dbsetempleados_detalle = _db.EmpleadosDetalle;
+            var lempleados_detalle = (from ed in dbsetempleados_detalle
+                                      where ed.IdEmp == Id
+                                      select ed).ToList();
+            Empleado oEmpleado;
+            Empleado_Detalle oEmpleado_Detalle;
+            EmpleadoVM empleadoVM;
+
+            if (lempleados.Count > 0)
+            {
+                oEmpleado = lempleados[0];
+                if (lempleados_detalle.Count > 0)
+                {
+                    oEmpleado_Detalle = lempleados_detalle[0];
+                    empleadoVM = new EmpleadoVM
+                    {
+                        Empleado = oEmpleado,
+                        Empleado_Detalle = oEmpleado_Detalle,
+                        ListaDepartamentos = listaDepartamentos(),
+                        ListaPuestos = listaPuestos()
+                    };
+                    return PartialView("~/Views/RH/Empleados/Edit.cshtml", empleadoVM);
+                }
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+
+            return RedirectToRoute(new { controller = "RH", action = "Empleados" });
+        }
+
+        [HttpPost]
+        public ActionResult EditEmpleado(EmpleadoVM oEmpleadoVM)
+        {
+            var dbSetEmpleados = _db.Empleados;
+
+            if (ModelState.IsValid)
+            {
+                Empleado oEmpleado = oEmpleadoVM.Empleado;
+                Empleado_Detalle oEmpleado_Detalle = oEmpleadoVM.Empleado_Detalle;
+
+                _db.Entry(oEmpleado).State = EntityState.Modified;
+                _db.Entry(oEmpleado_Detalle).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            else
+            {
+                return PartialView("~/Views/RH/Empleados/Edit.cshtml", oEmpleadoVM);
+            }
+
+            return RedirectToRoute(new { controller = "RH", action = "Empleados" });
+        }
+
+        public ActionResult DeleteEmpleado(int Id)
+        {
+            var dbSetPuestos = _db.Puestos;
+            var lPuestos = (from d in dbSetPuestos
+                            where d.IdPuesto == Id
+                            select d).ToList();
+
+            Puesto oPuesto;
+
+            if (lPuestos.Count > 0)
+            {
+                oPuesto = lPuestos[0];
+
+                oPuesto.Estado = "C";
+                _db.Entry(oPuesto).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+
+            return RedirectToRoute(new { controller = "RH", action = "Empleados" });
         }
     }
 }
