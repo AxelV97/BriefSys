@@ -74,6 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\DataSource.cs" />
+    <Compile Include="Repositories\RHRepository.cs" />
     <Compile Include="Utilities\CSD_MetodosGenericos.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="Models\Acceso\Acceso.cs" />

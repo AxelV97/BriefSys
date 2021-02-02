@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using DataLayer.DataAccess;
 using DataLayer.Models;
+using DataLayer.Repositories;
 
 namespace BriefSys.Controllers.RH
 {
@@ -30,14 +31,15 @@ namespace BriefSys.Controllers.RH
         [HttpGet]
         public ActionResult Departamentos()
         {
-            var dbSetDepartamentos = _db.Departamentos;
+            //var dbSetDepartamentos = _db.Departamentos;
 
-            var departamentos = from dp in dbSetDepartamentos
-                                where dp.Estado != "C"
-                                select dp;
+            //var departamentos = from dp in dbSetDepartamentos
+            //                    where dp.Estado != "C"
+            //                    select dp;
 
+            RHRepository oRH = new RHRepository();
             List<Departamento> ldepartamentos = new List<Departamento>();
-            ldepartamentos = departamentos.ToList();
+            ldepartamentos = oRH.obtenerDepartamentos();
 
             return View("~/Views/RH/Departamentos/Index.cshtml", ldepartamentos);
         }
