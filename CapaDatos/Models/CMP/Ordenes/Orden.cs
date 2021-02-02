@@ -10,7 +10,6 @@ namespace DataLayer.Models
     public class Orden
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdOrden { get; set; }
         public int IdRequisicion { get; set; }
         public string IdProveedor { get; set; }

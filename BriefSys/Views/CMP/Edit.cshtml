@@ -8,6 +8,7 @@
 <div>
     <h2>@ViewBag.Title</h2>
     <form action="EditOrden" method="post">
+        @Html.ActionLink("Eliminar", "DeleteOrden", "CMP", new { id = Model.Orden.IdOrden }, new { @class = "btn btn-danger", @style = "float: right;" })
         <div class="form-group">
             @Html.LabelFor(o => o.Orden.IdProveedor)
             @Html.TextBoxFor(o => o.Orden.IdProveedor, new { @class = "form-control", placeholder = "IdProveedor" })
@@ -25,45 +26,135 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(o => o.Orden.FechaEntrega)
-            @Html.TextBoxFor(o => o.Orden.FechaEntrega, new { @class = "form-control", type = "datetime-local" })
+            @Html.TextBoxFor(o => o.Orden.FechaEntrega, new { @Value = Model.Orden.FechaEntrega.ToString("yyyy-MM-ddTHH:mm"), @class = "form-control", type = "datetime-local" })
             @Html.ValidationMessageFor(o => o.Orden.FechaEntrega, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
             @Html.LabelFor(o => o.Orden.FechaElaboracion)
-            @Html.TextBoxFor(o => o.Orden.FechaElaboracion, new { @Value = DateTime.Now.ToString("yyyy-MM-ddTHH:mm"), @class = "form-control", type = "datetime-local", @readonly = true })
+            @Html.TextBoxFor(o => o.Orden.FechaElaboracion, new { @Value = Model.Orden.FechaElaboracion.ToString("yyyy-MM-ddTHH:mm"), @class = "form-control", type = "datetime-local", @readonly = true })
             @Html.ValidationMessageFor(o => o.Orden.FechaElaboracion, null, new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.Partida)
-            @Html.TextBoxFor(od => od.Orden_Detalle.Partida, new { @class = "form-control", placeholder = "Partida" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.Partida, null, new { @class = "text-danger" })
+
+        <div class="my-2">
+            <div style="margin-bottom: 1%; text-align:right;">
+                <button class="btn btn-success" onclick="addItem()">Agregar producto</button>
+            </div>
+            <table id="tblOrdenDetail" class="table table-bordered">
+                <tr>
+                    <td>Partida</td>
+                    <td>IdProducto</td>
+                    <td>Producto</td>
+                    <td>Cantidad</td>
+                    <td>Unidad Interna</td>
+                    <td>Unidad Externa</td>
+                    <td>Acciones</td>
+                </tr>
+                @foreach (var item in Model.ListaOrden_Detalle)
+                {
+                    <tr>
+                        <td>@item.Partida</td>
+                        <td>@item.IdProducto</td>
+                        <td>@item.Producto</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.UnidadInterna</td>
+                        <td>@item.UnidadExterna</td>
+                        <td><button class="btn btn-danger" onclick="removeItem(this)">Remover</button></td>
+                    </tr>
+                }
+            </table>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.IdProducto)
-            @Html.TextBoxFor(od => od.Orden_Detalle.IdProducto, new { @class = "form-control", placeholder = "IdProducto" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.IdProducto, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.Producto)
-            @Html.TextBoxFor(od => od.Orden_Detalle.Producto, new { @class = "form-control", placeholder = "Producto" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.Producto, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.Cantidad)
-            @Html.TextBoxFor(od => od.Orden_Detalle.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.Cantidad, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.UnidadInterna)
-            @Html.TextBoxFor(od => od.Orden_Detalle.UnidadInterna, new { @class = "form-control", placeholder = "Unidad Interna" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.UnidadInterna, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.UnidadExterna)
-            @Html.TextBoxFor(od => od.Orden_Detalle.UnidadExterna, new { @class = "form-control", placeholder = "Unidad Externa" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.UnidadExterna, null, new { @class = "text-danger" })
-        </div>
+
         <a class="btn btn-primary" href="@Url.Action("Ordenes","CMP")">Regresar</a>
         <input type="submit" value="Añadir Orden" class="btn btn-success" />
     </form>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        function addItem() {
+            event.preventDefault();
+            var tblBody = document.getElementById('tblOrdenBody');
+
+            var Partida = $("#Partida").val();
+            var IdProducto = $("#IdProducto").val();
+            var Producto = $("#Producto").val();
+            var Cantidad = $("#Cantidad").val();
+            var UnidadInterna = $("#UnidadInterna").val();
+            var UnidadExterna = $("#UnidadExterna").val();
+
+            var itemOrden = "<tr><td>" + Partida + "</td><td>" + IdProducto + "</td><td>" + Producto + "</td><td>" + Cantidad + "</td><td>" + UnidadInterna + "</td><td>" + UnidadExterna + "</td><td><button class='btn btn-danger' onclick='removeItem(this)'>Remover</button></td></tr>";
+
+            tblBody.innerHTML += itemOrden;
+            limpiarDatos();
+        }
+
+        function removeItem(btn) {
+            event.preventDefault();
+
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function guardarOrden() {
+            event.preventDefault();
+
+            var listaOrdenes = [];
+            listaOrdenes.length = 0;
+
+            var orden_maestro;
+
+            orden_maestro = {
+                IdProveedor: $("#IdProveedor").val(),
+                Proveedor: $("#Proveedor").val(),
+                Moneda: $("#Moneda").val(),
+                FechaEntrega: $("#FechaEntrega").val(),
+                FechaElaboracion: $("#FechaElaboracion").val()
+            };
+
+            $.each($("#tblOrdenDetail tbody tr"), function () {
+                listaOrdenes.push({
+                    Partida: $(this).find('td:eq(0)').html(),
+                    IdProducto: $(this).find('td:eq(1)').html(),
+                    Producto: $(this).find('td:eq(2)').html(),
+                    Cantidad: $(this).find('td:eq(3)').html(),
+                    UnidadInterna: $(this).find('td:eq(3)').html(),
+                    UnidadExterna: $(this).find('td:eq(3)').html(),
+                });
+            });
+
+            var data = JSON.stringify({
+                orden: orden_maestro,
+                orden_detalle: listaOrdenes
+            });
+
+            enviarOrden(data);
+        }
+
+        function enviarOrden(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/CMP/CreateOrden",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+
+        function limpiarDatos() {
+
+            $("#Partida").val('');
+            $("#IdProducto").val('');
+            $("#Producto").val('');
+            $("#Cantidad").val('');
+            $("#UnidadInterna").val('');
+            $("#UnidadExterna").val('');
+        }
+    </script>
+}

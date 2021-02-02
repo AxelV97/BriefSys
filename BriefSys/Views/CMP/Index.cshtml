@@ -8,8 +8,10 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="container">
-    @Html.ActionLink("Nuevo", "CreateOrden", "CMP", new { @class = "btn btn-success", @style = "float: right" })
-    <br />
+    @*@Html.ActionLink("Nuevo", "CreateOrden", "CMP", new { @class = "btn btn-success", @style = "float: right" })*@
+    <div class="text-right">
+        <button class="btn btn-success" onclick="addNewOrder()">Nuevo</button>
+    </div>
     <br />
     <div id="divTabla">
         <table class="table table-bordered">
@@ -59,12 +61,215 @@
                             @Html.DisplayFor(modelItem => item.Estado)
                         </td>
                         <td>
-                            @Html.ActionLink("Editar", "EditOrden", "CMP", new { id = item.IdOrden }, new { @class = "btn btn-warning" })
-                            @Html.ActionLink("Eliminar", "DeleteOrden", "CMP", new { id = item.IdOrden }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Detalles", "EditOrden", "CMP", new { id = item.IdOrden }, new { @class = "btn btn-primary" })
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+    <div id="divForm">
+
+    </div>
 </div>
+
+<div class="modal fade" id="newOrderModal">
+    <div class="modal-dialog modal-xl" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Añadir nueva orden</h4>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <form action="CreateOrden" method="post">
+                    <div class="form-group">
+                        <label>IdProveedor:</label>
+                        <input type="text" id="IdProveedor" name="IdProveedor" placeholder="IdProveedor" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Proveedor:</label>
+                        <input type="text" id="Proveedor" name="Proveedor" placeholder="Proveedor" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Moneda:</label>
+                        <input type="text" id="Moneda" name="Moneda" placeholder="Moneda" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Entrega:</label>
+                        <input type="datetime-local" id="FechaEntrega" name="FechaEntrega" placeholder="FechaEntrega" class="form-control" value='@DateTime.Now.AddDays(7).ToString("yyyy-MM-ddTHH:mm")' />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Elaboración:</label>
+                        <input type="datetime-local" id="FechaElaboracion" name="FechaElaboracion" placeholder="FechaElaboracion" class="form-control" value='@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")' />
+                    </div>
+
+                    <div class="my-2">
+                        <div>
+                            <div>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Partida</td>
+                                        <td>IdProducto</td>
+                                        <td>Producto</td>
+                                        <td>Cantidad</td>
+                                        <td>Unidad Interna</td>
+                                        <td>Unidad Externa</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="Partida" name="Partida" placeholder="Partida" class="form-control" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="IdProducto" name="IdProducto" placeholder="IdProducto" class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="Producto" name="Producto" placeholder="Producto" class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="Cantidad" name="Cantidad" placeholder="Cantidad" class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="UnidadInterna" name="UnidadInterna" placeholder="UnidadInterna" class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="UnidadExterna" name="UnidadExterna" placeholder="Unidad Externa" class="form-control" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="margin-bottom: 1%; text-align:right;">
+                                <button class="btn btn-success" onclick="addItem()">Agregar producto</button>
+                            </div>
+                        </div>
+
+                        <table id="tblOrdenDetail" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Partida</td>
+                                    <td>IdProducto</td>
+                                    <td>Producto</td>
+                                    <td>Cantidad</td>
+                                    <td>Unidad Interna</td>
+                                    <td>Unidad Externa</td>
+                                    <td>Acciones</td>
+                                </tr>
+                            </thead>
+                            <tbody id="tblOrdenBody">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <a class="btn btn-primary" href="@Url.Action("Ordenes","CMP")">Regresar</a>
+                    <button class="btn btn-success" onclick="guardarOrden()">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function addNewOrder() {
+            $("#newOrderModal").modal();
+        }
+
+        function addItem() {
+            event.preventDefault();
+            var tblBody = document.getElementById('tblOrdenBody');
+
+            var Partida = $("#Partida").val();
+            var IdProducto = $("#IdProducto").val();
+            var Producto = $("#Producto").val();
+            var Cantidad = $("#Cantidad").val();
+            var UnidadInterna = $("#UnidadInterna").val();
+            var UnidadExterna = $("#UnidadExterna").val();
+
+            var itemOrden = "<tr><td>" + Partida + "</td><td>" + IdProducto + "</td><td>" + Producto + "</td><td>" + Cantidad + "</td><td>" + UnidadInterna + "</td><td>" + UnidadExterna + "</td><td><button class='btn btn-danger' onclick='removeItem(this)'>Remover</button></td></tr>";
+
+            tblBody.innerHTML += itemOrden;
+            limpiarDatos();
+            contarFilas();
+        }
+
+        function removeItem(btn) {
+            event.preventDefault();
+
+            var row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            contarFilas();
+        }
+
+        function guardarOrden() {
+            event.preventDefault();
+
+            var listaOrdenes = [];
+            listaOrdenes.length = 0;
+
+            var orden_maestro;
+
+            orden_maestro = {
+                IdProveedor: $("#IdProveedor").val(),
+                Proveedor: $("#Proveedor").val(),
+                Moneda: $("#Moneda").val(),
+                FechaEntrega: $("#FechaEntrega").val(),
+                FechaElaboracion: $("#FechaElaboracion").val()
+            };
+
+            $.each($("#tblOrdenDetail tbody tr"), function () {
+                listaOrdenes.push({
+                    Partida: $(this).find('td:eq(0)').html(),
+                    IdProducto: $(this).find('td:eq(1)').html(),
+                    Producto: $(this).find('td:eq(2)').html(),
+                    Cantidad: $(this).find('td:eq(3)').html(),
+                    UnidadInterna: $(this).find('td:eq(3)').html(),
+                    UnidadExterna: $(this).find('td:eq(3)').html(),
+                });
+            });
+
+            var data = JSON.stringify({
+                orden: orden_maestro,
+                orden_detalle: listaOrdenes
+            });
+
+            enviarOrden(data);
+        }
+
+        function enviarOrden(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/CMP/CreateOrden",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    alert("Error!")
+                }
+            });
+        }
+
+        function limpiarDatos() {
+
+            $("#IdProducto").val('');
+            $("#Producto").val('');
+            $("#Cantidad").val('');
+            $("#UnidadInterna").val('');
+            $("#UnidadExterna").val('');
+        }
+
+        function contarFilas() {
+            var filas = $('#tblOrdenDetail tbody').find('tr').length;
+            var inputpartida = document.getElementById('Partida');
+            filas = filas + 1;
+
+            inputpartida.value = filas;
+        }
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            contarFilas();
+        });
+    </script>
+}

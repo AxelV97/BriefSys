@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(o => o.Orden.FechaEntrega)
-            @Html.TextBoxFor(o => o.Orden.FechaEntrega, new { @class = "form-control", type = "datetime-local" })
+            @Html.TextBoxFor(o => o.Orden.FechaEntrega, new { @Value = ((DateTime.Now).AddDays(7)).ToString("yyyy-MM-ddTHH:mm"), @class = "form-control", type = "datetime-local" })
             @Html.ValidationMessageFor(o => o.Orden.FechaEntrega, null, new { @class = "text-danger" })
         </div>
         <div class="form-group">
@@ -33,37 +33,52 @@
             @Html.TextBoxFor(o => o.Orden.FechaElaboracion, new { @Value = DateTime.Now.ToString("yyyy-MM-ddTHH:mm"), @class = "form-control", type = "datetime-local", @readonly = true })
             @Html.ValidationMessageFor(o => o.Orden.FechaElaboracion, null, new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.Partida)
-            @Html.TextBoxFor(od => od.Orden_Detalle.Partida, new { @class = "form-control", placeholder = "Partida" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.Partida, null, new { @class = "text-danger" })
+
+        <div class="my-2">
+            <div>
+                <div>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Partida</td>
+                            <td>IdProducto</td>
+                            <td>Producto</td>
+                            <td>Cantidad</td>
+                            <td>Unidad Interna</td>
+                            <td>Unidad Externa</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.TextBoxFor(od => od.Orden_Detalle.Partida, new { @class = "form-control", placeholder = "Partida" })</td>
+                            <td>@Html.TextBoxFor(od => od.Orden_Detalle.IdProducto, new { @class = "form-control", placeholder = "IdProducto" })</td>
+                            <td>@Html.TextBoxFor(od => od.Orden_Detalle.Producto, new { @class = "form-control", placeholder = "Producto" })</td>
+                            <td>@Html.TextBoxFor(od => od.Orden_Detalle.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })</td>
+                            <td>@Html.TextBoxFor(od => od.Orden_Detalle.UnidadInterna, new { @class = "form-control", placeholder = "UnidadInterna" })</td>
+                            <td>@Html.TextBoxFor(od => od.Orden_Detalle.UnidadExterna, new { @class = "form-control", placeholder = "Partida" })</td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="margin-bottom: 1%; text-align:right;">
+                    <button class="btn btn-success" onclick="addItem()">Agregar producto</button>
+                </div>
+            </div>
+
+            <table id="tblOrdenDetail" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Partida</td>
+                        <td>IdProducto</td>
+                        <td>Producto</td>
+                        <td>Cantidad</td>
+                        <td>Unidad Interna</td>
+                        <td>Unidad Externa</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody id="tblOrdenBody">
+                </tbody>
+            </table>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.IdProducto)
-            @Html.TextBoxFor(od => od.Orden_Detalle.IdProducto, new { @class = "form-control", placeholder = "IdProducto" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.IdProducto, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.Producto)
-            @Html.TextBoxFor(od => od.Orden_Detalle.Producto, new { @class = "form-control", placeholder = "Producto" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.Producto, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.Cantidad)
-            @Html.TextBoxFor(od => od.Orden_Detalle.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.Cantidad, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.UnidadInterna)
-            @Html.TextBoxFor(od => od.Orden_Detalle.UnidadInterna, new { @class = "form-control", placeholder = "Unidad Interna" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.UnidadInterna, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(od => od.Orden_Detalle.UnidadExterna)
-            @Html.TextBoxFor(od => od.Orden_Detalle.UnidadExterna, new { @class = "form-control", placeholder = "Unidad Externa" })
-            @Html.ValidationMessageFor(od => od.Orden_Detalle.UnidadExterna, null, new { @class = "text-danger" })
-        </div>
+
         <a class="btn btn-primary" href="@Url.Action("Ordenes","CMP")">Regresar</a>
-        <input type="submit" value="Añadir Orden" class="btn btn-success" />
+        <button class="btn btn-success" onclick="guardarOrden()">Guardar</button>
     </form>
 </div>

@@ -12,6 +12,8 @@ namespace DataLayer.Models
         [Key]
         public int IdPuesto { get; set; }
         public int IdDepartamento { get; set; }
+
+        [StringLength(5, MinimumLength = 2, ErrorMessage = "Máximo 5 caracteres")]
         public string Clasificacion { get; set; }
         public string Descripcion { get; set; }
         public string Estado { get; set; }

@@ -29,7 +29,7 @@ namespace BriefSys.Controllers.CMP
             var dbSetOrdenes_Detalle = _db.Ordenes_Detalle;
 
             var ordenes = from o in dbSetOrdenes
-                          join od in dbSetOrdenes_Detalle on o.IdOrden equals od.IdOrden
+                              //join od in dbSetOrdenes_Detalle on o.IdOrden equals od.IdOrden
                           where o.Estado != "C"
                           select o;
 
@@ -57,18 +57,19 @@ namespace BriefSys.Controllers.CMP
             OrdenVM ordenVM = new OrdenVM()
             {
                 Orden = new Orden(),
-                Orden_Detalle = new Orden_Detalle()
+                Orden_Detalle = new Orden_Detalle(),
+                ListaOrden_Detalle = new List<Orden_Detalle>()
             };
             return View("~/Views/CMP/Create.cshtml", ordenVM);
         }
 
         [HttpPost]
-        public ActionResult CreateOrden(OrdenVM ordenVM)
+        public ActionResult CreateOrden(Orden orden, List<Orden_Detalle> orden_detalle)
         {
+            string result = "";
             var dbSetOrden = _db.Ordenes;
             var dbSetOrdenDetalle = _db.Ordenes_Detalle;
-            Orden ord = ordenVM.Orden;
-            Orden_Detalle orddet = ordenVM.Orden_Detalle;
+            Orden ord = orden;
 
             ord.Estado = "N";
             if (!(Session["IdEmp"] == null))
@@ -80,20 +81,28 @@ namespace BriefSys.Controllers.CMP
                 ord.IdElaboro = 0;
             }
 
-            orddet.IdOrden = ord.IdOrden;
-            orddet.Estado = "N";
             if (ModelState.IsValid)
             {
                 dbSetOrden.Add(ord);
                 _db.SaveChanges();
 
-                orddet.IdOrden = ord.IdOrden;
-                dbSetOrdenDetalle.Add(orddet);
+                foreach (var itemorden in orden_detalle)
+                {
+                    itemorden.IdOrden = ord.IdOrden;
+                    itemorden.Estado = "N";
+                    dbSetOrdenDetalle.Add(itemorden);
+                }
+
                 _db.SaveChanges();
 
-                return RedirectToRoute(new { controller = "CMP", action = "Ordenes" });
+                result = "Success! Order Is Complete!";
+
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
-            return View("~/Views/CMP/Create.cshtml", ordenVM);
+
+            result = "Ocurrió un error al procesar la solicitud";
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -106,10 +115,11 @@ namespace BriefSys.Controllers.CMP
             Orden oOrden;
 
             var dbSetOrdenDetalle = _db.Ordenes_Detalle;
-            var lOrdenesDetalle = (from od in dbSetOrdenDetalle
-                                   where od.IdOrden == Id
-                                   select od).ToList();
-            Orden_Detalle oOrdenDetalle;
+            List<Orden_Detalle> lordendetalle = (from od in dbSetOrdenDetalle
+                                                 where od.IdOrden == Id
+                                                 select od).ToList();
+
+
 
             OrdenVM oOrdenVM = new OrdenVM();
 
@@ -122,9 +132,9 @@ namespace BriefSys.Controllers.CMP
                 return HttpNotFound();
             }
 
-            if (lOrdenesDetalle.Count > 0)
+            if (lordendetalle.Count > 0)
             {
-                oOrdenDetalle = lOrdenesDetalle[0];
+
             }
             else
             {
@@ -132,7 +142,7 @@ namespace BriefSys.Controllers.CMP
             }
 
             oOrdenVM.Orden = oOrden;
-            oOrdenVM.Orden_Detalle = oOrdenDetalle;
+            oOrdenVM.ListaOrden_Detalle = lordendetalle;
 
             return View("~/Views/CMP/Edit.cshtml", oOrdenVM);
         }
@@ -148,6 +158,10 @@ namespace BriefSys.Controllers.CMP
                 _db.Entry(oOrden).State = EntityState.Modified;
                 _db.Entry(oOrdenDetalle).State = EntityState.Modified;
                 _db.SaveChanges();
+            }
+            else
+            {
+                return View("~/Views/CMP/Edit.cshtml", oOrdenVM);
             }
 
             return RedirectToRoute(new { controller = "CMP", action = "Ordenes" });

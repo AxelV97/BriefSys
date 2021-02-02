@@ -9,11 +9,6 @@
 
     <form action="CreateDepartamento" method="post">
         <div class="form-group">
-            @Html.LabelFor(d => d.IdDepartamento)
-            @Html.TextBoxFor(d => d.IdDepartamento, new { @class = "form-control", placeholder = "ID" })
-            @Html.ValidationMessageFor(d => d.IdDepartamento, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
             @Html.LabelFor(d => d.Clasificacion)
             @Html.TextBoxFor(d => d.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
             @Html.ValidationMessageFor(d => d.Clasificacion, null, new { @class = "text-danger" })

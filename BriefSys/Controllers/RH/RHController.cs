@@ -272,6 +272,7 @@ namespace BriefSys.Controllers.RH
                 }
                 else
                 {
+                    oPuestoVM.ListaDepartamentos = listaDepartamentos();
                     return View("~/Views/RH/Puestos/Create.cshtml", oPuestoVM);
                 }
             }
@@ -447,11 +448,13 @@ namespace BriefSys.Controllers.RH
                 Empleado oEmpleado = oEmpleadoVM.Empleado;
                 Empleado_Detalle oEmpleadoDet = oEmpleadoVM.Empleado_Detalle;
 
-                oEmpleadoDet.IdEmp = oEmpleado.IdEmp;
                 oEmpleadoDet.Estado = "A";
                 if (ModelState.IsValid)
                 {
                     dbSetEmpleados.Add(oEmpleado);
+                    _db.SaveChanges();
+                    oEmpleadoDet.IdEmp = oEmpleado.IdEmp;
+
                     dbSetEmpleadosDet.Add(oEmpleadoDet);
                     _db.SaveChanges();
                 }

@@ -17,11 +17,6 @@
            "~Selecciona puesto~", new { @class = "form-control" })
         </div>
         <div class="form-group">
-            @Html.LabelFor(e => e.Empleado.IdEmp)
-            @Html.TextBoxFor(e => e.Empleado.IdEmp, new { @class = "form-control", placeholder = "IdEmpleado" })
-            @Html.ValidationMessageFor(e => e.Empleado.IdEmp, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
             @Html.LabelFor(e => e.Empleado.Ingreso)
             @Html.TextBoxFor(e => e.Empleado.Ingreso, new { @class = "form-control", type = "date" })
             @Html.ValidationMessageFor(e => e.Empleado.Ingreso, null, new { @class = "text-danger" })
