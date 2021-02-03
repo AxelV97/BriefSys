@@ -12,6 +12,12 @@ namespace DataLayer.Repositories
     public class RHRepository
     {
         DataSource objConexion = new DataSource();
+        private ApplicationDbContext _db;
+
+        public RHRepository()
+        {
+            _db = new ApplicationDbContext();
+        }
 
         public List<Departamento> obtenerDepartamentos()
         {
@@ -32,6 +38,17 @@ namespace DataLayer.Repositories
                 }
             }
             return ldepartamentos;
+        }
+
+        public List<Departamento> obtenerDepartamentosEF()
+        {
+            var dbSetDepartamentos = _db.Departamentos;
+
+            var departamentos = from dp in dbSetDepartamentos
+                                where dp.Estado != "C"
+                                select dp;
+
+            return departamentos.ToList();
         }
     }
 }
