@@ -8,20 +8,20 @@ using System.Data;
 
 namespace DataLayer.DataAccess
 {
-    class DataSource
+    class SQLServerConn
     {
         private SqlConnection SQL_CONEXION;
         public SqlCommand SQL_COMANDO;
         private string connectionstring;
 
-        public DataSource()
+        public SQLServerConn()
         {
-            setConnectionString("LAP-TI04,8082", "Briefsys", "Briefing", "Reconn.2020");
+            setConnectionString("SECTOR-8", "Briefsys", "Briefing", "Reconn.2020");
         }
 
         public void setConnectionString(string datasource, string catalog, string user, string pass)
         {
-            this.connectionstring = "Data Source=" + datasource + ";Initial Catalog=" + catalog + ";User ID=" + user + ";Password=" + pass + ";Persist Security Info=True; MultipleActiveResultSets=True";
+            this.connectionstring = @"Data Source=" + datasource + ";Initial Catalog=" + catalog + ";User ID=" + user + ";Password=" + pass + ";Persist Security Info=True; MultipleActiveResultSets=True";
         }
 
         public string getConnectionString()

@@ -11,7 +11,7 @@ namespace DataLayer.Repositories
 {
     public class RHRepository
     {
-        DataSource objConexion = new DataSource();
+        SQLServerConn objConexion = new SQLServerConn();
 
         public List<Departamento> obtenerDepartamentos()
         {

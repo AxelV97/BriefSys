@@ -83,7 +83,7 @@ namespace BriefSys.Controllers.RH
 
             if (lDepartamentos.Count > 0)
             {
-                return View("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
+                return PartialView("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
             }
             else
             {
@@ -95,11 +95,12 @@ namespace BriefSys.Controllers.RH
                 }
                 else
                 {
-                    return View("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
+                    return PartialView("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
                 }
             }
-
-            return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
+            string respuesta = "Se ha insertado el dato con exito";
+            bool exito = true;
+            return Json(new { exito, respuesta }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

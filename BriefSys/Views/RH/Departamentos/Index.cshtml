@@ -41,7 +41,6 @@
             dataType: 'html',
             url: '/RH/CreateDepartamento',
             success: function (data) {
-                console.log(data);
                 MostrarFormulario(data);
             }, error: function (data) {
                 console.log(data);
@@ -52,11 +51,46 @@
         function MostrarFormulario(data) {
             var detalle = data;
 
-            var form = document.getElementById('divForm');
-            form.style.display = "block";
+            var modal = document.getElementById('modalBod');
 
-            form.innerHTML = detalle;
+            modal.innerHTML = detalle;
+
+            $("#newDeptoModal").modal();
         }
+    }
+
+    function guardarDepto() {
+        $("#formDepto").submit(function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var url = form.attr('action');
+
+            $.ajax({
+                async: true,
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data) {
+                    if (typeof (data) == "object") {
+                        var exito = data.exito;
+                        if (exito) {
+                            alert(data.respuesta)
+                            location.reload();
+                        }
+                    } else {
+                        var modal = document.getElementById('modalBod');
+                        modal.innerHTML = data;
+                    }
+                },
+                error: function (data) {
+                    console.log('error');
+                    console.log(data);
+                }
+            });
+
+
+        });
     }
 </script>
 
@@ -106,3 +140,25 @@
     </div>
 
 </div>
+
+
+<div class="modal fade" id="newDeptoModal">
+    <div class="modal-dialog modal-xl" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Añadir Departamento</h4>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body" id="modalBod">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function addNewOrder() {
+            $("#newDeptoModal").modal();
+        }
+    </script>
+}

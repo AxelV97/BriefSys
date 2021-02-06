@@ -7,7 +7,7 @@
 <div>
     <h2>@ViewBag.Title</h2>
 
-    <form action="CreateDepartamento" method="post">
+    <form action="CreateDepartamento" method="post" id="formDepto">
         <div class="form-group">
             @Html.LabelFor(d => d.Clasificacion)
             @Html.TextBoxFor(d => d.Clasificacion, new { @class = "form-control", placeholder = "Clasificación" })
@@ -19,6 +19,7 @@
             @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
         </div>
         <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Ocultar</a>
-        <input type="submit" value="Añadir departamento" class="btn btn-success" />
+        @*<input type="submit" value="Añadir departamento" class="btn btn-success" />*@
+        <button class="btn btn-success" onclick="guardarDepto()">Guardar</button>
     </form>
 </div>
