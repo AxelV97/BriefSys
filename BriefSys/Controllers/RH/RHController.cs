@@ -39,7 +39,7 @@ namespace BriefSys.Controllers.RH
 
             RHRepository oRH = new RHRepository();
             List<Departamento> ldepartamentos = new List<Departamento>();
-            ldepartamentos = oRH.obtenerDepartamentos();
+            ldepartamentos = oRH.obtenerDepartamentosEF();
 
             return View("~/Views/RH/Departamentos/Index.cshtml", ldepartamentos);
         }

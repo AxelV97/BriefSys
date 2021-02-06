@@ -10,9 +10,9 @@ namespace DataLayer.DataAccess
 {
     class SQLServerConn
     {
-        private SqlConnection SQL_CONEXION;
+        public SqlConnection SQL_CONEXION;
         public SqlCommand SQL_COMANDO;
-        private string connectionstring;
+        public string connectionstring;
 
         public SQLServerConn()
         {
@@ -29,50 +29,50 @@ namespace DataLayer.DataAccess
             return this.connectionstring;
         }
 
-        public void SET_SQL_CONEXION()
-        {
-            this.SQL_CONEXION = new SqlConnection();
-        }
+        //public void SET_SQL_CONEXION()
+        //{
+        //    this.SQL_CONEXION = new SqlConnection();
+        //}
 
-        public SqlConnection GET_SQL_CONEXION()
-        {
-            return this.SQL_CONEXION;
-        }
+        //public SqlConnection GET_SQL_CONEXION()
+        //{
+        //    return this.SQL_CONEXION;
+        //}
 
-        public bool Conectar()
-        {
-            try
-            {
-                SET_SQL_CONEXION();
-                if (GET_SQL_CONEXION().State.ToString().Equals("Open"))
-                {
-                    GET_SQL_CONEXION().Close();
-                }
-                GET_SQL_CONEXION().ConnectionString = getConnectionString();
-                GET_SQL_CONEXION().Open();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
+        //public bool Conectar()
+        //{
+        //    try
+        //    {
+        //        SET_SQL_CONEXION();
+        //        if (GET_SQL_CONEXION().State.ToString().Equals("Open"))
+        //        {
+        //            GET_SQL_CONEXION().Close();
+        //        }
+        //        GET_SQL_CONEXION().ConnectionString = getConnectionString();
+        //        GET_SQL_CONEXION().Open();
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        public void Desconectar()
-        {
-            try
-            {
-                if (GET_SQL_CONEXION().State.Equals("Closed"))
-                {
-                    GET_SQL_CONEXION().Open();
-                }
-                GET_SQL_CONEXION().Close();
-            }
-            catch (Exception ex)
-            {
+        //public void Desconectar()
+        //{
+        //    try
+        //    {
+        //        if (GET_SQL_CONEXION().State.Equals("Closed"))
+        //        {
+        //            GET_SQL_CONEXION().Open();
+        //        }
+        //        GET_SQL_CONEXION().Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         public DataTable cargarDT(string qry)
         {
@@ -80,19 +80,19 @@ namespace DataLayer.DataAccess
 
             try
             {
-                if (Conectar())
+                using (SQL_CONEXION = new SqlConnection(getConnectionString()))
                 {
-                    SQL_COMANDO = new SqlCommand(@qry, GET_SQL_CONEXION());
-                    SQL_COMANDO.CommandTimeout = 0;
-                    SqlDataAdapter da = new SqlDataAdapter(SQL_COMANDO);
-                    da.Fill(dt);
-                    Desconectar();
+                    using (SQL_COMANDO = new SqlCommand(@qry, SQL_CONEXION))
+                    {
+                        SQL_COMANDO.CommandTimeout = 0;
+                        SqlDataAdapter da = new SqlDataAdapter(SQL_COMANDO);
+                        da.Fill(dt);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Desconectar();
-                throw;
+
             }
             return dt;
         }
