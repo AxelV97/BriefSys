@@ -11,8 +11,8 @@ namespace DataLayer.Repositories
 {
     public class RHRepository
     {
-        SQLServerConn objConexion = new SQLServerConn();
-        DataSource objConexion = new DataSource();
+        //SQLServerConn objConexion = new SQLServerConn();
+        MySQLConn objConexion = new MySQLConn();
         private ApplicationDbContext _db;
 
         public RHRepository()
@@ -23,9 +23,11 @@ namespace DataLayer.Repositories
         public List<Departamento> obtenerDepartamentos()
         {
             List<Departamento> ldepartamentos = new List<Departamento>();
-            string qry = "select * from dbo.departamento where Estado <> 'C'";
+            string qry = "select * from departamento where Estado <> 'C'";
             DataTable dt = new DataTable();
-            dt = objConexion.cargarDT(qry);
+            DataSet set = objConexion.Select(qry, "departamento");
+
+            dt = set.Tables["departamento"];
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)

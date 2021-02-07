@@ -1,4 +1,5 @@
 ﻿using DataLayer.Models;
+using MySql.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,9 +11,10 @@ using System.Threading.Tasks;
 
 namespace DataLayer.DataAccess
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext() : base("name=BriefSys")
+        public ApplicationDbContext() : base("name=BriefSysMySQL")
         {
 
         }
