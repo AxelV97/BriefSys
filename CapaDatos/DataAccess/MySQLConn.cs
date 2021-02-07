@@ -21,9 +21,9 @@ namespace DataLayer.DataAccess
 
         private void Initialize()
         {
-            server = "localhost";
-            database = "briefsys";
-            uid = "Briefing";
+            server = "MYSQL5042.site4now.net";
+            database = "db_a6f156_briefy";
+            uid = "a6f156_briefy";
             password = "Reconn.2020";
             string connectionString;
             connectionString = @"SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
