@@ -5,95 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script type="text/javascript">
-    function GetDetalle(id) {
-        console.log(id);
-        $.ajax({
-            async: true,
-            type: 'GET',
-            dataType: 'html',
-            contentType: 'application/json;charset=utf-8',
-            data: { id: id },
-            url: '/RH/EditDepartamento',
-            success: function (data) {
-                console.log(data);
-                MostrarDetalle(data);
-            }, error: function (data) {
-                console.log(data);
-                alert('No fue posible consultar el detalle');
-            }
-        });
-
-        function MostrarDetalle(data) {
-            var detalle = data;
-
-            var form = document.getElementById('divForm');
-            form.style.display = "block";
-
-            form.innerHTML = detalle;
-        }
-    }
-
-    function Crear() {
-        $.ajax({
-            async: true,
-            type: 'GET',
-            dataType: 'html',
-            url: '/RH/CreateDepartamento',
-            success: function (data) {
-                MostrarFormulario(data);
-            }, error: function (data) {
-                console.log(data);
-                alert('No fue abrir el formulario');
-            }
-        });
-
-        function MostrarFormulario(data) {
-            var detalle = data;
-
-            var modal = document.getElementById('modalBod');
-
-            modal.innerHTML = detalle;
-
-            $("#newDeptoModal").modal();
-        }
-    }
-
-    function guardarDepto() {
-        $("#formDepto").submit(function (e) {
-            e.preventDefault();
-
-            var form = $(this);
-            var url = form.attr('action');
-
-            $.ajax({
-                async: true,
-                type: "POST",
-                url: url,
-                data: form.serialize(),
-                success: function (data) {
-                    if (typeof (data) == "object") {
-                        var exito = data.exito;
-                        if (exito) {
-                            alert(data.respuesta)
-                            location.reload();
-                        }
-                    } else {
-                        var modal = document.getElementById('modalBod');
-                        modal.innerHTML = data;
-                    }
-                },
-                error: function (data) {
-                    console.log('error');
-                    console.log(data);
-                }
-            });
-
-
-        });
-    }
-</script>
-
 <h2>@ViewBag.Title</h2>
 
 <div class="container">
@@ -141,7 +52,6 @@
 
 </div>
 
-
 <div class="modal fade" id="newDeptoModal">
     <div class="modal-dialog modal-xl" style=" width: 900px !important;">
         <div class="modal-content">
@@ -150,6 +60,18 @@
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
             </div>
             <div class="modal-body" id="modalBod">
+                <div class="form-group">
+                    <label>Clasificación:</label>
+                    <input type="text" id="Clasificacion" class="form-control" placeholder="Clasificación" />
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Descripción:</label>
+                        <input type="text" id="Descripcion" class="form-control" placeholder="Descripción" />
+                    </div>
+                    <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Ocultar</a>
+                    <button class="btn btn-success" onclick="guardarDepto()">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -157,8 +79,65 @@
 
 @section scripts{
     <script type="text/javascript">
-        function addNewOrder() {
+        function Crear() {
             $("#newDeptoModal").modal();
         }
+
+        function GetDetalle(id) {
+            console.log(id);
+            $.ajax({
+                async: true,
+                type: 'GET',
+                dataType: 'html',
+                contentType: 'application/json;charset=utf-8',
+                data: { id: id },
+                url: '/RH/EditDepartamento',
+                success: function (data) {
+                    console.log(data);
+                    MostrarDetalle(data);
+                }, error: function (data) {
+                    console.log(data);
+                    alert('No fue posible consultar el detalle');
+                }
+            });
+
+            function MostrarDetalle(data) {
+                var detalle = data;
+
+                var form = document.getElementById('divForm');
+                form.style.display = "block";
+
+                form.innerHTML = detalle;
+            }
+        }
+
+        function guardarDepto() {
+            event.preventDefault();
+            var oDepartamento = {
+                Clasificacion: $("#Clasificacion").val(),
+                Descripcion: $("#Descripcion").val()
+            };
+
+            $.ajax({
+                async: true,
+                type: "POST",
+                url: "/RH/CreateDepartamento",
+                data: oDepartamento,
+                success: function (data) {
+                    if (typeof (data) == "object") {
+                        var exito = data.exito;
+                        if (exito) {
+                            alert(data.respuesta)
+                            location.reload();
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log('error');
+                    console.log(data);
+                }
+            });
+        }
+
     </script>
 }

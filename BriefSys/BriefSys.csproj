@@ -432,7 +432,6 @@
     <Content Include="Views\RH\Departamentos\Index.cshtml" />
     <Content Include="Views\RH\Puestos\Index.cshtml" />
     <Content Include="Views\RH\Empleados\Index.cshtml" />
-    <Content Include="Views\RH\Departamentos\Create.cshtml" />
     <Content Include="Views\RH\Departamentos\Edit.cshtml" />
     <Content Include="Views\RH\Puestos\Edit.cshtml" />
     <Content Include="Views\RH\Puestos\Create.cshtml" />

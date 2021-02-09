@@ -2,6 +2,49 @@
     ViewBag.Title = "Home Page";
 }
 
-<div style="padding:20%">
-    <p style="font-size: 80px">BriefSys</p>
+<style>
+
+    .box {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+    }
+
+    .gray {
+        background-color: #a0a0a0
+    }
+
+    .dimgray {
+        background-color: #5c5c5c
+    }
+
+    .box span {
+        position: fixed;
+        font-size: 80px;
+        font-weight: 500;
+        color: white;
+    }
+</style>
+
+<div style="height:500px; text-align:center;margin-top:5%;">
+    <div class="box gray"><span>B</span></div>
+    <div class="box dimgray"><span>R</span></div>
+    <div class="box gray"><span>I</span></div>
+    <div class="box dimgray"><span>E</span></div>
+    <div class="box gray"><span>F</span></div>
+    <div class="box dimgray"><span>S</span></div>
+    <div class="box gray"><span>Y</span></div>
+    <div class="box dimgray"><span>S</span></div>
 </div>
+
+<script>
+    anime({
+        targets: "div.box.gray",
+        translateY: [
+            { value: 200, duration: 500, delay: 600 },
+            { value: 0, duration: 800, delay: 600 },
+        ],
+        loop: true
+    });
+</script>

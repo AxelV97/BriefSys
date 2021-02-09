@@ -75,6 +75,9 @@ namespace BriefSys.Controllers.RH
         [HttpPost]
         public ActionResult CreateDepartamento(Departamento oDepartamento)
         {
+            string respuesta = "";
+            bool exito = false;
+
             var dbSetDepartamentos = _db.Departamentos;
 
             var lDepartamentos = (from a in dbSetDepartamentos
@@ -83,7 +86,10 @@ namespace BriefSys.Controllers.RH
 
             if (lDepartamentos.Count > 0)
             {
-                return PartialView("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
+                exito = false;
+                respuesta = "Ya existe un registro con estos datos.";
+
+                return Json(new { exito, respuesta }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -95,11 +101,16 @@ namespace BriefSys.Controllers.RH
                 }
                 else
                 {
-                    return PartialView("~/Views/RH/Departamentos/Create.cshtml", oDepartamento);
+                    exito = false;
+                    respuesta = "Verifica los datos ingresados.";
+
+                    return Json(new { exito, respuesta }, JsonRequestBehavior.AllowGet);
                 }
             }
-            string respuesta = "Se ha insertado el dato con exito";
-            bool exito = true;
+
+            exito = true;
+            respuesta = "Se ha insertado el dato con exito";
+
             return Json(new { exito, respuesta }, JsonRequestBehavior.AllowGet);
         }
 
@@ -181,6 +192,7 @@ namespace BriefSys.Controllers.RH
             return RedirectToRoute(new { controller = "RH", action = "Departamentos" });
         }
 
+        [HttpGet]
         public IEnumerable<SelectListItem> listaDepartamentos()
         {
             return _db.Departamentos.Select(d => new SelectListItem()
@@ -376,7 +388,6 @@ namespace BriefSys.Controllers.RH
                                  Departamento = dep.Descripcion,
                                  Puesto = pue.Descripcion
                              }).OrderBy(x => x.IdEmp);
-
 
             List<VistaEmpleado> lregistrosempleados = new List<VistaEmpleado>();
             lregistrosempleados = empleados.ToList();
