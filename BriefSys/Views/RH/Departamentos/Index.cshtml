@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
-
 <div class="container">
+    <h2>@ViewBag.Title</h2>
+
     <button onclick="Crear()" class="btn btn-success" style="float:right;">Nuevo</button>
     <br />
     <br />
-    <div id="divTabla">
+    <div id="divTabla" style="overflow-x:auto;">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -46,13 +46,9 @@
             </tbody>
         </table>
     </div>
-
-    <div id="divForm" style="">
-    </div>
-
 </div>
 
-<div class="modal fade" id="newDeptoModal">
+<div class="modal fade" id="newRegister">
     <div class="modal-dialog modal-xl" style=" width: 900px !important;">
         <div class="modal-content">
             <div class="modal-header">
@@ -60,18 +56,6 @@
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
             </div>
             <div class="modal-body" id="modalBod">
-                <div class="form-group">
-                    <label>Clasificación:</label>
-                    <input type="text" id="Clasificacion" class="form-control" placeholder="Clasificación" />
-                </div>
-                <div class="form-group">
-                    <div class="form-group">
-                        <label>Descripción:</label>
-                        <input type="text" id="Descripcion" class="form-control" placeholder="Descripción" />
-                    </div>
-                    <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Ocultar</a>
-                    <button class="btn btn-success" onclick="guardarDepto()">Guardar</button>
-                </div>
             </div>
         </div>
     </div>
@@ -80,7 +64,27 @@
 @section scripts{
     <script type="text/javascript">
         function Crear() {
-            $("#newDeptoModal").modal();
+            $.ajax({
+                async: true,
+                type: 'GET',
+                dataType: 'html',
+                url: '/RH/CreateDepartamento',
+                success: function (data) {
+                    MostrarFormulario(data);
+                }, error: function (data) {
+                    console.log(data);
+                    alert('No fue posible abrir el formulario');
+                }
+            });
+
+            function MostrarFormulario(data) {
+                var detalle = data;
+
+                var modal = document.getElementById('modalBod');
+
+                modal.innerHTML = detalle;
+                $("#newRegister").modal();
+            }
         }
 
         function GetDetalle(id) {

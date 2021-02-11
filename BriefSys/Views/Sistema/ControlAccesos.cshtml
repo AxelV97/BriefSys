@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DataLayer.Models.Acceso_Usuario>
+
+@{
+    ViewBag.Title = "Control de Accesos";
+}
+
+
+<div class="container">
+    <div>
+        <h2>@ViewBag.Title</h2>
+    </div>
+    <div id="divTabla" style="overflow-x:auto;">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.IdEmp) </td>
+                    <td>@Html.DisplayNameFor(model => model.UsuarioId) </td>
+                    <td>@Html.DisplayNameFor(model => model.Password) </td>
+                    <td>@Html.DisplayNameFor(model => model.Salt) </td>
+                    <td>@Html.DisplayNameFor(model => model.FechaModificacion) </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.IdEmp) </td>
+                        <td>@Html.DisplayFor(m => item.UsuarioId) </td>
+                        <td>@Html.DisplayFor(m => item.Password) </td>
+                        <td>@Html.DisplayFor(m => item.Salt) </td>
+                        <td>@Html.DisplayFor(m => item.FechaModificacion) </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="newRegister">
+    <div class="modal-dialog modal-xl" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Añadir Usuario</h4>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body" id="modalBod">
+            </div>
+        </div>
+    </div>
+</div>

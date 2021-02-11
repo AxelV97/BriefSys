@@ -23,6 +23,7 @@ namespace BriefSys.Controllers.Utilities
             categorias.Add(new MenuCategory { Category = "CXC", DisplayName = "Cuentas por Cobrar" });
             categorias.Add(new MenuCategory { Category = "CMP", DisplayName = "Compras" });
             categorias.Add(new MenuCategory { Category = "TI", DisplayName = "Tecnología de la Información" });
+            categorias.Add(new MenuCategory { Category = "SYS", DisplayName = "Sistema" });
 
             List<MenuItem> items = new List<MenuItem>();
             items.Add(new MenuItem { Category = "Home", Link = "/Home/Index", LinkName = "Home" });
@@ -42,6 +43,8 @@ namespace BriefSys.Controllers.Utilities
             items.Add(new MenuItem { Category = "TI", Link = "/TI/ServiceDesk", LinkName = "Service Desk" });
             items.Add(new MenuItem { Category = "TI", Link = "/TI/AdministrarCuentas", LinkName = "Adninistración de Cuentas" });
             items.Add(new MenuItem { Category = "TI", Link = "/TI/Auditorias", LinkName = "Auditorias" });
+
+            items.Add(new MenuItem { Category = "SYS", Link = "/Sistema/Index", LinkName = "Menu General" });
 
             MenuVM menuVM = new MenuVM();
             menuVM.Categories = categorias;

@@ -3,11 +3,10 @@
 }
 
 <style>
-
     .box {
         position: relative;
-        width: 200px;
-        height: 200px;
+        width: 100px;
+        height: 100px;
         display: inline-block;
     }
 
@@ -20,14 +19,13 @@
     }
 
     .box span {
-        position: fixed;
         font-size: 80px;
         font-weight: 500;
         color: white;
     }
 </style>
 
-<div style="height:500px; text-align:center;margin-top:5%;">
+<div style="height:500px; text-align:center;margin-top:8%; overflow:auto;">
     <div class="box gray"><span>B</span></div>
     <div class="box dimgray"><span>R</span></div>
     <div class="box gray"><span>I</span></div>
@@ -41,10 +39,18 @@
 <script>
     anime({
         targets: "div.box.gray",
-        translateY: [
-            { value: 200, duration: 500, delay: 600 },
-            { value: 0, duration: 800, delay: 600 },
-        ],
+        backgroundColor: '#5c5c5c',
+        direction: 'alternate',
+        delay: 500,
+        duration: 1000,
+        loop: true
+    });
+    anime({
+        targets: "div.box.dimgray",
+        backgroundColor: '#a0a0a0',
+        direction: 'alternate',
+        delay: 500,
+        duration: 1000,
         loop: true
     });
 </script>

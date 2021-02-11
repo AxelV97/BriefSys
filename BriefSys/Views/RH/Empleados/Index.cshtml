@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<div class="container">
+    <h2>@ViewBag.Title</h2>
 
-<div>
     <button onclick="Crear()" class="btn btn-success" style="float:right;">Nuevo</button>
     <br />
     <br />
-    <div id="divTabla">
+    <div id="divTabla" style="overflow-x:auto;">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -74,20 +74,20 @@
             </tbody>
         </table>
     </div>
+</div>
 
-    <div class="modal fade" id="newEmpleadoModal">
-        <div class="modal-dialog modal-xl" style=" width: 900px !important;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Añadir Empleado</h4>
-                    <a href="#" class="close" data-dismiss="modal">&times;</a>
-                </div>
-                <div class="modal-body" id="modalBod">
-                </div>
+
+<div class="modal fade" id="newRegister">
+    <div class="modal-dialog modal-xl" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Añadir Empleado</h4>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body" id="modalBod">
             </div>
         </div>
     </div>
-
 </div>
 
 @section scripts{
@@ -113,8 +113,7 @@
                 var modal = document.getElementById('modalBod');
 
                 modal.innerHTML = detalle;
-
-                $("#newEmpleadoModal").modal();
+                $("#newRegister").modal();
             }
         }
     </script>

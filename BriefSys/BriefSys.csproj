@@ -173,6 +173,7 @@
     <Compile Include="Controllers\CMP\CMPController.cs" />
     <Compile Include="Controllers\RH\RHController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\Sistema\SistemaController.cs" />
     <Compile Include="Controllers\TI\TIController.cs" />
     <Compile Include="Controllers\Utilities\SharedController.cs" />
     <Compile Include="Global.asax.cs">
@@ -443,6 +444,9 @@
     <Content Include="Views\TI\ServiceDesk\Index.cshtml" />
     <Content Include="Views\TI\ServiceDesk\Create.cshtml" />
     <Content Include="Views\TI\ServiceDesk\Edit.cshtml" />
+    <Content Include="Views\RH\Departamentos\Create.cshtml" />
+    <Content Include="Views\Sistema\Index.cshtml" />
+    <Content Include="Views\Sistema\ControlAccesos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

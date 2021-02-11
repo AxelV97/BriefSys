@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Sistema";
+}
+
+<div class="container">
+    <div>
+        <h2>@ViewBag.Title</h2>
+    </div>
+
+    <div>
+        <div class="row text-center">
+            <h2></h2>
+        </div>
+        <div class="row">
+            <div class="col-4" style="text-align:center">
+                <a href="~/Sistema/ControlAccesos">
+                    <p>
+                        <i class="fas fa-users" style="font-size: 90px;"></i>
+                    </p>
+                    <p>
+                        Control de Accesos
+                    </p>
+                </a>
+            </div>
+            <div class="col-4" style="text-align:center">
+                <a href="~/Sistema/Auditorias">
+                    <p>
+                        <i class="fas fa-digital-tachograph" style="font-size: 90px;"></i>
+                    </p>
+                    <p>
+                        Auditorias
+                    </p>
+                </a>
+            </div>
+            <div class="col-4" style="text-align:center">
+                <a href="">
+                    <p>
+                        <i class="fas fa-house-damage" style="font-size: 90px;"></i>
+                    </p>
+                    <p>
+                        Por definir
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

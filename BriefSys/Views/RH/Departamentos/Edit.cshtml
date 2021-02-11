@@ -26,8 +26,11 @@
                 @Html.ValidationMessageFor(d => d.Descripcion, null, new { @class = "text-danger" })
             </div>
             @Html.HiddenFor(d => d.Estado)
-            <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Ocultar</a>
-            <input type="submit" value="Editar departamento" class="btn btn-success" />
         </form>
     </div>
+</div>
+
+<div>
+    <a class="btn btn-primary" href="@Url.Action("Departamentos","RH")">Ocultar</a>
+    <input type="submit" value="Editar departamento" class="btn btn-success" />
 </div>
