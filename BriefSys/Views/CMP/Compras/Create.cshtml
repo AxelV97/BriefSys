@@ -9,14 +9,7 @@
     <h2>@ViewBag.Title</h2>
     <form action="CreateOrden" method="post">
         <div class="form-group">
-            @Html.LabelFor(o => o.Orden.IdProveedor)
-            @Html.TextBoxFor(o => o.Orden.IdProveedor, new { @class = "form-control", placeholder = "IdProveedor" })
-            @Html.ValidationMessageFor(o => o.Orden.IdProveedor, null, new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(o => o.Orden.Proveedor)
-            @Html.TextBoxFor(o => o.Orden.Proveedor, new { @class = "form-control", placeholder = "Proveedor" })
-            @Html.ValidationMessageFor(o => o.Orden.Proveedor, null, new { @class = "text-danger" })
+            @Html.DropDownListFor(o => o.Orden.IdProveedor, Model.ListaProveedores, "~Selecciona proveedor~", new { @class = "form-control" })
         </div>
         <div class="form-group">
             @Html.LabelFor(o => o.Orden.Moneda)

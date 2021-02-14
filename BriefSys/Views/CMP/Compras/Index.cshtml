@@ -80,12 +80,8 @@
             <div class="modal-body">
                 <form action="CreateOrden" method="post">
                     <div class="form-group">
-                        <label>IdProveedor:</label>
-                        <input type="text" id="IdProveedor" name="IdProveedor" placeholder="IdProveedor" class="form-control" />
-                    </div>
-                    <div class="form-group">
                         <label>Proveedor:</label>
-                        <input type="text" id="Proveedor" name="Proveedor" placeholder="Proveedor" class="form-control" />
+                        @Html.DropDownList("Proveedor", (IEnumerable<SelectListItem>)ViewBag.Proveedores, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <label>Moneda:</label>

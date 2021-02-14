@@ -42,6 +42,7 @@ namespace BriefSys.Controllers.CMP
 
             List<Orden> lordenes = new List<Orden>();
             lordenes = ordenes.ToList();
+            ViewBag.Proveedores = listaProveedores();
 
             return View("~/Views/CMP/Compras/Index.cshtml", lordenes);
         }
@@ -330,6 +331,15 @@ namespace BriefSys.Controllers.CMP
             }
 
             return RedirectToRoute(new { controller = "CMP", action = "Proveedores" });
+        }
+
+        public IEnumerable<SelectListItem> listaProveedores()
+        {
+            return _db.Proveedores.Select(p => new SelectListItem()
+            {
+                Text = p.NombreProveedor.ToString(),
+                Value = p.IdProveedor.ToString()
+            });
         }
     }
 }
