@@ -1,23 +1,27 @@
-﻿@model IEnumerable<DataLayer.Models.Puesto>
+﻿@model IEnumerable<DataLayer.Models.Proveedor>
 
 @{
-    ViewBag.Title = "Puestos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Proveedores";
 }
 
 <div class="container">
     <h2>@ViewBag.Title</h2>
 
-    <button onclick="Crear()" class="btn btn-success" style="float:right;">Nuevo</button>
+    <div class="text-right">
+        <button class="btn btn-success" onclick="Crear()">Nuevo</button>
+    </div>
     <br />
-    <br />
+
     <div id="divTabla" style="overflow-x:auto;">
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.IdPuesto) </th>
-                    <th>@Html.DisplayNameFor(model => model.Clasificacion) </th>
-                    <th>@Html.DisplayNameFor(model => model.Descripcion) </th>
-                    <th>@Html.DisplayNameFor(model => model.Estado) </th>
+                    <th>@Html.DisplayNameFor(model => model.IdProveedor)</th>
+                    <th>@Html.DisplayNameFor(model => model.NombreProveedor)</th>
+                    <th>@Html.DisplayNameFor(model => model.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+                    <th>@Html.DisplayNameFor(model => model.Direccion)</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -25,20 +29,13 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>@Html.DisplayFor(m => item.IdProveedor)</td>
+                        <td>@Html.DisplayFor(m => item.NombreProveedor)</td>
+                        <td>@Html.DisplayFor(m => item.Email)</td>
+                        <td>@Html.DisplayFor(m => item.Telefono)</td>
+                        <td>@Html.DisplayFor(m => item.Direccion)</td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.IdPuesto)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Clasificacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Estado)
-                        </td>
-                        <td>
-                            <button onclick="GetDetalle(@item.IdPuesto)" class="btn btn-primary">Detalle</button>
+                            <button onclick="GetDetalle('@item.IdProveedor')" class="btn btn-primary">Detalle</button>
                         </td>
                     </tr>
                 }
@@ -51,7 +48,7 @@
     <div class="modal-dialog modal-xl" style=" width: 900px !important;">
         <div class="modal-content">
             <div class="modal-header">
-                <h4>Añadir Puesto</h4>
+                <h4>Añadir Proveedor</h4>
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
             </div>
             <div class="modal-body" id="modalBod">
@@ -62,18 +59,18 @@
 
 @section scripts{
     <script type="text/javascript">
+
         function Crear() {
             $.ajax({
                 async: true,
                 type: 'GET',
                 dataType: 'html',
-                url: '/RH/CreatePuesto',
+                url: '/CMP/CreateProveedor',
                 success: function (data) {
-                    console.log(data);
                     MostrarFormulario(data);
                 }, error: function (data) {
                     console.log(data);
-                    alert('No fue abrir el formulario');
+                    alert('No fue posible abrir el formulario');
                 }
             });
 
@@ -95,7 +92,7 @@
                 dataType: 'html',
                 contentType: 'application/json;charset=utf-8',
                 data: { id: id },
-                url: '/RH/EditPuesto',
+                url: '/CMP/EditProveedor',
                 success: function (data) {
                     console.log(data);
                     MostrarDetalle(data);
@@ -114,5 +111,6 @@
                 $("#newRegister").modal();
             }
         }
+
     </script>
 }

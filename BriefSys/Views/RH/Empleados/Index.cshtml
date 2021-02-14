@@ -116,5 +116,33 @@
                 $("#newRegister").modal();
             }
         }
+
+        function GetDetalle(id) {
+            console.log(id);
+            $.ajax({
+                async: true,
+                type: 'GET',
+                dataType: 'html',
+                contentType: 'application/json;charset=utf-8',
+                data: { id: id },
+                url: '/RH/EditEmpleado',
+                success: function (data) {
+                    console.log(data);
+                    MostrarDetalle(data);
+                }, error: function (data) {
+                    console.log(data);
+                    alert('No fue posible consultar el detalle');
+                }
+            });
+
+            function MostrarDetalle(data) {
+                var detalle = data;
+
+                var modal = document.getElementById('modalBod');
+
+                modal.innerHTML = detalle;
+                $("#newRegister").modal();
+            }
+        }
     </script>
 }

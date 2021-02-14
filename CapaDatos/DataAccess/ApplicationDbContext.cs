@@ -31,6 +31,7 @@ namespace DataLayer.DataAccess
         /*Compras*/
         public DbSet<Orden> Ordenes { get; set; }
         public DbSet<Orden_Detalle> Ordenes_Detalle { get; set; }
+        public DbSet<Proveedor> Proveedores { get; set; }
 
         /*TI*/
         public DbSet<ServiceDesk> Tickets { get; set; }

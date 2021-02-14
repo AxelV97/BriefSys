@@ -320,7 +320,7 @@
     <Content Include="Content\anime-master\LICENSE.md" />
     <Content Include="Content\anime-master\package.json" />
     <Content Include="Content\anime-master\README.md" />
-    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\MyASPNet AReaded.pubxml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />
@@ -438,15 +438,18 @@
     <Content Include="Views\RH\Puestos\Create.cshtml" />
     <Content Include="Views\RH\Empleados\Edit.cshtml" />
     <Content Include="Views\RH\Empleados\Create.cshtml" />
-    <Content Include="Views\CMP\Index.cshtml" />
-    <Content Include="Views\CMP\Create.cshtml" />
-    <Content Include="Views\CMP\Edit.cshtml" />
+    <Content Include="Views\CMP\Compras\Index.cshtml" />
+    <Content Include="Views\CMP\Compras\Create.cshtml" />
+    <Content Include="Views\CMP\Compras\Edit.cshtml" />
     <Content Include="Views\TI\ServiceDesk\Index.cshtml" />
     <Content Include="Views\TI\ServiceDesk\Create.cshtml" />
     <Content Include="Views\TI\ServiceDesk\Edit.cshtml" />
     <Content Include="Views\RH\Departamentos\Create.cshtml" />
     <Content Include="Views\Sistema\Index.cshtml" />
     <Content Include="Views\Sistema\ControlAccesos.cshtml" />
+    <Content Include="Views\CMP\Proveedores\Create.cshtml" />
+    <Content Include="Views\CMP\Proveedores\Index.cshtml" />
+    <Content Include="Views\CMP\Proveedores\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

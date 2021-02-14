@@ -108,40 +108,11 @@
             function MostrarDetalle(data) {
                 var detalle = data;
 
-                var form = document.getElementById('divForm');
-                form.style.display = "block";
+                var modal = document.getElementById('modalBod');
 
-                form.innerHTML = detalle;
+                modal.innerHTML = detalle;
+                $("#newRegister").modal();
             }
         }
-
-        function guardarDepto() {
-            event.preventDefault();
-            var oDepartamento = {
-                Clasificacion: $("#Clasificacion").val(),
-                Descripcion: $("#Descripcion").val()
-            };
-
-            $.ajax({
-                async: true,
-                type: "POST",
-                url: "/RH/CreateDepartamento",
-                data: oDepartamento,
-                success: function (data) {
-                    if (typeof (data) == "object") {
-                        var exito = data.exito;
-                        if (exito) {
-                            alert(data.respuesta)
-                            location.reload();
-                        }
-                    }
-                },
-                error: function (data) {
-                    console.log('error');
-                    console.log(data);
-                }
-            });
-        }
-
     </script>
 }

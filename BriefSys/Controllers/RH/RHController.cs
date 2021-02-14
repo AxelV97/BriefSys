@@ -25,9 +25,8 @@ namespace BriefSys.Controllers.RH
             return View();
         }
 
-        /*---------------
-         * Departamentos
-         ----------------*/
+        /*Departamentos*/
+
         [HttpGet]
         public ActionResult Departamentos()
         {
@@ -202,9 +201,8 @@ namespace BriefSys.Controllers.RH
             });
         }
 
-        /*---------
-         * Puestos
-        -----------*/
+        /*Puestos*/
+
         [HttpGet]
         public ActionResult Puestos()
         {
@@ -358,9 +356,8 @@ namespace BriefSys.Controllers.RH
             return RedirectToRoute(new { controller = "RH", action = "Puestos" });
         }
 
-        /*-----------
-         * Empleados
-         ------------*/
+        /*Empleados*/
+
         [HttpGet]
         public ActionResult Empleados()
         {

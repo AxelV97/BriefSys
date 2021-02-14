@@ -22,7 +22,7 @@ namespace BriefSys.Controllers.Utilities
             categorias.Add(new MenuCategory { Category = "RH", DisplayName = "Recursos Humanos" });
             categorias.Add(new MenuCategory { Category = "CXC", DisplayName = "Cuentas por Cobrar" });
             categorias.Add(new MenuCategory { Category = "CMP", DisplayName = "Compras" });
-            categorias.Add(new MenuCategory { Category = "TI", DisplayName = "Tecnología de la Información" });
+            categorias.Add(new MenuCategory { Category = "TI", DisplayName = "Tecnología Información" });
             categorias.Add(new MenuCategory { Category = "SYS", DisplayName = "Sistema" });
 
             List<MenuItem> items = new List<MenuItem>();
@@ -41,7 +41,7 @@ namespace BriefSys.Controllers.Utilities
             items.Add(new MenuItem { Category = "CMP", Link = "/CMP/Proveedores", LinkName = "Proveedores" });
 
             items.Add(new MenuItem { Category = "TI", Link = "/TI/ServiceDesk", LinkName = "Service Desk" });
-            items.Add(new MenuItem { Category = "TI", Link = "/TI/AdministrarCuentas", LinkName = "Adninistración de Cuentas" });
+            items.Add(new MenuItem { Category = "TI", Link = "/TI/AdministrarCuentas", LinkName = "Admin. Cuentas" });
             items.Add(new MenuItem { Category = "TI", Link = "/TI/Auditorias", LinkName = "Auditorias" });
 
             items.Add(new MenuItem { Category = "SYS", Link = "/Sistema/Index", LinkName = "Menu General" });

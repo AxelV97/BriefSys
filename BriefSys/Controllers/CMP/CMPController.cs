@@ -14,12 +14,19 @@ namespace BriefSys.Controllers.CMP
     public class CMPController : Controller
     {
 
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db;
+
+        public CMPController()
+        {
+            _db = new ApplicationDbContext();
+        }
+
+        /*Compras*/
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View("~/Views/CMP/Index.cshtml");
+            return View("~/Views/CMP/Compras/Index.cshtml");
         }
 
         [HttpGet]
@@ -36,7 +43,7 @@ namespace BriefSys.Controllers.CMP
             List<Orden> lordenes = new List<Orden>();
             lordenes = ordenes.ToList();
 
-            return View("~/Views/CMP/Index.cshtml", lordenes);
+            return View("~/Views/CMP/Compras/Index.cshtml", lordenes);
         }
 
         [HttpGet]
@@ -57,10 +64,9 @@ namespace BriefSys.Controllers.CMP
             OrdenVM ordenVM = new OrdenVM()
             {
                 Orden = new Orden(),
-                Orden_Detalle = new Orden_Detalle(),
                 ListaOrden_Detalle = new List<Orden_Detalle>()
             };
-            return View("~/Views/CMP/Create.cshtml", ordenVM);
+            return View("~/Views/CMP/Compras/Create.cshtml", ordenVM);
         }
 
         [HttpPost]
@@ -69,9 +75,10 @@ namespace BriefSys.Controllers.CMP
             string result = "";
             var dbSetOrden = _db.Ordenes;
             var dbSetOrdenDetalle = _db.Ordenes_Detalle;
-            Orden ord = orden;
 
+            Orden ord = orden;
             ord.Estado = "N";
+
             if (!(Session["IdEmp"] == null))
             {
                 ord.IdElaboro = int.Parse(Session["IdEmp"].ToString());
@@ -119,8 +126,6 @@ namespace BriefSys.Controllers.CMP
                                                  where od.IdOrden == Id
                                                  select od).ToList();
 
-
-
             OrdenVM oOrdenVM = new OrdenVM();
 
             if (lOrdenes.Count > 0)
@@ -144,37 +149,47 @@ namespace BriefSys.Controllers.CMP
             oOrdenVM.Orden = oOrden;
             oOrdenVM.ListaOrden_Detalle = lordendetalle;
 
-            return View("~/Views/CMP/Edit.cshtml", oOrdenVM);
+            return View("~/Views/CMP/Compras/Edit.cshtml", oOrdenVM);
         }
 
         [HttpPost]
-        public ActionResult EditOrden(OrdenVM oOrdenVM)
+        public ActionResult EditOrden(Orden orden, List<Orden_Detalle> orden_detalle)
         {
             if (ModelState.IsValid)
             {
-                Orden oOrden = oOrdenVM.Orden;
-                Orden oOrdenDetalle = oOrdenVM.Orden;
+                Orden oOrden = orden;
 
+                List<Orden_Detalle> lDetalle = orden_detalle;
                 _db.Entry(oOrden).State = EntityState.Modified;
-                _db.Entry(oOrdenDetalle).State = EntityState.Modified;
+
+                if (lDetalle.Count > 0)
+                {
+                    foreach (Orden_Detalle orden_Detalle in lDetalle)
+                    {
+                        _db.Entry(orden_Detalle).State = EntityState.Modified;
+                    }
+                }
+
                 _db.SaveChanges();
             }
             else
             {
-                return View("~/Views/CMP/Edit.cshtml", oOrdenVM);
+                OrdenVM ordenVM = new OrdenVM { Orden = orden, ListaOrden_Detalle = orden_detalle };
+
+                return View("~/Views/CMP/Compras/Edit.cshtml", ordenVM);
             }
 
             return RedirectToRoute(new { controller = "CMP", action = "Ordenes" });
         }
 
-        public ActionResult DeleteOrden(int Id)
+        public ActionResult DeleteOrden(int id)
         {
             var dbSetOrden = _db.Ordenes;
             var lOrdenes = (from o in dbSetOrden
-                            where o.IdOrden == Id
+                            where o.IdOrden == id
                             select o).ToList();
 
-            Orden oOrden;
+            Orden oOrden = null;
 
             if (lOrdenes.Count > 0)
             {
@@ -199,6 +214,122 @@ namespace BriefSys.Controllers.CMP
                 Text = d.IdOrden.ToString(),
                 Value = d.IdOrden.ToString()
             });
+        }
+
+        /*Proveedores*/
+
+        [HttpGet]
+        public ActionResult Proveedores()
+        {
+            var dbSetProveedores = _db.Proveedores;
+            var lProveedores = (from p in dbSetProveedores
+                                where p.Estado == "N"
+                                select p).ToList();
+
+            return View("~/Views/CMP/Proveedores/Index.cshtml", lProveedores);
+        }
+
+        [HttpGet]
+        public ActionResult CreateProveedor()
+        {
+            Proveedor proveedor = new Proveedor();
+            return PartialView("~/Views/CMP/Proveedores/Create.cshtml", proveedor);
+        }
+
+        [HttpPost]
+        public ActionResult CreateProveedor(Proveedor proveedor)
+        {
+            var proveedores = _db.Proveedores;
+            var lProveedores = (from p in proveedores
+                                where p.IdProveedor == proveedor.IdProveedor
+                                select p).ToList();
+            string result = "";
+            bool exito = false;
+
+            if (lProveedores.Count > 0)
+            {
+                exito = false;
+                result = "Ya existe un proveedor con ID(" + proveedor.IdProveedor + ") en la base de datos";
+
+                return View("~/Views/CMP/Proveedores/Create.cshtml", proveedor);
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    proveedor.Estado = "N";
+                    proveedores.Add(proveedor);
+                    _db.SaveChanges();
+
+                    return RedirectToRoute(new { controller = "CMP", action = "Proveedores" });
+                }
+                else
+                {
+                    exito = false;
+                    result = "El modelo no es válido, revisa bien los datos";
+
+                    return View("~/Views/CMP/Proveedores/Create.cshtml", proveedor);
+                }
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditProveedor(string id)
+        {
+            var dbSetProveedores = _db.Proveedores;
+            var proveedor = (from p in dbSetProveedores
+                             where p.IdProveedor == id
+                             select p).First();
+
+            if (proveedor == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("~/Views/CMP/Proveedores/Edit.cshtml", proveedor);
+        }
+
+        [HttpPost]
+        public ActionResult EditProveedor(Proveedor proveedor)
+        {
+            var dbSetProveedores = _db.Proveedores;
+
+            if (ModelState.IsValid)
+            {
+                proveedor.Estado = "N";
+                _db.Entry(proveedor).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToRoute(new { controller = "CMP", action = "Proveedores" });
+            }
+            else
+            {
+                return View("~/Views/CMP/Proveedores/Index.cshtml", proveedor);
+            }
+
+        }
+
+        public ActionResult DeleteProveedor(string id)
+        {
+            var dbSetProveedores = _db.Proveedores;
+            var lProveedor = (from p in dbSetProveedores
+                              where p.IdProveedor == id
+                              select p).ToList();
+
+            Proveedor proveedor = null;
+
+            if (lProveedor.Count > 0)
+            {
+                proveedor = lProveedor[0];
+                proveedor.Estado = "C";
+                _db.Entry(proveedor).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+
+            return RedirectToRoute(new { controller = "CMP", action = "Proveedores" });
         }
     }
 }

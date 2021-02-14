@@ -120,13 +120,13 @@
   <ItemGroup>
     <Compile Include="DataAccess\MySQLConn.cs" />
     <Compile Include="DataAccess\SQLServerConn.cs" />
+    <Compile Include="Models\CMP\Proveedores\Proveedor.cs" />
     <Compile Include="Repositories\RHRepository.cs" />
     <Compile Include="Utilities\CSD_MetodosGenericos.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="Models\Acceso\Acceso.cs" />
     <Compile Include="Models\Acceso\Acceso_UsuarioVM.cs" />
     <Compile Include="Models\CMP\Ordenes\Orden.cs" />
-    <Compile Include="Models\CMP\Ordenes\OrdenMD.cs" />
     <Compile Include="Models\CMP\Ordenes\OrdenVM.cs" />
     <Compile Include="Models\CMP\Ordenes\Orden_Detalle.cs" />
     <Compile Include="Models\Menu\Menu.cs" />
