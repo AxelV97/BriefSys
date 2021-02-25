@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DataLayer.Models.Catalogo_General>
+
+@{
+    ViewBag.Title = "Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>@ViewBag.Title</h2>
+
+    <div class="text-right">
+        <button class="btn btn-success" onclick="nuevo()">Nuevo</button>
+    </div>
+    <br />
+    <div id="divTabla" style="overflow-x:auto;">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.IdProducto) </th>
+                    <th>@Html.DisplayNameFor(model => model.Nombre) </th>
+                    <th>@Html.DisplayNameFor(model => model.Descripcion) </th>
+                    <th>@Html.DisplayNameFor(model => model.UnidadMedida) </th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdProducto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnidadMedida)
+                        </td>
+                        <td>
+                            <button onclick="GetDetalle(@item.IdProducto)" class="btn btn-primary">Detalle</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="newRegister">
+    <div class="modal-dialog modal-xl" style=" width: 900px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Añadir Producto</h4>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body" id="modalBod">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        function nuevo() {
+
+        }
+    </script>
+}

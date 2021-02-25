@@ -15,7 +15,7 @@ namespace DataLayer.Models
         public string IdProveedor { get; set; }
 
         [Display(Name = "Nombre Proveedor")]
-        public string NombreProveedor { get; set; }
+        public string Nombre { get; set; }
 
         [Display(Name = "Dirección")]
         public string Direccion { get; set; }

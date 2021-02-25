@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="DataAccess\MySQLConn.cs" />
     <Compile Include="DataAccess\SQLServerConn.cs" />
+    <Compile Include="Models\Catalogo General\Catalogo_General.cs" />
     <Compile Include="Models\CMP\Proveedores\Proveedor.cs" />
     <Compile Include="Repositories\RHRepository.cs" />
     <Compile Include="Utilities\CSD_MetodosGenericos.cs" />

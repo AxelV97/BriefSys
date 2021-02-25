@@ -450,6 +450,9 @@
     <Content Include="Views\CMP\Proveedores\Create.cshtml" />
     <Content Include="Views\CMP\Proveedores\Index.cshtml" />
     <Content Include="Views\CMP\Proveedores\Edit.cshtml" />
+    <Content Include="Views\CatalogoGeneral\Index.cshtml" />
+    <Content Include="Views\CatalogoGeneral\Create.cshtml" />
+    <Content Include="Views\CatalogoGeneral\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

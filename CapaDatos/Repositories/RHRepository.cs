@@ -11,8 +11,8 @@ namespace DataLayer.Repositories
 {
     public class RHRepository
     {
-        //SQLServerConn objConexion = new SQLServerConn();
-        MySQLConn objConexion = new MySQLConn();
+        SQLServerConn objConexion = new SQLServerConn();
+        //MySQLConn objConexion = new MySQLConn();
         private ApplicationDbContext _db;
 
         public RHRepository()
@@ -25,6 +25,7 @@ namespace DataLayer.Repositories
             List<Departamento> ldepartamentos = new List<Departamento>();
             string qry = "select * from departamento where Estado <> 'C'";
             DataTable dt = new DataTable();
+            //DataSet set = objConexion.Select(qry, "departamento");
             DataSet set = objConexion.Select(qry, "departamento");
 
             dt = set.Tables["departamento"];

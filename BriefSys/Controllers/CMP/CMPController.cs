@@ -103,7 +103,7 @@ namespace BriefSys.Controllers.CMP
 
                 _db.SaveChanges();
 
-                result = "Success! Order Is Complete!";
+                result = "Exito, Se ha generado correctamente la orden (" + ord.IdOrden + ")";
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -337,7 +337,7 @@ namespace BriefSys.Controllers.CMP
         {
             return _db.Proveedores.Select(p => new SelectListItem()
             {
-                Text = p.NombreProveedor.ToString(),
+                Text = p.Nombre.ToString(),
                 Value = p.IdProveedor.ToString()
             });
         }

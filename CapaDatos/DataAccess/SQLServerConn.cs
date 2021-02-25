@@ -10,8 +10,8 @@ namespace DataLayer.DataAccess
 {
     class SQLServerConn
     {
-        public SqlConnection SQL_CONEXION;
-        public SqlCommand SQL_COMANDO;
+        private SqlConnection SQL_CONEXION;
+        private SqlCommand SQL_COMANDO;
         public string connectionstring;
 
         public SQLServerConn()
@@ -29,50 +29,60 @@ namespace DataLayer.DataAccess
             return this.connectionstring;
         }
 
-        //public void SET_SQL_CONEXION()
-        //{
-        //    this.SQL_CONEXION = new SqlConnection();
-        //}
+        public void setSQL_CONEXION()
+        {
+            this.SQL_CONEXION = new SqlConnection();
+        }
 
-        //public SqlConnection GET_SQL_CONEXION()
-        //{
-        //    return this.SQL_CONEXION;
-        //}
+        public SqlConnection getSQL_CONEXION()
+        {
+            return this.SQL_CONEXION;
+        }
 
-        //public bool Conectar()
-        //{
-        //    try
-        //    {
-        //        SET_SQL_CONEXION();
-        //        if (GET_SQL_CONEXION().State.ToString().Equals("Open"))
-        //        {
-        //            GET_SQL_CONEXION().Close();
-        //        }
-        //        GET_SQL_CONEXION().ConnectionString = getConnectionString();
-        //        GET_SQL_CONEXION().Open();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return false;
-        //    }
-        //}
+        public void setSQL_COMANDO(string qry)
+        {
+            this.SQL_COMANDO = new SqlCommand(qry, getSQL_CONEXION());
+            this.SQL_COMANDO.CommandTimeout = 0;
+        }
+        public SqlCommand getSQL_COMANDO()
+        {
+            return this.SQL_COMANDO;
+        }
 
-        //public void Desconectar()
-        //{
-        //    try
-        //    {
-        //        if (GET_SQL_CONEXION().State.Equals("Closed"))
-        //        {
-        //            GET_SQL_CONEXION().Open();
-        //        }
-        //        GET_SQL_CONEXION().Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
+        public bool Conectar()
+        {
+            try
+            {
+                setSQL_CONEXION();
+                if (getSQL_CONEXION().State.ToString().Equals("Open"))
+                {
+                    getSQL_CONEXION().Close();
+                }
+                getSQL_CONEXION().ConnectionString = getConnectionString();
+                getSQL_CONEXION().Open();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-        //    }
-        //}
+        public void Desconectar()
+        {
+            try
+            {
+                if (getSQL_CONEXION().State.Equals("Closed"))
+                {
+                    getSQL_CONEXION().Open();
+                }
+                getSQL_CONEXION().Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
         public DataTable cargarDT(string qry)
         {
@@ -95,6 +105,25 @@ namespace DataLayer.DataAccess
 
             }
             return dt;
+        }
+        public DataSet Select(string qry, string tabla)
+        {
+            DataSet dataSet = new DataSet();
+            try
+            {
+                if (Conectar())
+                {
+                    setSQL_COMANDO(qry);
+
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(this.getSQL_COMANDO());
+                    dataAdapter.Fill(dataSet, tabla);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dataSet;
         }
     }
 }

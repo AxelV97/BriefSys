@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace DataLayer.DataAccess
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    //[DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext() : base("name=BriefSysMySQL")
+        public ApplicationDbContext() : base("name=BriefSys")
         {
 
         }
